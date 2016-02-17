@@ -1,13 +1,17 @@
 import express from 'express';
 import bodyParser from 'body-parser';
+import api from './api';
 
 const app = express();
 
 app.use( bodyParser.json() );
+app.use( '/api', api );
 
 app.get( '/*', function ( req, res ) {
-  res.json({
-    hello: 'world',
+  res.status( 404 ).json({
+    code: 404,
+    error: 'Not Found',
+    message: 'No matching API route',
   });
 });
 

@@ -5,11 +5,18 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon index.js",
+    "test": "tape -r babel-register src/**/*spec.js | faucet"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/StoryShop/api.git"
+  },
+  "babel": {
+    "presets": [
+      "es2015",
+      "stage-0"
+    ]
   },
   "author": "",
   "license": "MIT",
@@ -23,5 +30,10 @@
     "babel-register": "^6.5.2",
     "body-parser": "^1.15.0",
     "express": "^4.13.4"
+  },
+  "devDependencies": {
+    "faucet": "0.0.1",
+    "nodemon": "^1.8.1",
+    "tape": "^4.4.0"
   }
 }
