@@ -1,12 +1,14 @@
 import test from 'tape';
 import { getWorldProps } from './';
 
+const mockDb = new Promise( resolve => resolve({}) );
+
 test( 'getWorldProps with 1 id and 1 field', async t => {
   let actual, expected, promise;
 
   t.plan( 2 );
 
-  promise = getWorldProps( [ 1 ], [ 'name' ] );
+  promise = getWorldProps( mockDb, [ 1 ], [ 'name' ] );
   actual = typeof promise.then;
   expected = 'function';
   t.equals( actual, expected, 'should return a promise' );
@@ -25,7 +27,7 @@ test( 'getWorldProps with 1 id and 2 field', async t => {
 
   t.plan( 2 );
 
-  promise = getWorldProps( [ 1 ], [ 'name', 'msg' ] );
+  promise = getWorldProps( mockDb, [ 1 ], [ 'name', 'msg' ] );
   actual = typeof promise.then;
   expected = 'function';
   t.equals( actual, expected, 'should return a promise' );
@@ -45,7 +47,7 @@ test( 'getWorldProps with 2 ids and 1 field', async t => {
 
   t.plan( 2 );
 
-  promise = getWorldProps( [ 1, 2 ], [ 'name' ] );
+  promise = getWorldProps( mockDb, [ 1, 2 ], [ 'name' ] );
   actual = typeof promise.then;
   expected = 'function';
   t.equals( actual, expected, 'should return a promise' );
@@ -65,7 +67,7 @@ test( 'getWorldProps with 2 ids and 2 field', async t => {
 
   t.plan( 2 );
 
-  promise = getWorldProps( [ 1, 2 ], [ 'name', 'msg' ] );
+  promise = getWorldProps( mockDb, [ 1, 2 ], [ 'name', 'msg' ] );
   actual = typeof promise.then;
   expected = 'function';
   t.equals( actual, expected, 'should return a promise' );

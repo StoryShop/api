@@ -29,10 +29,12 @@
     "babel-preset-stage-0": "^6.5.0",
     "babel-register": "^6.5.2",
     "body-parser": "^1.15.0",
+    "debug": "^2.2.0",
     "express": "^4.13.4",
     "falcor-express": "^0.1.2",
     "falcor-http-datasource": "^0.1.3",
-    "falcor-router": "^0.2.12"
+    "falcor-router": "^0.2.12",
+    "mongodb": "^2.1.7"
   },
   "devDependencies": {
     "babel-polyfill": "^6.5.0",

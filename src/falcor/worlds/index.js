@@ -1,4 +1,4 @@
-export const getWorldProps = ( ids, fields ) => new Promise( resolve => {
+export const getWorldProps = ( db, ids, fields ) => db.then( db => {
   /**
    * An array of paths and their values we'll send over the wire.
    */
@@ -24,12 +24,12 @@ export const getWorldProps = ( ids, fields ) => new Promise( resolve => {
     }));
   });
 
-  resolve( paths );
+  return paths;
 });
 
-export default ( req, res ) => [
+export default ( db, req, res ) => [
   {
     route: 'worldsById[{integers:ids}]["name", "msg"]',
-    get: pathSet => getWorldProps( pathSet.ids, pathSet[ 2 ] ),
+    get: pathSet => getWorldProps( db, pathSet.ids, pathSet[ 2 ] ),
   },
 ];
