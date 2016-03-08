@@ -4,6 +4,7 @@ import info from '../info';
 import falcorRouter from '../falcor';
 import connectDb from '../db';
 import Logger from '../logger';
+import upload from './upload';
 
 const log = Logger( 'ApiRouter' );
 
@@ -27,6 +28,8 @@ router.use( function ( req, res, next ) {
 });
 
 router.use( '/model.json', bodyParser.urlencoded(), falcorRouter( db ) );
+
+router.use( '/upload', upload );
 
 router.get( '/', function ( req, res ) {
   log.debug( 'Hello!' );
