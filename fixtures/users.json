@@ -1,0 +1,18 @@
+[
+  {
+    "_id": "EJA_S0Cie",
+    "email": "seth@strangewindstudio.com",
+    "name": {
+      "first": "Seth",
+      "last": "Merrick",
+      "display": "Seth Merrick"
+    },
+    "worlds": [
+      "N1x0dSRCjg"
+    ],
+    "ux": {
+      "lastVisited": "/worlds/N1x0dSRCjg"
+    }
+  }
+]
+

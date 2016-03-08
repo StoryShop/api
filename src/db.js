@@ -4,7 +4,7 @@ import Logger from './logger';
 const log = Logger( 'DB' );
 
 export default conf => new Promise( ( resolve, reject ) => {
-  const url = `mongodb://${conf.hostname}:${conf.port}/storyshop-${conf.env}`;
+  const url = `mongodb://${conf.hostname}:${conf.port}/${conf.env}`;
 
   log.debug(`connecting to ${url}`);
 

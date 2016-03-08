@@ -1,4 +1,5 @@
 import express from 'express';
+import bodyParser from 'body-parser';
 import info from '../info';
 import falcorRouter from '../falcor';
 import connectDb from '../db';
@@ -14,7 +15,18 @@ const db = connectDb({
 
 const router = express.Router();
 
-router.use( '/model.json', falcorRouter( db ) );
+/**
+ * Mock out an authenticated user
+ */
+router.use( function ( req, res, next ) {
+  req.user = {
+    _id: "EJA_S0Cie",
+  };
+
+  next();
+});
+
+router.use( '/model.json', bodyParser.urlencoded(), falcorRouter( db ) );
 
 router.get( '/', function ( req, res ) {
   log.debug( 'Hello!' );

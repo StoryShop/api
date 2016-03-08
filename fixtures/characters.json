@@ -1,0 +1,60 @@
+[
+  {
+    "_id": "4yUR_r0Col",
+    "name": "Big Bird",
+    "aliases": [
+      "Yellow Beak"
+    ],
+
+    "attributes": [
+      [ "feather colour", "yellow" ],
+      [ "height", "249cm" ],
+      [ "temperament", "easygoing" ],
+      [ "address", "123 Sesame Street" ],
+      [ "talents", "roller skating, ice skating, drawing" ],
+      [ "actor", "Caroll Spinney" ],
+      [ "debut", "1969" ]
+    ],
+
+    "genes": [
+      {
+        "gene": "What is your social status?",
+        "ref": { "$oid": "93E4972F8AF17E053ECBB412" },
+        "allele": "A freak of nature, yet somehow beloved."
+      },
+      {
+        "gene": "What is your happiest memory?",
+        "ref": { "$oid": "7F0BABCFEC41E80C6F3959D1" },
+        "allele": "When everyone acknowledged @Snuffy was real."
+      },
+      {
+        "gene": "What do you think about Donald Trump?",
+        "allele": "I think he is just terrific."
+      },
+      {
+        "gene": "What is your favourite pastime?",
+        "allele": "Writing poems"
+      },
+      {
+        "gene": "What is average windspeed velocity of an unlaiden swallow?",
+        "allele": "African or European?"
+      },
+      {
+        "gene": "What is your favourite insult?",
+        "allele": "Your mother was a hamster and your father smelled of elderberries!"
+      }
+    ],
+
+    "relationships": [
+      {
+        "character": "NyF0uS0Rjg",
+        "description": "Friend"
+      }
+    ]
+  },
+  {
+    "_id": "NyF0uS0Rjg",
+    "name": "Snuffy"
+  }
+]
+

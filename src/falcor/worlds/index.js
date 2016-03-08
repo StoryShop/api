@@ -1,35 +1,31 @@
-export const getWorldProps = ( db, ids, fields ) => db.then( db => {
-  /**
-   * An array of paths and their values we'll send over the wire.
-   */
-  let paths = [];
+import { Observable } from 'rx';
+import {
+  getProps,
+  setProps,
+  getComponentCounts,
+} from './props';
+import { getCharacters } from './characters';
 
-  /**
-   * A mock world to use
-   */
-  const testWorld = {
-    name: 'Sesame Street',
-    msg: 'Hello, world!',
-  };
+export default ( db, req, res ) => {
+  const worlds = Observable.fromPromise( db ).map( db => db.collection( 'worlds' ) );
 
-  /**
-   * Iterate through each requested World ID...
-   */
-  ids.forEach( id => {
-    /**
-     * And add to `paths` the path/value pairs for each requested field.
-     */
-    paths = paths.concat( fields.map( field => {
-      return { path: [ 'worldsById', id, field ], value: testWorld[ field ] };
-    }));
-  });
+  return [
+    {
+      route: 'worldsById[{keys:ids}]["_id", "title", "slug", "colour"]',
+      get: pathSet => getProps( worlds, pathSet.ids, pathSet[ 2 ] ),
+    },
+    {
+      route: 'worldsById[{keys:ids}]["title", "slug", "colour"]',
+      set: pathSet => setProps( worlds, pathSet.worldsById ),
+    },
+    {
+      route: 'worldsById[{keys:ids}]["elements","outlines","characters"].length',
+      get: pathSet => getComponentCounts( worlds, pathSet.ids, pathSet[ 2 ] ),
+    },
+    {
+      route: 'worldsById[{keys:ids}].characters[{integers:indices}]',
+      get: pathSet => getCharacters( worlds, pathSet.ids, pathSet.indices ),
+    },
+  ];
+};
 
-  return paths;
-});
-
-export default ( db, req, res ) => [
-  {
-    route: 'worldsById[{integers:ids}]["name", "msg"]',
-    get: pathSet => getWorldProps( db, pathSet.ids, pathSet[ 2 ] ),
-  },
-];
