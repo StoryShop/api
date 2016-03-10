@@ -1,12 +1,10 @@
 import { Observable } from 'rx';
-import { Model } from 'falcor';
+import { ref, atom, error } from 'falcor-json-graph';
 import shortid from 'shortid';
 
-export const {
-  ref: $ref,
-  atom: $atom,
-  error: $err,
-} = Model;
+export const $ref = ref;
+export const $atom = atom;
+export const $err = error;
 
 export const keys = obj => Object.getOwnPropertyNames( obj );
 export const keysO = obj => Observable.from( keys( obj ) );
