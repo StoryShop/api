@@ -1,4 +1,3 @@
-import { Observable } from 'rx';
 import {
   getProps,
   setProps,
@@ -7,7 +6,7 @@ import {
 import { getCharacters } from './characters';
 
 export default ( db, req, res ) => {
-  const worlds = Observable.fromPromise( db ).map( db => db.collection( 'worlds' ) );
+  const worlds = db.map( db => db.collection( 'worlds' ) );
 
   return [
     {

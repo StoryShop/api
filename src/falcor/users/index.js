@@ -52,7 +52,7 @@ export const getUserWorlds = ( db, ids, indices ) => db
   ;
 
 export default ( db, req, res ) => {
-  const users = Observable.fromPromise( db ).map( db => db.collection( 'users' ) );
+  const users = db.map( db => db.collection( 'users' ) );
 
   return [
     {

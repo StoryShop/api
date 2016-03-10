@@ -29,7 +29,7 @@ router.use( function ( req, res, next ) {
 
 router.use( '/model.json', bodyParser.urlencoded(), falcorRouter( db ) );
 
-router.use( '/upload', upload );
+router.use( '/upload', upload( db ) );
 
 router.get( '/', function ( req, res ) {
   log.debug( 'Hello!' );

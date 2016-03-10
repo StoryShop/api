@@ -6,8 +6,7 @@ import { S3 } from 'aws-sdk';
 import Logger from '../logger';
 import { generateId } from '../utils';
 
-const log = Logger( 'ApiRouter' );
-const router = express.Router();
+const log = Logger( 'UploadsRouter' );
 const uploadBucket = process.env.UPLOAD_BUCKET || 'uploads-dev.storyshopapp.com';
 const s3 = new S3({
   region: 'us-west-2',
@@ -17,44 +16,71 @@ const s3 = new S3({
   },
 });
 
-router.post( '/', ( req, res, next ) => {
-  const form = new multiparty.Form();
+export default ( db ) => {
+  const router = express.Router();
 
-  form.parse( req, ( err, fields, files ) => {
-    if ( err ) {
-      return res.json({ status: 400, error: 'Bad Request', message: err.toString() });
-    }
+  router.post( '/', ( req, res, next ) => {
+    const form = new multiparty.Form();
 
-    if ( ! files.file || ! files.file.length ) {
-      return res.json({ status: 400, error: 'Bad Request', message: 'No file uploaded.' });
-    }
-
-    const file = files.file[ 0 ];
-    const ext = path.extname( file.originalFilename );
-    const filename = generateId() + ext;
-
-    s3.putObject({
-      Key: filename,
-      Body: fs.createReadStream( file.path ),
-    }, ( err, data ) => {
+    form.parse( req, ( err, fields, files ) => {
       if ( err ) {
-        log.error( 'Could not upload file to S3' );
-        log.error( 'File Details:', JSON.stringify( file, null, 2 ) );
-        log.error( err.stack );
-
-        return res.json({ status: 500, error: 'Internal Server Error', message: err.toString() });
+        return res.json({ status: 400, error: 'Bad Request', message: err.toString() });
       }
 
-      res.json({
-        name: file.originalFilename,
-        url: `http://s3-us-west-2.amazonaws.com/${uploadBucket}/${filename}`,
-        contentType: file.headers[ 'content-type' ],
-        size: file.size,
-        extension: ext,
+      if ( ! files.file || ! files.file.length ) {
+        return res.json({ status: 400, error: 'Bad Request', message: 'No file uploaded.' });
+      }
+
+      const file = files.file[ 0 ];
+      const ext = path.extname( file.originalFilename );
+      const filename = generateId() + ext;
+
+      s3.putObject({
+        Key: filename,
+        Body: fs.createReadStream( file.path ),
+      }, ( err, data ) => {
+        if ( err ) {
+          log.error( 'Could not upload file to S3' );
+          log.error( 'File Details:', JSON.stringify( file, null, 2 ) );
+          log.error( err.stack );
+
+          return res.json({ status: 500, error: 'Internal Server Error', message: err.toString() });
+        }
+
+        // Save the file to the db.
+        const upload = {
+          name: file.originalFilename,
+          url: `http://s3-us-west-2.amazonaws.com/${uploadBucket}/${filename}`,
+          contentType: file.headers[ 'content-type' ],
+          size: file.size,
+          extension: ext,
+        };
+
+        db
+          .map( db => db.collection( 'users' ) )
+          .flatMap( db => db.findOneAndUpdate(
+            { _id: req.user._id },
+            { $push: { files: upload }, $inc: { filesLength: 1 } },
+            {
+              projection: {
+                files: { $slice: -1 },
+                filesLength: 1,
+              },
+              returnOriginal: false,
+            }
+          ))
+          .subscribe( ({ value: { files, filesLength } }) => {
+            const [ value ] = files;
+            res.json({
+              path: [ 'usersById', req.user._id, 'files', filesLength ],
+              value,
+            });
+          }, err => log.error( 'Persist failed: ', err ) );
+          ;
       });
     });
   });
-});
 
-export default router;
+  return router;
+};
 

@@ -1,10 +1,9 @@
-import { Observable } from 'rx';
 import { getProps, setProps, setAliases, getComponentCounts } from './props';
 import { getAttributes, setAttributes } from './attributes';
 import { getGenes, setGenes } from './genes';
 
 export default ( db, req, res ) => {
-  const characters = Observable.fromPromise( db ).map( db => db.collection( 'characters' ) );
+  const characters = db.map( db => db.collection( 'characters' ) );
 
   return [
     {
