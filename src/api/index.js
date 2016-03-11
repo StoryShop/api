@@ -5,6 +5,8 @@ import falcorRouter from '../falcor';
 import connectDb from '../db';
 import Logger from '../logger';
 import upload from './upload';
+import auth from './auth';
+import PassportFactory from './auth/passport';
 
 const log = Logger( 'ApiRouter' );
 
@@ -14,22 +16,14 @@ const db = connectDb({
   env: process.env.MONGO_ENV || 'dev',
 });
 
+const passport = PassportFactory( db );
 const router = express.Router();
 
-/**
- * Mock out an authenticated user
- */
-router.use( function ( req, res, next ) {
-  req.user = {
-    _id: "EJA_S0Cie",
-  };
+router.use( passport.initialize() );
 
-  next();
-});
-
-router.use( '/model.json', bodyParser.urlencoded(), falcorRouter( db ) );
-
+router.use( '/auth', auth( db ) );
 router.use( '/upload', upload( db ) );
+router.use( '/model.json', bodyParser.urlencoded(), falcorRouter( db ) );
 
 router.get( '/', function ( req, res ) {
   log.debug( 'Hello!' );
@@ -41,7 +35,7 @@ router.get( '/', function ( req, res ) {
   });
 
   db
-    .then( db => {
+    .subscribe( db => {
       db.collection( 'worlds' ).find({}).toArray( ( err, docs ) => {
         if ( err ) {
           return sendError();
@@ -49,8 +43,7 @@ router.get( '/', function ( req, res ) {
 
         return res.json( info() );
       })
-    })
-    .catch( err => {
+    }, err => {
       log.error( err );
       return sendError();
     })
