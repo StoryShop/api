@@ -13,6 +13,21 @@
     "ux": {
       "lastVisited": "/worlds/N1x0dSRCjg"
     }
+  },
+  {
+    "_id": "N1g5eSETx",
+    "email": "josh@joshdmiller.com",
+    "name": {
+      "first": "Josh David",
+      "last": "Miller",
+      "display": "Josh David Miller"
+    },
+    "worlds": [
+      "N1x0dSRCjg"
+    ],
+    "ux": {
+      "lastVisited": "/worlds/N1x0dSRCjg"
+    }
   }
 ]
 

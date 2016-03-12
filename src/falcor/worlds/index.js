@@ -1,29 +1,44 @@
+import { keys } from '../../utils';
+import { toPathValues, withComponentCounts } from './../transforms';
 import {
-  getProps,
-  setProps,
-  getComponentCounts,
-} from './props';
-import { getCharacters } from './characters';
+  getWorlds,
+  setWorldProps,
+  withCharacterRefs,
+} from './../transforms/worlds';
 
 export default ( db, req, res ) => {
-  const worlds = db.map( db => db.collection( 'worlds' ) );
+  const { user } = req;
 
   return [
     {
       route: 'worldsById[{keys:ids}]["_id", "title", "slug", "colour"]',
-      get: pathSet => getProps( worlds, pathSet.ids, pathSet[ 2 ] ),
+      get: pathSet => db
+        .flatMap( getWorlds( pathSet.ids, user ) )
+        .flatMap( toPathValues( pathSet[ 2 ], ( i, f ) => [ 'worldsById', i._id, f ] ) )
+        ,
     },
     {
       route: 'worldsById[{keys:ids}]["title", "slug", "colour"]',
-      set: pathSet => setProps( worlds, pathSet.worldsById ),
+      set: pathSet => db
+        .flatMap( setWorldProps( pathSet.worldsById, user ) )
+        .flatMap( toPathValues( i => keys( pathSet.worldsById[ i._id ] ), ( i, f ) => [ 'worldsById', i._id, f ] ) )
+        ,
     },
     {
       route: 'worldsById[{keys:ids}]["elements","outlines","characters"].length',
-      get: pathSet => getComponentCounts( worlds, pathSet.ids, pathSet[ 2 ] ),
+      get: pathSet => db
+        .flatMap( getWorlds( pathSet.ids, user ) )
+        .flatMap( withComponentCounts( pathSet[ 2 ] ) )
+        .flatMap( toPathValues( pathSet[ 2 ], ( i, f ) => [ 'worldsById', i._id, f, 'length' ] ) )
+        ,
     },
     {
       route: 'worldsById[{keys:ids}].characters[{integers:indices}]',
-      get: pathSet => getCharacters( worlds, pathSet.ids, pathSet.indices ),
+      get: pathSet => db
+        .flatMap( getWorlds( pathSet.ids, user ) )
+        .flatMap( withCharacterRefs( pathSet.indices ) )
+        .flatMap( toPathValues( 'ref', ( i, f ) => [ 'worldsById', i._id, 'characters', i.idx ] ) )
+        ,
     },
   ];
 };
