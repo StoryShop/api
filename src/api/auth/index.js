@@ -1,34 +1,53 @@
 import { Router } from 'express';
-import passport from 'passport';
 import bodyParser from 'body-parser';
 import jwt from 'jsonwebtoken';
+import google from 'googleapis';
 import Logger from '../../logger';
 import { isLoggedIn } from './middleware';
 import config from '../../config';
+import findOrCreateUser from './find-or-create-user';
 
 const log = Logger( 'Authentication' );
 
 export default db => {
   const router = new Router();
 
-  const returnOpts = { session: false };
-  const googleOpts = { scope: [ 'profile', 'email' ] };
-  const amazonOpts = { scope: [ 'profile' ] };
-  const facebookOpts = { scope: [ 'public_profile', 'email' ] };
+  const googleOauthClient = new google.auth.OAuth2(
+    config.oauth.google.clientId,
+    config.oauth.google.clientSecret
+  );
 
   const jwtSecret = config.jwt.secret;
-  const jwtSendHandler = ( req, res ) => {
-    res.json({ token: jwt.sign({ test: 'placeholder' }, jwtSecret, { subject: req.user._id }) });
-  };
 
-  router.get( '/login/google', passport.authenticate( 'google', googleOpts ) );
-  router.get( '/return/google', passport.authenticate( 'google', returnOpts ), jwtSendHandler );
+  router.post( '/token', ( req, res ) => {
+    const { provider, token } = req.body;
 
-  router.get( '/login/amazon', passport.authenticate( 'amazon', returnOpts ) );
-  router.get( '/return/amazon', passport.authenticate( 'amazon', returnOpts ), jwtSendHandler );
+    switch ( provider ) {
+      case 'google':
+        googleOauthClient.verifyIdToken( token, config.oauth.google.clientId, ( err, data ) => {
+          if ( err ) {
+            return res.status(400).json({ status: 400, message: err });
+          }
 
-  router.get( '/login/facebook', passport.authenticate( 'facebook', facebookOpts ) );
-  router.get( '/return/facebook', passport.authenticate( 'facebook', returnOpts ), jwtSendHandler );
+          const { email, given_name, family_name, name } = data.getPayload();
+
+          findOrCreateUser( db, email, given_name, family_name, name )
+          .subscribe( user => {
+            const body = ({
+              provider,
+              token: jwt.sign({ provider: 'google', email }, jwtSecret, { subject: user._id } ),
+            });
+
+            res.json( body );
+          }, err => {
+            res.status(500).json({ status: 500, message: err })
+          });
+        });
+        break;
+      default:
+        res.status(400).json({ status: 400, message: `Unknown OAuth provider '${provider}'` });
+    }
+  });
 
   router.get( '/test', isLoggedIn, ( req, res ) => {
     res.json({ msg: 'success', user: req.user });

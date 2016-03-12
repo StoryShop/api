@@ -47,7 +47,7 @@ export const getUserWorlds = ( db, ids, indices ) => db
   .selectMany( docs => docs )
   .flatMap( ({ _id, worlds }) => indices.map( idx => ({
     path: [ 'usersById', _id, 'worlds', idx ],
-    value: worlds[ idx ] ? $ref([ 'worldsById', worlds[ idx ] ]) : undefined,
+    value: worlds && worlds[ idx ] ? $ref([ 'worldsById', worlds[ idx ] ]) : undefined,
   })))
   ;
 
