@@ -1,4 +1,5 @@
 import { Observable } from 'rx';
+import { toPathValues } from './../transforms';
 import {
   $ref,
   $atom,
@@ -6,11 +7,6 @@ import {
   keysO,
   keys,
 } from '../../utils';
-
-export const getCurrentUser = ( db, req ) => db.map( db => [{
-  path: [ 'currentUser' ],
-  value: $ref([ 'usersById', req.user._id ]),
-}]);
 
 // export const getUsers = ( db, ids, fields ) => db.flatMap( db => db.find({
 //   _id: { $in: ids.map( id => id ) },
@@ -21,43 +17,38 @@ export const getCurrentUser = ( db, req ) => db.map( db => [{
 //   value: doc[ field ],
 // })));
 
-export const setLastVisited = ( db, ids ) => db
-  .flatMap( db => keysO( ids ).flatMap( id => db.findOneAndUpdate(
+export const setLastVisited = ( user, ids ) => db =>
+  keysO( ids ).filter( id => id === user._id ).flatMap( id => db.collection( 'users' ).findOneAndUpdate(
     { _id: id },
     { $set: { 'ux.lastVisited': ids[ id ].ux.lastVisited } },
-    { projection: { ux: 1 }, returnOriginal: false }
-  )))
-  .map( ({ value: { _id, ux } }) => ({
-    path: [ 'usersById', _id, 'ux', 'lastVisited' ],
-    value: ux.lastVisited,
-  }))
+    { returnOriginal: false }
+  ))
+  .map( ({ value: { _id, ux } }) => ({ _id, ...ux }) )
   ;
 
-export const getLastVisited = ( db, ids ) => db
-  .flatMap( db => db.find( { _id: { $in: ids } }, { ux: 1 } ).toArray() )
+export const getLastVisited = ( user, ids ) => db =>
+  Observable.fromPromise( db.collection( 'users' ).find( { _id: { $in: ids, $eq: user._id } } ).toArray() )
   .selectMany( docs => docs )
-  .map( doc => ({
-    path: [ 'usersById', doc._id, 'ux', 'lastVisited' ],
-    value: doc.ux.lastVisited,
-  }))
+  .map( ({ _id, ux }) => ({ _id, ...ux }) )
   ;
 
-export const getUserWorlds = ( db, ids, indices ) => db
-  .flatMap( db => db.find( { _id: { $in: ids } }, { worlds: true } ).toArray() )
+export const getUserWorlds = ( user, ids, indices ) => db =>
+  Observable.fromPromise( db.collection( 'users' ).find( { _id: { $in: ids, $eq: user._id } } ).toArray() )
   .selectMany( docs => docs )
-  .flatMap( ({ _id, worlds }) => indices.map( idx => ({
-    path: [ 'usersById', _id, 'worlds', idx ],
-    value: worlds && worlds[ idx ] ? $ref([ 'worldsById', worlds[ idx ] ]) : undefined,
-  })))
+  .flatMap( ({ _id, worlds }) => worlds.map( ( w, idx ) => ({ _id, idx, worlds: $ref([ 'worldsById', w ]) }) ) )
+  .filter( item => indices.indexOf( item.idx ) !== -1 )
   ;
 
 export default ( db, req, res ) => {
-  const users = db.map( db => db.collection( 'users' ) );
+  const { user } = req;
 
   return [
     {
       route: 'currentUser',
-      get: pathSet => getCurrentUser( users, req ),
+      get: pathSet => [{
+        path: [ 'currentUser' ],
+        value: $ref([ 'usersById', user ? user._id : undefined ]),
+      }],
     },
     // {
     //   route: 'usersById[{keys:ids}]["email"]',
@@ -65,12 +56,18 @@ export default ( db, req, res ) => {
     // },
     {
       route: 'usersById[{keys:ids}].worlds[{integers:indices}]',
-      get: pathSet => getUserWorlds( users, pathSet.ids, pathSet.indices ),
+      get: pathSet => db.flatMap( getUserWorlds( user, pathSet.ids, pathSet.indices ) )
+        .flatMap( toPathValues( 'worlds', ( i, f ) => [ 'usersById', i._id, f, i.idx ] ) )
+        ,
     },
     {
       route: 'usersById[{keys:ids}].ux.lastVisited',
-      get: pathSet => getLastVisited( users, pathSet.ids ),
-      set: pathSet => setLastVisited( users, pathSet.usersById ),
+      get: pathSet => db.flatMap( getLastVisited( user, pathSet.ids ) )
+        .flatMap( toPathValues( 'lastVisited', ( i, f ) => [ 'usersById', i._id, 'ux', f ] ) )
+        ,
+      set: pathSet => db.flatMap( setLastVisited( user, pathSet.usersById ) )
+        .flatMap( toPathValues( 'lastVisited', ( i, f ) => [ 'usersById', i._id, 'ux', f ] ) )
+        ,
     },
   ];
 };

@@ -1,9 +1,18 @@
 [
   {
     "_id": "4yUR_r0Col",
+    "world": "N1x0dSRCjg",
     "name": "Big Bird",
     "aliases": [
       "Yellow Beak"
+    ],
+
+    "readers": [
+    ],
+
+    "writers": [
+      "EJA_S0Cie",
+      "N1g5eSETx"
     ],
 
     "attributes": [
@@ -54,7 +63,13 @@
   },
   {
     "_id": "NyF0uS0Rjg",
-    "name": "Snuffy"
+    "world": "N1x0dSRCjg",
+    "name": "Snuffy",
+
+    "writers": [
+      "EJA_S0Cie",
+      "N1g5eSETx"
+    ]
   }
 ]
 

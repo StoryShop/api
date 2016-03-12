@@ -1,36 +1,64 @@
-import { getProps, setProps, setAliases, getComponentCounts } from './props';
-import { getAttributes, setAttributes } from './attributes';
-import { getGenes, setGenes } from './genes';
+import { keys } from '../../utils';
+import {
+  toPathValues,
+  withComponentCounts,
+  getWithinArray,
+  setWithinArray,
+} from './../transforms';
+import {
+  getCharacters,
+  setCharacterProps,
+} from '../transforms/characters';
 
 export default ( db, req, res ) => {
-  const characters = db.map( db => db.collection( 'characters' ) );
+  const { user } = req;
 
   return [
     {
       route: 'charactersById[{keys:ids}]["_id", "name", "aliases"]',
-      get: pathSet => getProps( characters, pathSet.ids, pathSet[ 2 ] ),
+      get: pathSet => db
+        .flatMap( getCharacters( pathSet.ids, user ) )
+        .flatMap( toPathValues( pathSet[ 2 ], ( i, f ) => [ 'charactersById', i._id, f ] ) )
+        ,
     },
     {
-      route: 'charactersById[{keys:ids}]["name"]',
-      set: pathSet => setProps( characters, pathSet.charactersById ),
-    },
-    {
-      route: 'charactersById[{keys:ids}].aliases',
-      set: pathSet => setAliases( characters, pathSet.charactersById ),
+      route: 'charactersById[{keys:ids}]["name", "aliases"]',
+      set: pathSet => db
+        .flatMap( setCharacterProps( pathSet.charactersById, user ) )
+        .flatMap( toPathValues( i => keys( pathSet.charactersById[ i._id ] ), ( i, f ) => [ 'charactersById', i._id, f ] ) )
+        ,
     },
     {
       route: 'charactersById[{keys:ids}]["genes", "attributes"].length',
-      get: pathSet => getComponentCounts( characters, pathSet.ids, pathSet[ 2 ] ),
+      get: pathSet => db
+        .flatMap( getCharacters( pathSet.ids, user ) )
+        .flatMap( withComponentCounts( pathSet[ 2 ] ) )
+        .flatMap( toPathValues( pathSet[ 2 ], ( i, f ) => [ 'charactersById', i._id, f, 'length' ] ) )
+        ,
     },
     {
       route: 'charactersById[{keys:ids}].attributes[{integers:indices}]',
-      get: pathSet => getAttributes( characters, pathSet.ids, pathSet.indices ),
-      set: pathSet => setAttributes( characters, pathSet.charactersById ),
+      get: pathSet => db
+        .flatMap( getCharacters( pathSet.ids, user ) )
+        .flatMap( getWithinArray( 'attributes', pathSet.indices ) )
+        .flatMap( toPathValues( 'attributes', ( i, f ) => [ 'charactersById', i._id, f, i.idx ] ) )
+        ,
+      set: pathSet => db
+        .flatMap( setWithinArray( 'characters', 'attributes', pathSet.charactersById, user ) )
+        .flatMap( toPathValues( 'attributes', ( i, f ) => [ 'charactersById', i._id, f, i.idx ] ) )
+        ,
     },
     {
-      route: 'charactersById[{keys:ids}].genes[{integers:indices}]["gene","allele"]',
-      get: pathSet => getGenes( characters, pathSet.ids, pathSet.indices, pathSet[ 4 ] ),
-      set: pathSet => setGenes( characters, pathSet.charactersById ),
+      route: 'charactersById[{keys:ids}].genes[{integers:indices}]',
+      get: pathSet => db
+        .flatMap( getCharacters( pathSet.ids, user ) )
+        .flatMap( getWithinArray( 'genes', pathSet.indices ) )
+        .flatMap( toPathValues( 'genes', ( i, f ) => [ 'charactersById', i._id, f, i.idx ] ) )
+        ,
+      set: pathSet => db
+        .flatMap( setWithinArray( 'characters', 'genes', pathSet.charactersById, user ) )
+        .flatMap( toPathValues( 'genes', ( i, f ) => [ 'charactersById', i._id, f, i.idx ] ) )
+        ,
     },
   ];
 };
