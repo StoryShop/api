@@ -6,7 +6,7 @@ import connectDb from '../db';
 import Logger from '../logger';
 import upload from './upload';
 import auth from './auth';
-import PassportFactory from './auth/passport';
+import { withUser, isLoggedIn } from './auth/middleware';
 
 const log = Logger( 'ApiRouter' );
 
@@ -16,14 +16,11 @@ const db = connectDb({
   env: process.env.MONGO_ENV || 'dev',
 });
 
-const passport = PassportFactory( db );
 const router = express.Router();
 
-router.use( passport.initialize() );
-
-router.use( '/auth', auth( db ) );
-router.use( '/upload', upload( db ) );
-router.use( '/model.json', bodyParser.urlencoded(), falcorRouter( db ) );
+router.use( '/auth', bodyParser.json(), auth( db ) );
+router.use( '/upload', withUser(), isLoggedIn(), upload( db ) );
+router.use( '/model.json', withUser(), bodyParser.urlencoded(), falcorRouter( db ) );
 
 router.get( '/', function ( req, res ) {
   log.debug( 'Hello!' );
