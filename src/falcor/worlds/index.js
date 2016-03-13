@@ -18,6 +18,30 @@ export default ( db, req, res ) => {
         ,
     },
     {
+      route: 'worldsById[{keys:ids}].rights',
+      get: pathSet => db
+        .flatMap( getWorlds( pathSet.ids, user ) )
+        .map( world => {
+          const rights = [];
+
+          if ( world.owners.indexOf( user._id ) !== -1 ) {
+            rights.push( 'A' );
+          }
+
+          if ( world.readers.indexOf( user._id ) !== -1 ) {
+            rights.push( 'R' );
+          }
+
+          if ( world.writers.indexOf( user._id ) !== -1 ) {
+            rights.push( 'W' );
+          }
+
+          return { _id: world._id, rights };
+        })
+        .flatMap( toPathValues( 'rights', ( i, f ) => [ 'worldsById', i._id, f ] ) )
+        ,
+    },
+    {
       route: 'worldsById[{keys:ids}]["title", "slug", "colour"]',
       set: pathSet => db
         .flatMap( setWorldProps( pathSet.worldsById, user ) )
