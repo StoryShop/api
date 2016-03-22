@@ -33,6 +33,6 @@ export const setWorldProps = ( propsById, user ) => db => keysO( propsById )
 export const withCharacterRefs = indices => world => indices.map( idx => ({
   _id: world._id,
   idx,
-  ref: $ref([ 'charactersById', world.characters[ idx ] ]),
+  ref: world.characters[ idx ] ? $ref([ 'charactersById', world.characters[ idx ] ]) : undefined,
 }));
 
