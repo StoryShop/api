@@ -8,9 +8,10 @@
     "dev": "nodemon index.js",
     "test": "tape -r babel-polyfill -r babel-register src/**/*spec.js | faucet",
     "data:worlds": "mongoimport --db dev --drop --jsonArray --type json --file fixtures/worlds.json --collection worlds",
+    "data:outlines": "mongoimport --db dev --drop --jsonArray --type json --file fixtures/outlines.json --collection outlines",
     "data:characters": "mongoimport --db dev --drop --jsonArray --type json --file fixtures/characters.json --collection characters",
     "data:users": "mongoimport --db dev --drop --jsonArray --type json --file fixtures/users.json --collection users",
-    "data": "npm run data:worlds && npm run data:characters && npm run data:users"
+    "data": "npm run data:worlds && npm run data:characters && npm run data:users && npm run data:outlines"
   },
   "repository": {
     "type": "git",

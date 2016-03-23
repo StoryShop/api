@@ -36,3 +36,9 @@ export const withCharacterRefs = indices => world => indices.map( idx => ({
   ref: world.characters[ idx ] ? $ref([ 'charactersById', world.characters[ idx ] ]) : undefined,
 }));
 
+export const withOutlineRefs = indices => world => indices.map( idx => ({
+  _id: world._id,
+  idx,
+  ref: world.outlines[ idx ] ? $ref([ 'outlinesById', world.outlines[ idx ] ]) : undefined,
+}));
+
