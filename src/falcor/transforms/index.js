@@ -1,5 +1,12 @@
 import { Observable } from 'rx';
-import { $err, $atom, keys } from '../../utils';
+import {
+  $atom,
+  $err,
+  $ref,
+  keysO,
+  keys,
+ collection,  unwrapAtomsInObject,
+} from '../../utils';
 
 export const toPathValues = ( fields, pathGen ) => item => {
   if ( typeof fields === 'function' ) {
@@ -35,6 +42,27 @@ export const toPathValues = ( fields, pathGen ) => item => {
     value: getVal( field ),
   }));
 };
+
+export const getProps = ( collection, ids, user ) => db => {
+  return Observable.fromPromise( db.collection( collection ).find({ _id: { $in: ids }, $or: [
+      { writers: { $eq: user._id } },
+      { readers: { $eq: user._id } },
+    ]}).toArray() )
+    .selectMany( w => w )
+    ;
+};
+
+export const setProps = ( collection, propsById, user ) => db => keysO( propsById )
+  .flatMap( _id => {
+    const writers = { $eq: user._id };
+    const $set = unwrapAtomsInObject( propsById[ _id ] );
+
+    return db.collection( collection ).findOneAndUpdate( { _id, writers }, { $set }, {
+      returnOriginal: false,
+    });
+  })
+  .map( props => props.value )
+  ;
 
 export const withComponentCounts = fields => item => {
   const counts = {

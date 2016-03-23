@@ -4,6 +4,7 @@ import {
   getWorlds,
   setWorldProps,
   withCharacterRefs,
+  withOutlineRefs,
 } from './../transforms/worlds';
 
 export default ( db, req, res ) => {
@@ -62,6 +63,14 @@ export default ( db, req, res ) => {
         .flatMap( getWorlds( pathSet.ids, user ) )
         .flatMap( withCharacterRefs( pathSet.indices ) )
         .flatMap( toPathValues( 'ref', ( i, f ) => [ 'worldsById', i._id, 'characters', i.idx ] ) )
+        ,
+    },
+    {
+      route: 'worldsById[{keys:ids}].outlines[{integers:indices}]',
+      get: pathSet => db
+        .flatMap( getWorlds( pathSet.ids, user ) )
+        .flatMap( withOutlineRefs( pathSet.indices ) )
+        .flatMap( toPathValues( 'ref', ( i, f ) => [ 'worldsById', i._id, 'outlines', i.idx ] ) )
         ,
     },
   ];
