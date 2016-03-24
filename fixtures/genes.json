@@ -1,0 +1,1147 @@
+[
+  {
+    "gene": "How old are you?",
+    "category": "Demographics",
+    "_id": "jw9LJP15"
+  },
+  {
+    "gene": "Where do you live?",
+    "category": "Demographics",
+    "_id": "7FNo7pbL"
+  },
+  {
+    "gene": "What is your social status?",
+    "category": "Demographics",
+    "_id": "rkBdPVD3"
+  },
+  {
+    "gene": "What is your economic status?",
+    "category": "Demographics",
+    "_id": "iJQJ8-T7"
+  },
+  {
+    "gene": "Do you have a nickname? If so, how did you get it?",
+    "category": "Demographics",
+    "_id": "WL8CDqcG"
+  },
+  {
+    "gene": "Where do you live? Describe it: Is it messy, neat, avant-garde, sparse, etc.?",
+    "category": "Demographics",
+    "_id": "97V3tvWn"
+  },
+  {
+    "gene": "Where were you born?",
+    "category": "Demographics",
+    "_id": "8Ez2-0UK"
+  },
+  {
+    "gene": "Do you have a criminal record of any kind?",
+    "category": "Demographics",
+    "_id": "27Gkkd7R"
+  },
+  {
+    "gene": "Do you have any allergies, diseases, or other physical weaknesses?",
+    "category": "Looks and physicality",
+    "_id": "oJuI1Qo_"
+  },
+  {
+    "gene": "Are you right or left handed?",
+    "category": "Looks and physicality",
+    "_id": "eiBrMnOb"
+  },
+  {
+    "gene": "In your opinion, what is your best physical feature?",
+    "category": "Looks and physicality",
+    "_id": "RxOKaI_J"
+  },
+  {
+    "gene": "What is the worst injury you’ve ever received?",
+    "category": "Looks and physicality",
+    "_id": "5G-pFrFX"
+  },
+  {
+    "gene": "Do you have any scars? If so, how did you get them?",
+    "category": "Looks and physicality",
+    "_id": "iryvSIQR"
+  },
+  {
+    "gene": "If you could look like anyone else, who would that be?",
+    "category": "Looks and physicality",
+    "_id": "wWEfChgq"
+  },
+  {
+    "gene": "How do you spend a typical Saturday night?",
+    "category": "Schedule and habits",
+    "_id": "MWRQrejI"
+  },
+  {
+    "gene": "Are you organized or messy?",
+    "category": "Schedule and habits",
+    "_id": "yBs521OK"
+  },
+  {
+    "gene": "Is it easy or difficult for you to throw things away?",
+    "category": "Schedule and habits",
+    "_id": "uhM8RmER"
+  },
+  {
+    "gene": "What do you do when you can’t sleep?",
+    "category": "Schedule and habits",
+    "_id": "r6LG7r-v"
+  },
+  {
+    "gene": "What time of day is your favorite?",
+    "category": "Schedule and habits",
+    "_id": "0fgxr-BW"
+  },
+  {
+    "gene": "How do you relax?",
+    "category": "Schedule and habits",
+    "_id": "r6VwLWYe"
+  },
+  {
+    "gene": "Describe a typical day.",
+    "category": "Schedule and habits",
+    "_id": "-jkoSCHT"
+  },
+  {
+    "gene": "What are your worst habits, and do you plan to get rid of them?",
+    "category": "Schedule and habits",
+    "_id": "4UCo_6E5"
+  },
+  {
+    "gene": "Are you spontaneous or do you always have a plan?",
+    "category": "Schedule and habits",
+    "_id": "4XPxZvtQ"
+  },
+  {
+    "gene": "What would you say is your best quality?",
+    "category": "Self and personality",
+    "_id": "XVsn6V_M"
+  },
+  {
+    "gene": "What is your biggest fear?",
+    "category": "Self and personality",
+    "_id": "rBhBuFR7"
+  },
+  {
+    "gene": "What is your deepest secret?",
+    "category": "Self and personality",
+    "_id": "m6xpw6c7"
+  },
+  {
+    "gene": "What’s something you know you do differently than most people?",
+    "category": "Self and personality",
+    "_id": "jf9Wme8d"
+  },
+  {
+    "gene": "What is your most marked characteristic? ",
+    "category": "Self and personality",
+    "_id": "_gE28DQ-"
+  },
+  {
+    "gene": "What is the trait you most despise in yourself?",
+    "category": "Self and personality",
+    "_id": "sXnHRszE"
+  },
+  {
+    "gene": "On what occasion do you lie?",
+    "category": "Self and personality",
+    "_id": "9042VZ8V"
+  },
+  {
+    "gene": "What is your greatest regret?",
+    "category": "Self and personality",
+    "_id": "Z2NBRIWR"
+  },
+  {
+    "gene": "What is your motto?",
+    "category": "Self and personality",
+    "_id": "Yuat_A24"
+  },
+  {
+    "gene": "What embarrasses you?",
+    "category": "Self and personality",
+    "_id": "1kG-Yxch"
+  },
+  {
+    "gene": "What do you hate about yourself?",
+    "category": "Self and personality",
+    "_id": "K14XFd9F"
+  },
+  {
+    "gene": "What do you feel most strongly about?",
+    "category": "Self and personality",
+    "_id": "K_FBxWTW"
+  },
+  {
+    "gene": "What do you pretend to feel strongly about, just to impress people?",
+    "category": "Self and personality",
+    "_id": "kALmAkJh"
+  },
+  {
+    "gene": "Could you kill someone if you had to?",
+    "category": "Self and personality",
+    "_id": "LgGd82hA"
+  },
+  {
+    "gene": "What is your current state of mind?",
+    "category": "Self and personality",
+    "_id": "vCsAc1XI"
+  },
+  {
+    "gene": "What makes you cry?",
+    "category": "Self and personality",
+    "_id": "sLThfqPk"
+  },
+  {
+    "gene": "What makes you hysterical?",
+    "category": "Self and personality",
+    "_id": "WKG1Rtgb"
+  },
+  {
+    "gene": "What, if anything, shocks or offends you?",
+    "category": "Self and personality",
+    "_id": "mWEF_Ht6"
+  },
+  {
+    "gene": "What are you most grateful for?",
+    "category": "Self and personality",
+    "_id": "oXh3-2jk"
+  },
+  {
+    "gene": "What one word best describes you?",
+    "category": "Self and personality",
+    "_id": "oYtZPjx8"
+  },
+  {
+    "gene": "Has your greatest fear ever come true?",
+    "category": "Self and personality",
+    "_id": "kq7oOFCC"
+  },
+  {
+    "gene": "Are you a private person or an open book?",
+    "category": "Self and personality",
+    "_id": "HI9AXAt0"
+  },
+  {
+    "gene": "What do you regard as the lowest depth of misery?",
+    "category": "Self and personality",
+    "_id": "uolBMCOi"
+  },
+  {
+    "gene": "What frightens you most?",
+    "category": "Self and personality",
+    "_id": "4bpLGAZm"
+  },
+  {
+    "gene": "What is something you had to learn that you hated?",
+    "category": "Self and personality",
+    "_id": "rGRJMahE"
+  },
+  {
+    "gene": "What’s the most beautiful thing you’ve ever seen?",
+    "category": "Self and personality",
+    "_id": "bHDo6DcX"
+  },
+  {
+    "gene": "Describe the worst argument you’ve ever been in.",
+    "category": "Self and personality",
+    "_id": "8BtORBQn"
+  },
+  {
+    "gene": "Have you ever been in a physical fight before? If so, describe it.",
+    "category": "Self and personality",
+    "_id": "Frg0Vjlo"
+  },
+  {
+    "gene": "What trait do you find most admirable, and how often do you find it?",
+    "category": "Self and personality",
+    "_id": "s-0nXCCW"
+  },
+  {
+    "gene": "Do you have any feelings in general that you are disturbed by — and if so, what?",
+    "category": "Self and personality",
+    "_id": "MdGVK3Cy"
+  },
+  {
+    "gene": "Where do you go when you’re angry?",
+    "category": "Self and personality",
+    "_id": "WtDts_RJ"
+  },
+  {
+    "gene": "Is it okay for you to cry (when was the last time you did)?",
+    "category": "Self and personality",
+    "_id": "oQcElArC"
+  },
+  {
+    "gene": "What is the biggest changing point in your life?",
+    "category": "Self and personality",
+    "_id": "gemwxD-w"
+  },
+  {
+    "gene": "What is the most frightened you’ve ever been?",
+    "category": "Self and personality",
+    "_id": "dzkZEVwf"
+  },
+  {
+    "gene": "If you could change one thing in your past, what would that be?",
+    "category": "Self and personality",
+    "_id": "TAEO9MUW"
+  },
+  {
+    "gene": "When and where were you the happiest?",
+    "category": "Self and personality",
+    "_id": "baBXTPsA"
+  },
+  {
+    "gene": "What is your most frequently recurring daydream?",
+    "category": "Self and personality",
+    "_id": "HlvtEOdC"
+  },
+  {
+    "gene": "What is your most frequently recurring nightmare?",
+    "category": "Self and personality",
+    "_id": "tJeH6ZiT"
+  },
+  {
+    "gene": "How do you like to dress?",
+    "category": "Style",
+    "_id": "o9hr0Txn"
+  },
+  {
+    "gene": "What would you wear if you were dressing up?",
+    "category": "Style",
+    "_id": "58CmZZwr"
+  },
+  {
+    "gene": "How about if you were dressing down?",
+    "category": "Style",
+    "_id": "SpRut8n9"
+  },
+  {
+    "gene": "What do you wear when you go to sleep?",
+    "category": "Style",
+    "_id": "Tjp7re53"
+  },
+  {
+    "gene": "Do you wear any jewelry?",
+    "category": "Style",
+    "_id": "WSC_4AFS"
+  },
+  {
+    "gene": "What is your ideal occupation?",
+    "category": "Work",
+    "_id": "TPAaJCMC"
+  },
+  {
+    "gene": "What is your actual occupation?",
+    "category": "Work",
+    "_id": "u7Ab0J1p"
+  },
+  {
+    "gene": "Would you rather have less work to do, or more work you actually enjoy doing?",
+    "category": "Work",
+    "_id": "DS0ktNGp"
+  },
+  {
+    "gene": "What is your job, and do you enjoy it?",
+    "category": "Work",
+    "_id": "KZHvEbm8"
+  },
+  {
+    "gene": "What is your boss like?",
+    "category": "Work",
+    "_id": "iV5SIP1y"
+  },
+  {
+    "gene": "What are your co-workers like, and do you get along with them?",
+    "category": "Work",
+    "_id": "OU7lG57L"
+  },
+  {
+    "gene": "What are your religious views?",
+    "category": "Beliefs",
+    "_id": "VtKxuqU3"
+  },
+  {
+    "gene": "Are you political?",
+    "category": "Beliefs",
+    "_id": "XQK-n77z"
+  },
+  {
+    "gene": "Where did you learn most of your skills and other abilities?",
+    "category": "Interests and hobbies",
+    "_id": "RTtXmgsK"
+  },
+  {
+    "gene": "What are your hobbies?",
+    "category": "Interests and hobbies",
+    "_id": "19IFhBjD"
+  },
+  {
+    "gene": "What are your favorite books?",
+    "category": "Interests and hobbies",
+    "_id": "xN5LM6op"
+  },
+  {
+    "gene": "What are your favorite TV shows?",
+    "category": "Interests and hobbies",
+    "_id": "zqSR-Nvy"
+  },
+  {
+    "gene": "What do you do when you’re bored?",
+    "category": "Interests and hobbies",
+    "_id": "RRze4c1O"
+  },
+  {
+    "gene": "What is your favorite and least favorite movie?",
+    "category": "Interests and hobbies",
+    "_id": "-HpBPf3Q"
+  },
+  {
+    "gene": "Have you ever been to a stage play?",
+    "category": "Interests and hobbies",
+    "_id": "bGaRBeTk"
+  },
+  {
+    "gene": "What was your family like growing up?",
+    "category": "Family and childhood",
+    "_id": "fpfkM5gC"
+  },
+  {
+    "gene": "Did you have a happy childhood?",
+    "category": "Family and childhood",
+    "_id": "qBBe7Dfp"
+  },
+  {
+    "gene": "Who was your father, and what was he like?",
+    "category": "Family and childhood",
+    "_id": "7yoZR8UP"
+  },
+  {
+    "gene": "Who was your mother, and what was she like?",
+    "category": "Family and childhood",
+    "_id": "fx-jowiX"
+  },
+  {
+    "gene": "What was your parents’ marriage like?",
+    "category": "Family and childhood",
+    "_id": "2TGLdqvI"
+  },
+  {
+    "gene": "What were your siblings names? What were they like?",
+    "category": "Family and childhood",
+    "_id": "OFjpvnCp"
+  },
+  {
+    "gene": "What's the worst thing one of your siblings ever did to you?",
+    "category": "Family and childhood",
+    "_id": "CuPIWeow"
+  },
+  {
+    "gene": "What's the worst thing you’ve ever done to one of your siblings?",
+    "category": "Family and childhood",
+    "_id": "V-SzhPN9"
+  },
+  {
+    "gene": "When's the last time you saw any member of your family?",
+    "category": "Family and childhood",
+    "_id": "ACISI8FP"
+  },
+  {
+    "gene": "What about other family members: who are they, and what do you think of them?",
+    "category": "Family and childhood",
+    "_id": "vvL5TIcY"
+  },
+  {
+    "gene": "What was your family role growing up?",
+    "category": "Family and childhood",
+    "_id": "qC7-MlrA"
+  },
+  {
+    "gene": "What were you most proud of as a kid?",
+    "category": "Family and childhood",
+    "_id": "r4Hj1Ptc"
+  },
+  {
+    "gene": "Who was your best friend when you were growing up?",
+    "category": "Family and childhood",
+    "_id": "pX700a-M"
+  },
+  {
+    "gene": "What is your fondest, childhood memory?",
+    "category": "Family and childhood",
+    "_id": "6zPbgF1W"
+  },
+  {
+    "gene": "What is your worst childhood memory?",
+    "category": "Family and childhood",
+    "_id": "hQosDWzG"
+  },
+  {
+    "gene": "Has anyone you loved ever died?",
+    "category": "Family and childhood",
+    "_id": "-PkAHTXm"
+  },
+  {
+    "gene": "Do you want children? Why or why not?",
+    "category": "Family and childhood",
+    "_id": "j4AB3HI5"
+  },
+  {
+    "gene": "Do you think you would make a good parent?",
+    "category": "Family and childhood",
+    "_id": "WxzqtYLz"
+  },
+  {
+    "gene": "Is there a past time period that you wish you had lived in? If so, why?",
+    "category": "Family and childhood",
+    "_id": "BzuDNR9_"
+  },
+  {
+    "gene": "What do you consider your greatest achievement?",
+    "category": "Being a teenager and growing up",
+    "_id": "-KS-HVN6"
+  },
+  {
+    "gene": "When and where were you happiest?",
+    "category": "Being a teenager and growing up",
+    "_id": "Xgru2FBE"
+  },
+  {
+    "gene": "What is your first memory?",
+    "category": "Being a teenager and growing up",
+    "_id": "kkNXOUp8"
+  },
+  {
+    "gene": "What were you like in high school?",
+    "category": "Being a teenager and growing up",
+    "_id": "kYmVqj2M"
+  },
+  {
+    "gene": "What clique did you best fit in with?",
+    "category": "Being a teenager and growing up",
+    "_id": "WxiLNwgR"
+  },
+  {
+    "gene": "What were your high school goals?",
+    "category": "Being a teenager and growing up",
+    "_id": "6-OXIU9s"
+  },
+  {
+    "gene": "Who was your idol when you were growing up?",
+    "category": "Being a teenager and growing up",
+    "_id": "mJ_h08YD"
+  },
+  {
+    "gene": "Who did you first fantasize about in your life?",
+    "category": "Being a teenager and growing up",
+    "_id": "-ASF4air"
+  },
+  {
+    "gene": "What is your favorite memory from adolescence?",
+    "category": "Being a teenager and growing up",
+    "_id": "GsSIEF_E"
+  },
+  {
+    "gene": "What is your worst memory from adolescence?",
+    "category": "Being a teenager and growing up",
+    "_id": "RAWHl71l"
+  },
+  {
+    "gene": "What was something that embarrassed you growing up?",
+    "category": "Being a teenager and growing up",
+    "_id": "4PTR5esR"
+  },
+  {
+    "gene": "How old were you when you went on your first date?",
+    "category": "Being a teenager and growing up",
+    "_id": "w54sSYqP"
+  },
+  {
+    "gene": "What one act in your past are you most ashamed of?",
+    "category": "Being a teenager and growing up",
+    "_id": "WQKf1rGh"
+  },
+  {
+    "gene": "What one act in your past are you most proud of?",
+    "category": "Being a teenager and growing up",
+    "_id": "-xufYz9c"
+  },
+  {
+    "gene": "How much schooling have you had?",
+    "category": "Being a teenager and growing up",
+    "_id": "G1eEpL8k"
+  },
+  {
+    "gene": "Did you enjoy school?",
+    "category": "Being a teenager and growing up",
+    "_id": "2DgOujUz"
+  },
+  {
+    "gene": "What or who is the greatest love of your life?",
+    "category": "Love and sex",
+    "_id": "8dowv9Si"
+  },
+  {
+    "gene": "What is your sexual orientation?",
+    "category": "Love and sex",
+    "_id": "40Y6ZPJZ"
+  },
+  {
+    "gene": "Do you believe in soul mates?",
+    "category": "Love and sex",
+    "_id": "jgW-eHCL"
+  },
+  {
+    "gene": "Do you believe in true love?",
+    "category": "Love and sex",
+    "_id": "KvXWKGKf"
+  },
+  {
+    "gene": "When did you lose your virginity, and what was that like?",
+    "category": "Love and sex",
+    "_id": "g0-wpeZq"
+  },
+  {
+    "gene": "Have you ever had a same sex experience (or a different sex experience if gay)?",
+    "category": "Love and sex",
+    "_id": "K4BBdxBT"
+  },
+  {
+    "gene": "What is your deepest, most well-hidden sexual fantasy (and would you ever try it)?",
+    "category": "Love and sex",
+    "_id": "9vzlhBUW"
+  },
+  {
+    "gene": "What was the wildest thing you've ever done, sexually?",
+    "category": "Love and sex",
+    "_id": "ZPtEX5uz"
+  },
+  {
+    "gene": "Is there any non-standard sexual activity that you enjoy (why do you like it)?",
+    "category": "Love and sex",
+    "_id": "z_P-ziDg"
+  },
+  {
+    "gene": "Is there any sexual activity that you will not, under any circumstances, do?",
+    "category": "Love and sex",
+    "_id": "_uFGYC3j"
+  },
+  {
+    "gene": "Do you currently have a lover?",
+    "category": "Love and sex",
+    "_id": "996Jm4HY"
+  },
+  {
+    "gene": "If so, what is your lover’s name, and what is your relationship like?",
+    "category": "Love and sex",
+    "_id": "pUtc9_Ow"
+  },
+  {
+    "gene": "What attracts you to a person?",
+    "category": "Love and sex",
+    "_id": "G6zKdfYj"
+  },
+  {
+    "gene": "What is the perfect romantic date?",
+    "category": "Love and sex",
+    "_id": "fUPXqMaw"
+  },
+  {
+    "gene": "Describe your ideal partner.",
+    "category": "Love and sex",
+    "_id": "MHvZSUas"
+  },
+  {
+    "gene": "Have you ever had a broken heart?",
+    "category": "Love and sex",
+    "_id": "wDTrphY6"
+  },
+  {
+    "gene": "Do you tend to argue with people or avoid conflict?",
+    "category": "Love and sex",
+    "_id": "44F7vYVG"
+  },
+  {
+    "gene": "Do you care what others think of you?",
+    "category": "Love and sex",
+    "_id": "u6-Zce48"
+  },
+  {
+    "gene": "Who would you turn to if you were in desperate need of help?",
+    "category": "Love and sex",
+    "_id": "tz1CZhCf"
+  },
+  {
+    "gene": "Do you ever want to get married and have children (and if so, when)?",
+    "category": "Love and sex",
+    "_id": "Rx4Hgv40"
+  },
+  {
+    "gene": "What are your general views on sex?",
+    "category": "Love and sex",
+    "_id": "G-YyZCPN"
+  },
+  {
+    "gene": "What is more important – sex or intimacy?",
+    "category": "Love and sex",
+    "_id": "0O2DIzSC"
+  },
+  {
+    "gene": "What's the worst thing you've done to someone you loved?",
+    "category": "Love and sex",
+    "_id": "G4aL2xBj"
+  },
+  {
+    "gene": "What is your favorite and least favorite food?",
+    "category": "Food, drink and self-medicating",
+    "_id": "X9hKJ1eM"
+  },
+  {
+    "gene": "What is your favorite drink?",
+    "category": "Food, drink and self-medicating",
+    "_id": "Ksu8YuB-"
+  },
+  {
+    "gene": "How old were you when you first got drunk (and what was that like)?",
+    "category": "Food, drink and self-medicating",
+    "_id": "egpKewL2"
+  },
+  {
+    "gene": "Do you drink on any kind of regular basis?",
+    "category": "Food, drink and self-medicating",
+    "_id": "np93Qlqn"
+  },
+  {
+    "gene": "What kind of alcohol do you prefer?",
+    "category": "Food, drink and self-medicating",
+    "_id": "a8LF6VwN"
+  },
+  {
+    "gene": "Have you ever tried any other type of mood altering substance?",
+    "category": "Food, drink and self-medicating",
+    "_id": "giSmiib4"
+  },
+  {
+    "gene": "What do you think of drugs and alcohol in general?",
+    "category": "Food, drink and self-medicating",
+    "_id": "lPV1RuRZ"
+  },
+  {
+    "gene": "Who has been your biggest mentor?",
+    "category": "Heroes",
+    "_id": "UUE4ua5K"
+  },
+  {
+    "gene": "Who are your favorite writers?",
+    "category": "Heroes",
+    "_id": "IawSF1rV"
+  },
+  {
+    "gene": "Who is your fictional hero?",
+    "category": "Heroes",
+    "_id": "6A1BAup6"
+  },
+  {
+    "gene": "Which historical figure do you most identify with?",
+    "category": "Heroes",
+    "_id": "SseMpIeP"
+  },
+  {
+    "gene": "Who are your heroes in real life?",
+    "category": "Heroes",
+    "_id": "ATjmX_-0"
+  },
+  {
+    "gene": "Which living person do you most admire?",
+    "category": "Heroes",
+    "_id": "BKf4CQyw"
+  },
+  {
+    "gene": "Which living person do you loathe?",
+    "category": "Heroes",
+    "_id": "grGAxPzg"
+  },
+  {
+    "gene": "What is the quality you most like in a man?",
+    "category": "Heroes",
+    "_id": "tueZn3Wm"
+  },
+  {
+    "gene": "What is the quality you most like in a woman?",
+    "category": "Heroes",
+    "_id": "InfCMeq9"
+  },
+  {
+    "gene": "Name three things you’re good at.",
+    "category": "Skills and talents",
+    "_id": "SdK5KVBR"
+  },
+  {
+    "gene": "Name three things you’re bad at.",
+    "category": "Skills and talents",
+    "_id": "KQuBYt5m"
+  },
+  {
+    "gene": "What three words describe your personality?",
+    "category": "Skills and talents",
+    "_id": "V_o8-3pv"
+  },
+  {
+    "gene": "What three words would others use to describe you?",
+    "category": "Skills and talents",
+    "_id": "gGlahPTD"
+  },
+  {
+    "gene": "What talent do you wish you had?",
+    "category": "Skills and talents",
+    "_id": "ZPa8FNVn"
+  },
+  {
+    "gene": "Which talent would you most like to have?",
+    "category": "Skills and talents",
+    "_id": "KHWoxdCj"
+  },
+  {
+    "gene": "How would you like to die?",
+    "category": "Hopes and wishes",
+    "_id": "9gqPolOI"
+  },
+  {
+    "gene": "If you could change one thing about yourself, what would it be?",
+    "category": "Hopes and wishes",
+    "_id": "ewq3O2bl"
+  },
+  {
+    "gene": "If you were to die and come back as a person or a thing, what would it be?",
+    "category": "Hopes and wishes",
+    "_id": "UgjuacyR"
+  },
+  {
+    "gene": "Where would you most like to live?",
+    "category": "Hopes and wishes",
+    "_id": "nh2lFubz"
+  },
+  {
+    "gene": "What is your current long term goal?",
+    "category": "Hopes and wishes",
+    "_id": "UfCGzSye"
+  },
+  {
+    "gene": "What is your current short term goal?",
+    "category": "Hopes and wishes",
+    "_id": "melfy34R"
+  },
+  {
+    "gene": "Are you an optimist or a pessimist?",
+    "category": "Hopes and wishes",
+    "_id": "fx3h-cfY"
+  },
+  {
+    "gene": "Do you think the future is hopeful?",
+    "category": "Hopes and wishes",
+    "_id": "eddoD8QH"
+  },
+  {
+    "gene": "What would you do with a million dollars?",
+    "category": "Hopes and wishes",
+    "_id": "EbyLR3D1"
+  },
+  {
+    "gene": "What would you wish for if you found a genie?",
+    "category": "Hopes and wishes",
+    "_id": "2JdtKeFJ"
+  },
+  {
+    "gene": "Do you have a lifelong dream or aspiration?",
+    "category": "Hopes and wishes",
+    "_id": "wZSJ5AYN"
+  },
+  {
+    "gene": "What do you most want to accomplish in your lifetime?",
+    "category": "Hopes and wishes",
+    "_id": "kWtuQL1Q"
+  },
+  {
+    "gene": "Where do you see yourself in five years?",
+    "category": "Hopes and wishes",
+    "_id": "rjiz9FWz"
+  },
+  {
+    "gene": "How do you want to be remembered?",
+    "category": "Hopes and wishes",
+    "_id": "xTBGbzOr"
+  },
+  {
+    "gene": "If you could choose how you die, what would you choose?",
+    "category": "Hopes and wishes",
+    "_id": "Lb4zL9CY"
+  },
+  {
+    "gene": "If you were going to die in 24 hours, what three things would you choose to do?",
+    "category": "Hopes and wishes",
+    "_id": "U1TZkbdO"
+  },
+  {
+    "gene": "What is the one thing you’d most like to change about the world?",
+    "category": "Hopes and wishes",
+    "_id": "YB0zN6aA"
+  },
+  {
+    "gene": "What one thing have you not done that you really want to do?  What’s stopping you?",
+    "category": "Hopes and wishes",
+    "_id": "8tyaKB_2"
+  },
+  {
+    "gene": "Do you tend to save or spend your money (and why)?",
+    "category": "Things in your life",
+    "_id": "hYwEVc70"
+  },
+  {
+    "gene": "What is your most prized possession (valuable or mundane)? Why do you value it?",
+    "category": "Things in your life",
+    "_id": "HbaDWhd1"
+  },
+  {
+    "gene": "Do you own a car? If so, what kind?",
+    "category": "Things in your life",
+    "_id": "zSisRQOU"
+  },
+  {
+    "gene": "What is your greatest extravagance?",
+    "category": "Things in your life",
+    "_id": "muy45AkG"
+  },
+  {
+    "gene": "What would be the perfect gift for you?",
+    "category": "Things in your life",
+    "_id": "i2NiP4X-"
+  },
+  {
+    "gene": "What in this world do you dislike most?",
+    "category": "Likes and dislikes",
+    "_id": "aVfw2Uz5"
+  },
+  {
+    "gene": "What makes you laugh out loud?",
+    "category": "Likes and dislikes",
+    "_id": "5Fs5J68l"
+  },
+  {
+    "gene": "Do you have a favorite band?",
+    "category": "Likes and dislikes",
+    "_id": "gCnrijhU"
+  },
+  {
+    "gene": "What album have you listened to more than any other?",
+    "category": "Likes and dislikes",
+    "_id": "JITl3Vvw"
+  },
+  {
+    "gene": "What’s your theme song?",
+    "category": "Likes and dislikes",
+    "_id": "9m6gT7cT"
+  },
+  {
+    "gene": "What was your favorite toy?",
+    "category": "Likes and dislikes",
+    "_id": "b2Cz5FcW"
+  },
+  {
+    "gene": "What was your favorite game?",
+    "category": "Likes and dislikes",
+    "_id": "KaIAzBR2"
+  },
+  {
+    "gene": "What is your favorite and least favorite color? ",
+    "category": "Likes and dislikes",
+    "_id": "0dVViXDA"
+  },
+  {
+    "gene": "What is your favorite and least favorite sound?",
+    "category": "Likes and dislikes",
+    "_id": "tc7F6j1T"
+  },
+  {
+    "gene": "What is your favorite and least favorite scent?",
+    "category": "Likes and dislikes",
+    "_id": "QrBrOu1q"
+  },
+  {
+    "gene": "Which words or phrases do you most overuse?",
+    "category": "Likes and dislikes",
+    "_id": "ECfkc7I1"
+  },
+  {
+    "gene": "Are you a dog or a cat person?",
+    "category": "Likes and dislikes",
+    "_id": "FmYTzzK9"
+  },
+  {
+    "gene": "What kind of weather do you like?",
+    "category": "Likes and dislikes",
+    "_id": "kYoJjRpF"
+  },
+  {
+    "gene": "What's your favorite animal? Why?",
+    "category": "Likes and dislikes",
+    "_id": "aKchOrTN"
+  },
+  {
+    "gene": "Do you have any pets? ",
+    "category": "Likes and dislikes",
+    "_id": "ED_jjdSr"
+  },
+  {
+    "gene": "What is your favorite season?",
+    "category": "Likes and dislikes",
+    "_id": "gJu1efox"
+  },
+  {
+    "gene": "What is your favorite mode of transportation?",
+    "category": "Likes and dislikes",
+    "_id": "Nwqg5TrA"
+  },
+  {
+    "gene": "Do you have any strong biases or preferences?",
+    "category": "Likes and dislikes",
+    "_id": "zX6LvuhX"
+  },
+  {
+    "gene": "Is there anything you absolutely refuse to do under any circumstances?",
+    "category": "Likes and dislikes",
+    "_id": "eWCVZFFh"
+  },
+  {
+    "gene": "What are your pet peeves?",
+    "category": "Likes and dislikes",
+    "_id": "voGugBc9"
+  },
+  {
+    "gene": "What are your favorite names?",
+    "category": "Likes and dislikes",
+    "_id": "4pDjGp8P"
+  },
+  {
+    "gene": "What is your idea of perfect happiness?",
+    "category": "Big picture: Good and evil and happiness and life",
+    "_id": "OPZL_bl0"
+  },
+  {
+    "gene": "Would you rather lose all of your old memories, or never be able to make new ones?",
+    "category": "Big picture: Good and evil and happiness and life",
+    "_id": "-Z_eSLfR"
+  },
+  {
+    "gene": "Is it possible to know the truth without challenging it first?",
+    "category": "Big picture: Good and evil and happiness and life",
+    "_id": "2xWyn5zT"
+  },
+  {
+    "gene": "Is it possible to know, without a doubt, what is good and what is evil?",
+    "category": "Big picture: Good and evil and happiness and life",
+    "_id": "Uourvjwg"
+  },
+  {
+    "gene": "Would you rather be a worried genius or a joyful simpleton?",
+    "category": "Big picture: Good and evil and happiness and life",
+    "_id": "jsAd4BeQ"
+  },
+  {
+    "gene": "What do you consider the most overrated virtue?",
+    "category": "Big picture: Good and evil and happiness and life",
+    "_id": "0tWI01_t"
+  },
+  {
+    "gene": "Do you feel like mistakes are a positive or a negative?",
+    "category": "Big picture: Good and evil and happiness and life",
+    "_id": "1GVngNv1"
+  },
+  {
+    "gene": "What do you think happens after we die?",
+    "category": "Big picture: Good and evil and happiness and life",
+    "_id": "DfhNbua8"
+  },
+  {
+    "gene": "If you could offer a newborn child only one piece of advice, what would it be?",
+    "category": "Big picture: Good and evil and happiness and life",
+    "_id": "XjlgLbqK"
+  },
+  {
+    "gene": "If happiness was the national currency, what kind of work would make you rich?",
+    "category": "Big picture: Good and evil and happiness and life",
+    "_id": "Ds_i9U3Y"
+  },
+  {
+    "gene": "Are you doing what you believe in, or are you settling for what you are doing?",
+    "category": "Big picture: Good and evil and happiness and life",
+    "_id": "h0KV8w6Z"
+  },
+  {
+    "gene": "How would you live your life differently if the average human life span was 40 years?",
+    "category": "Big picture: Good and evil and happiness and life",
+    "_id": "sGc4m8ac"
+  },
+  {
+    "gene": "Are you more worried about doing things right, or doing the right things?",
+    "category": "Big picture: Good and evil and happiness and life",
+    "_id": "evZuoo8Q"
+  },
+  {
+    "gene": "Would you break the law to save a loved one?",
+    "category": "Big picture: Good and evil and happiness and life",
+    "_id": "rx6uzmXW"
+  },
+  {
+    "gene": "Have you ever seen insanity where you later saw creativity?",
+    "category": "Big picture: Good and evil and happiness and life",
+    "_id": "jlih4hTN"
+  },
+  {
+    "gene": "How come the things that make you happy don’t make everyone happy?",
+    "category": "Big picture: Good and evil and happiness and life",
+    "_id": "uc1xbcse"
+  },
+  {
+    "gene": "What is your responsibility to the world, if any? Why do you think that?",
+    "category": "Big picture: Good and evil and happiness and life",
+    "_id": "bgrOZEaQ"
+  },
+  {
+    "gene": "What do you think makes a successful life?",
+    "category": "Big picture: Good and evil and happiness and life",
+    "_id": "j85vHu0R"
+  },
+  {
+    "gene": "Do you think redemption is possible?",
+    "category": "Big picture: Good and evil and happiness and life",
+    "_id": "j-TT2pce"
+  },
+  {
+    "gene": "Who (or what) would you die for?",
+    "category": "Big picture: Good and evil and happiness and life",
+    "_id": "ewa_8aqv"
+  },
+  {
+    "gene": "What is the worst thing that could possibly happen to you? ",
+    "category": "Big picture: Good and evil and happiness and life",
+    "_id": "A7vTN4DH"
+  },
+  {
+    "gene": "Which is worse, failing or never trying?",
+    "category": "Big picture: Good and evil and happiness and life",
+    "_id": "fNcOa4Ec"
+  },
+  {
+    "gene": "When it’s all said and done, will you have said more than you’ve done?",
+    "category": "Big picture: Good and evil and happiness and life",
+    "_id": "dwiSNYZ4"
+  },
+  {
+    "gene": "Are you holding onto something you need to let go of?",
+    "category": "Big picture: Good and evil and happiness and life",
+    "_id": "9g9zAuMh"
+  }
+]
