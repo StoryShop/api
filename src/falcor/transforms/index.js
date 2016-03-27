@@ -112,3 +112,9 @@ export const setWithinArray = ( collection, field, props, user ) => db => {
     ;
 };
 
+export const addIndex = () => {
+  let idx = 0;
+
+  return item => ({ idx: idx++, ...item });
+};
+

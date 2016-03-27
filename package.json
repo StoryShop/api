@@ -12,7 +12,8 @@
     "data:characters": "mongoimport --db dev --drop --jsonArray --type json --file fixtures/characters.json --collection characters",
     "data:genes": "mongoimport --db dev --drop --jsonArray --type json --file fixtures/genes.json --collection genes",
     "data:users": "mongoimport --db dev --drop --jsonArray --type json --file fixtures/users.json --collection users",
-    "data": "npm run data:worlds && npm run data:characters && npm run data:users && npm run data:outlines && npm run data:genes"
+    "data:elements": "mongoimport --db dev --drop --jsonArray --type json --file fixtures/elements.json --collection elements",
+    "data": "npm run data:worlds && npm run data:characters && npm run data:users && npm run data:outlines && npm run data:elements && npm run data:genes"
   },
   "repository": {
     "type": "git",
