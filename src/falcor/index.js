@@ -4,6 +4,7 @@ import worlds from './worlds';
 import users from './users';
 import characters from './characters';
 import outlines from './outlines';
+import elements from './elements';
 
 export default db => falcorExpress.dataSourceRoute( ( req, res ) => new Router(
   []
@@ -11,5 +12,6 @@ export default db => falcorExpress.dataSourceRoute( ( req, res ) => new Router(
     .concat( worlds( db, req, res ) )
     .concat( characters( db, req, res ) )
     .concat( outlines( db, req, res ) )
+    .concat( elements( db, req, res ) )
 ));
 
