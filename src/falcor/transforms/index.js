@@ -69,7 +69,7 @@ export const withComponentCounts = fields => item => {
     _id: item._id,
   };
 
-  fields.forEach( field => counts[ field ] = item[ field ].length );
+  fields.forEach( field => counts[ field ] = item[ field ] ? item[ field ].length : 0 );
 
   return Observable.just( counts );
 };
