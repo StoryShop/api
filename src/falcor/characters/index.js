@@ -27,7 +27,7 @@ export default ( db, req, res ) => {
         ,
     },
     {
-      route: 'charactersById[{keys:ids}]["genes", "attributes"].length',
+      route: 'charactersById[{keys:ids}]["genes", "attributes","relationships"].length',
       get: pathSet => db
         .flatMap( getProps( 'characters', pathSet.ids, user ) )
         .flatMap( withComponentCounts( pathSet[ 2 ] ) )
@@ -56,6 +56,14 @@ export default ( db, req, res ) => {
       set: pathSet => db
         .flatMap( setWithinArray( 'characters', 'genes', pathSet.charactersById, user ) )
         .flatMap( toPathValues( 'genes', ( i, f ) => [ 'charactersById', i._id, f, i.idx ] ) )
+        ,
+    },
+    {
+      route: 'charactersById[{keys:ids}].relationships[{integers:indices}]',
+      get: pathSet => db
+        .flatMap( getProps( 'characters', pathSet.ids, user ) )
+        .flatMap( getWithinArray( 'relationships', pathSet.indices ) )
+        .flatMap( toPathValues( 'relationships', ( i, f ) => [ 'charactersById', i._id, f, i.idx ] ) )
         ,
     },
   ];

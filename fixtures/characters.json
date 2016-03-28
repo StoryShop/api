@@ -57,7 +57,8 @@
 
     "relationships": [
       {
-        "character": "NyF0uS0Rjg",
+        "_id": "NyF0uS0Rjg",
+        "name": "Snuffy",
         "description": "Friend"
       }
     ]
@@ -70,6 +71,15 @@
     "writers": [
       "EJA_S0Cie",
       "N1g5eSETx"
+    ],
+
+    "relationships": [
+      {
+        "_id": "4yUR_r0Col",
+        "name": "Big Bird",
+        "avatar": "https://s3-us-west-2.amazonaws.com/uploads-dev.storyshopapp.com/Big-Bird1.jpg",
+        "description": "Friend"
+      }
     ]
   }
 ]
