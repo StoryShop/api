@@ -13,14 +13,14 @@ export default ( db, req, res ) => {
 
   return [
     {
-      route: 'charactersById[{keys:ids}]["_id", "name", "aliases", "avatar", "content"]',
+      route: 'charactersById[{keys:ids}]["_id", "name", "aliases", "avatar", "cover", "content"]',
       get: pathSet => db
         .flatMap( getProps( 'characters', pathSet.ids, user ) )
         .flatMap( toPathValues( pathSet[ 2 ], ( i, f ) => [ 'charactersById', i._id, f ] ) )
         ,
     },
     {
-      route: 'charactersById[{keys:ids}]["name", "aliases", "avatar", "content"]',
+      route: 'charactersById[{keys:ids}]["name", "aliases", "avatar", "cover", "content"]',
       set: pathSet => db
         .flatMap( setProps( 'characters', pathSet.charactersById, user ) )
         .flatMap( toPathValues( i => keys( pathSet.charactersById[ i._id ] ), ( i, f ) => [ 'charactersById', i._id, f ] ) )
