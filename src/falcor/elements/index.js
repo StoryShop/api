@@ -16,7 +16,6 @@ export default ( db, req, res ) => {
       route: 'elementsById[{keys:ids}]["_id", "title", "content", "cover", "tags"]',
       get: pathSet => db
         .flatMap( getProps( 'elements', pathSet.ids, user ) )
-        .tap(v=>console.log("el", v))
         .flatMap( toPathValues( pathSet[ 2 ], ( i, f ) => [ 'elementsById', i._id, f ] ) )
         ,
     },
