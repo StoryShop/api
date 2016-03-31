@@ -1,3 +1,184 @@
 [
-{}
+  {
+    "_id": "0NNwcLYim0",
+    "title": "Austin, Texas",
+    "cover": "https://s3-us-west-2.amazonaws.com/uploads-dev.storyshopapp.com/element-austin.jpg",
+
+    "readers": [
+    ],
+
+    "writers": [
+      "EJA_S0Cie",
+      "N1g5eSETx"
+    ],
+
+    "tags": [
+      "places",
+      "cities"
+    ],
+
+    "content": {
+      "entityMap": {},
+      "blocks": [
+        {
+          "key": "3456",
+          "text": "Austin, on the eastern edge of Texas Hill Country, is not only the state capital, but lays claim to being the 'live music capital of the world.' It’s also a center for film and home to the University of Texas and Formula 1's Circuit of the Americas raceway. Its abundant parks and lakes are popular for hiking, biking, swimming, boating and other outdoor pursuits.",
+          "type": "unstyled",
+          "depth": 0,
+          "inlineStyleRanges": [],
+          "entityRanges": []
+        }
+      ]
+    }
+  },
+  {
+    "_id": "0N91ULYimG",
+    "title": "SoCo Bridge Bats",
+    "cover": "https://s3-us-west-2.amazonaws.com/uploads-dev.storyshopapp.com/element-bats.jpg",
+
+    "readers": [
+    ],
+
+    "writers": [
+      "EJA_S0Cie",
+      "N1g5eSETx"
+    ],
+
+    "tags": [
+      "animals",
+      "attractions",
+      "places",
+      "weirdness",
+      "soco"
+    ],
+
+    "content": {
+      "entityMap": {},
+      "blocks": [
+        {
+          "key": "4456",
+          "text": "Bat enthusiasts from all over the world travel to Austin, Texas every summer to attend and participate in the annual Austin Bat Festival, or also known as Austin Bat Fest to most bat enthusiasts. Whether a bat enthusiast or not, many just love to take in an evening view of bats in Austin as one of the many local Austin, Texas attractions. Simply put, people are batty for Austin's world-renowned Mexico free-tailed bats and their night flight of 60-plus miles per hour and 2-mile high flight patterns, and feeding frenzy of Austin insects.",
+          "type": "unstyled",
+          "depth": 0,
+          "inlineStyleRanges": [],
+          "entityRanges": []
+        }
+      ]
+    }
+  },
+  {
+    "_id": "AZE7Tvk3fl",
+    "title": "South Congress (SoCo)",
+    "cover": "https://s3-us-west-2.amazonaws.com/uploads-dev.storyshopapp.com/element-soco.jpg",
+
+    "readers": [
+    ],
+
+    "writers": [
+      "EJA_S0Cie",
+      "N1g5eSETx"
+    ],
+
+    "tags": [
+      "attractions",
+      "places",
+      "soco"
+    ],
+
+    "content": {
+      "entityMap": {},
+      "blocks": [
+        {
+          "key": "5456",
+          "text": "South Congress is a neighborhood located on South Congress Avenue in Austin, Texas, United States. It is also a nationally known shopping and cultural district famous for its many eclectic small retailers, restaurants, music and art venues and, more recently, food trucks.",
+          "type": "unstyled",
+          "depth": 0,
+          "inlineStyleRanges": [],
+          "entityRanges": []
+        },
+        {
+          "key": "5556",
+          "text": "South Congress begins at the Colorado River and Ann W. Richards Congress Avenue Bridge and runs due south towards Ben White Boulevard/TX-71. The area bordered by two historic South Austin neighborhoods: Travis Heights to the east and Bouldin Creek to the west.",
+          "type": "unstyled",
+          "depth": 0,
+          "inlineStyleRanges": [],
+          "entityRanges": []
+        },
+        {
+          "key": "5656",
+          "text": "Since its humble beginnings in the 1850s, South Congress Avenue has been transformed from a rural country road to the capital city gateway and, finally, to the vibrant shopping district that it is today. Many Austinites attribute its enduring popularity to the magnificent and unobstructed view of the Texas State Capitol.",
+          "type": "unstyled",
+          "depth": 0,
+          "inlineStyleRanges": [],
+          "entityRanges": []
+        }
+      ]
+    }
+  },
+  {
+    "_id": "gjasVYLhxv",
+    "title": "Vuka",
+    "cover": "https://s3-us-west-2.amazonaws.com/uploads-dev.storyshopapp.com/element-vuka.jpg",
+
+    "readers": [
+    ],
+
+    "writers": [
+      "EJA_S0Cie",
+      "N1g5eSETx"
+    ],
+
+    "tags": [
+      "attractions",
+      "places",
+      "weirdness",
+      "soco"
+    ],
+
+    "content": {
+      "entityMap": {},
+      "blocks": [
+        {
+          "key": "7456",
+          "text": "Vuka is a hospitality-driven event venue in the heart of south Austin. Located between South First and South Congress, we host events both big and small including fundraisers, weddings, conferences, workshops, premiers, parties and whatever you can dream of. Our flexible space includes comfortable seating, quality furnishings, fast WiFi, prep kitchen, spacious backyard, breakout rooms and Venue Manager to help you the day of. You can host an event with us based on availability, 7 days a week.",
+          "type": "unstyled",
+          "depth": 0,
+          "inlineStyleRanges": [],
+          "entityRanges": []
+        }
+      ]
+    }
+  },
+  {
+    "_id": "jaWu9rLhbg",
+    "title": "Wyndham",
+    "cover": "https://s3-us-west-2.amazonaws.com/uploads-dev.storyshopapp.com/element-wyndham.jpg",
+
+    "readers": [
+    ],
+
+    "writers": [
+      "EJA_S0Cie",
+      "N1g5eSETx"
+    ],
+
+    "tags": [
+      "places",
+      "soco"
+    ],
+
+    "content": {
+      "entityMap": {},
+      "blocks": [
+        {
+          "key": "8456",
+          "text": "Guests of the Wyndham Garden Austin hotel are bound to experience Central Texas at its best. This 100% smoke-free and pet-friendly hotel is just three miles from downtown Austin, including the 6th Street district, and features original art of the city’s most famous musicians in the lobby. A location just four miles from Austin-Bergstrom International Airport makes a stay here in the capital of Texas that much easier.",
+          "type": "unstyled",
+          "depth": 0,
+          "inlineStyleRanges": [],
+          "entityRanges": []
+        }
+      ]
+    }
+  }
 ]
