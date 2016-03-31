@@ -27,28 +27,28 @@
 
     "genes": [
       {
-        "gene": "What is your social status?",
-        "allele": "A freak of nature, yet somehow beloved."
+        "gene": "Would you rather be a worried genius or a joyful simpleton?",
+        "allele": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris quis ipsum a turpis varius ultricies. Phasellus ac purus et metus lobortis malesuada id in orci."
       },
       {
-        "gene": "What is your happiest memory?",
-        "allele": "When everyone acknowledged @Snuffy was real."
+        "gene": "What do you think happens after we die?",
+        "allele": "Aliquam erat volutpat. Curabitur efficitur mollis orci in efficitur. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut a egestas nibh.."
       },
       {
-        "gene": "What do you think about Donald Trump?",
-        "allele": "I think he is just terrific."
+        "gene": "What do you think makes a successful life?",
+        "allele": "Mauris at pretium magna. Sed id nibh vestibulum, malesuada neque eu, dapibus lorem. Vivamus mattis, odio a posuere eleifend, ex velit pretium felis, ut condimentum erat libero id arcu. Suspendisse vulputate nulla efficitur, faucibus nulla vel, viverra velit. Nam a faucibus lorem."
       },
       {
-        "gene": "What is your favourite pastime?",
-        "allele": "Writing poems"
+        "gene": "Do you have any strong biases or preferences?",
+        "allele": "Etiam a ex vehicula, placerat tortor a, accumsan ligula. Nulla in orci rutrum nunc finibus sollicitudin. Pellentesque non ultricies risus. Donec felis eros, finibus ut venenatis ac, lacinia ut nulla."
       },
       {
-        "gene": "What is average windspeed velocity of an unlaiden swallow?",
-        "allele": "African or European?"
+        "gene": "Which living person do you loathe?",
+        "allele": "Praesent non ante blandit, suscipit dolor id, vestibulum leo. Nam dignissim volutpat purus, non fermentum eros suscipit et. Suspendisse sapien arcu, maximus quis lorem at, congue faucibus arcu."
       },
       {
-        "gene": "What is your favourite insult?",
-        "allele": "Your mother was a hamster and your father smelled of elderberries!"
+        "gene": "How much schooling have you had?",
+        "allele": "Suspendisse at vestibulum dui. Quisque libero nulla, volutpat eget tortor eget, facilisis varius ante. Duis nunc felis, commodo et venenatis nec, imperdiet et tellus. Vestibulum laoreet finibus est, ac pulvinar turpis vestibulum at. Vestibulum porttitor vehicula elit. Curabitur rhoncus finibus turpis, id dignissim libero facilisis a."
       }
     ],
 
@@ -56,25 +56,16 @@
       "entityMap": {},
       "blocks": [
         {
-          "key": "2234",
-          "text": "He loves Commander Riker. Here are some of his favourite quotes:",
-          "type": "unstyled",
+          "key": "3234",
+          "text": "More about Sean",
+          "type": "heading-2",
           "depth": 0,
           "inlineStyleRanges": [],
           "entityRanges": []
         },
         {
-          "key": "2236",
-          "text": "The look in your eyes, I recognize it. You used to have it for me. Captain, why are we out here chasing comets? Fear is the true enemy, the only enemy.",
-          "type": "unstyled",
-          "depth": 0,
-          "inlineStyleRanges": [],
-          "entityRanges": []
-        },
-        {
-          "key": "2235",
-          "text": "Sure. You'd be surprised how far a hug goes with Geordi, or Worf. and attack the Romulans. Fear is the true enemy, the only enemy. Some days you get the bear, and some days the bear gets you. Maybe if we felt any human loss as keenly as we feel one of those close to us, human history would be far less bloody. That might've been one of the shortest assignments in the history of Starfleet.",
-          "type": "unstyled",
+          "key": "3236",
+          "text": "Sean has been writing professionally since 2008, when his wife gave him a Macbook and encouraged him to just start writing. Sean paints this as a loving gesture, but Johnny thinks that Cindy was mainly trying to get Sean to close himself in a room and “talk” through his fingers rather than chattering nonstop to her every damn minute of every damn day.",
           "depth": 0,
           "inlineStyleRanges": [],
           "entityRanges": []
@@ -123,28 +114,28 @@
 
     "genes": [
       {
-        "gene": "What is your social status?",
-        "allele": "A freak of nature, yet somehow beloved."
+        "gene": "When and where were you happiest?",
+        "allele": "Vivamus suscipit leo eu gravida cursus. Etiam vehicula odio ut lorem molestie ultricies. Vivamus vitae rhoncus turpis, sit amet volutpat mi. Morbi elementum elit vitae enim pellentesque, nec mollis mi faucibus."
       },
       {
         "gene": "What is your happiest memory?",
-        "allele": "When everyone acknowledged @Snuffy was real."
+        "allele": "Suspendisse ac orci urna. Morbi eleifend ligula ac nulla malesuada faucibus. Ut ultricies, quam et mollis scelerisque, quam sapien cursus sem, sed rhoncus massa lectus non purus. Integer nisl odio, laoreet sit amet sagittis non, congue vitae est. Suspendisse a elementum lacus, sit amet fermentum mi. Nunc in nulla et quam ullamcorper efficitur. Sed id augue non lorem pulvinar tincidunt. Donec vitae nunc quis mauris laoreet consequat."
       },
       {
-        "gene": "What do you think about Donald Trump?",
-        "allele": "I think he is just terrific."
+        "gene": "When's the last time you saw any member of your family?",
+        "allele": "Duis faucibus eros a leo semper, vel imperdiet dolor interdum. Vivamus efficitur orci in dui ullamcorper, eu gravida sapien hendrerit.  Nullam quam orci, porta vel commodo sed, ultrices in tellus. Pellentesque commodo dignissim venenatis. Fusce posuere fringilla consectetur. Etiam et mauris enim."
       },
       {
-        "gene": "What is your favourite pastime?",
-        "allele": "Writing poems"
+        "gene": "What is the biggest changing point in your life?",
+        "allele": "Integer auctor dolor augue, a condimentum augue faucibus et. Maecenas dolor lectus, consequat eget augue eu, laoreet facilisis nisl. Suspendisse id gravida libero. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam massa metus, hendrerit vel maximus nec, maximus id odio. Interdum et malesuada fames ac ante ipsum primis in faucibus"
       },
       {
         "gene": "What is average windspeed velocity of an unlaiden swallow?",
         "allele": "African or European?"
       },
       {
-        "gene": "What is your favourite insult?",
-        "allele": "Your mother was a hamster and your father smelled of elderberries!"
+        "gene": "What, if anything, shocks or offends you?",
+        "allele": "Vestibulum pellentesque justo quis auctor aliquet. Sed dapibus quis orci quis ornare. Donec dapibus at velit at auctor. Phasellus feugiat id mauris ut lacinia. Phasellus finibus, justo vitae gravida faucibus, mi ante pulvinar est, quis mattis nulla mauris suscipit elit."
       }
     ],
 
@@ -153,24 +144,15 @@
       "blocks": [
         {
           "key": "2234",
-          "text": "He loves Commander Riker. Here are some of his favourite quotes:",
-          "type": "unstyled",
+          "text": "More about Johnny",
+          "type": "heading-2",
           "depth": 0,
           "inlineStyleRanges": [],
           "entityRanges": []
         },
         {
           "key": "2236",
-          "text": "The look in your eyes, I recognize it. You used to have it for me. Captain, why are we out here chasing comets? Fear is the true enemy, the only enemy.",
-          "type": "unstyled",
-          "depth": 0,
-          "inlineStyleRanges": [],
-          "entityRanges": []
-        },
-        {
-          "key": "2235",
-          "text": "Sure. You'd be surprised how far a hug goes with Geordi, or Worf. and attack the Romulans. Fear is the true enemy, the only enemy. Some days you get the bear, and some days the bear gets you. Maybe if we felt any human loss as keenly as we feel one of those close to us, human history would be far less bloody. That might've been one of the shortest assignments in the history of Starfleet.",
-          "type": "unstyled",
+          "text": "Johnny has always wanted to be a writer and began creating fiction in 1999, slogging through the traditional publishing process. In 2012, he teamed up with machine-writers Sean and Dave on the Self Publishing Podcast and something clicked. Working both alone and with Sean, Johnny wrote and published around 1.5 million words in 2013. Solo books include The Bialy Pimps and the 6-book Fat Vampire series.",
           "depth": 0,
           "inlineStyleRanges": [],
           "entityRanges": []

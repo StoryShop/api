@@ -1,7 +1,7 @@
 [
   {
     "_id": "D0N1iLYimG",
-    "title": "The First Chapter",
+    "title": "Hero's Journey",
 
     "readers": [
     ],
@@ -15,24 +15,192 @@
       "entityMap": {},
       "blocks": [
         {
-          "key": "1234",
-          "text": "He loves Commander Riker. Here are some of his favourite quotes:",
+          "key": "1111",
+          "text": "The Ordinary World",
+          "type": "header-two",
+          "depth": 0,
+          "inlineStyleRanges": [],
+          "entityRanges": []
+        },
+        {
+          "key": "1112",
+          "text": "The hero, uneasy, uncomfortable or unaware, is introduced sympathetically so the audience can identify with the situation or dilemma.  The hero is shown against a background of environment, heredity, and personal history.  Some kind of polarity in the hero’s life is pulling in different directions and causing stress.",
           "type": "unstyled",
           "depth": 0,
           "inlineStyleRanges": [],
           "entityRanges": []
         },
         {
-          "key": "1236",
-          "text": "The look in your eyes, I recognize it. You used to have it for me. Captain, why are we out here chasing comets? Fear is the true enemy, the only enemy.",
+          "key": "2111",
+          "text": "The Call To Adventure",
+          "type": "header-two",
+          "depth": 0,
+          "inlineStyleRanges": [],
+          "entityRanges": []
+        },
+        {
+          "key": "2112",
+          "text": "Something shakes up the situation, either from external pressures or from something rising up from deep within, so the hero must face the beginnings of change.",
           "type": "unstyled",
           "depth": 0,
           "inlineStyleRanges": [],
           "entityRanges": []
         },
         {
-          "key": "1235",
-          "text": "Sure. You'd be surprised how far a hug goes with Geordi, or Worf. and attack the Romulans. Fear is the true enemy, the only enemy. Some days you get the bear, and some days the bear gets you. Maybe if we felt any human loss as keenly as we feel one of those close to us, human history would be far less bloody. That might've been one of the shortest assignments in the history of Starfleet.",
+          "key": "3111",
+          "text": "Refusal Of The Call",
+          "type": "header-two",
+          "depth": 0,
+          "inlineStyleRanges": [],
+          "entityRanges": []
+        },
+        {
+          "key": "3112",
+          "text": "The hero feels the fear of the unknown and tries to turn away from the adventure, however briefly.  Alternately, another character may express the uncertainty and danger ahead.",
+          "type": "unstyled",
+          "depth": 0,
+          "inlineStyleRanges": [],
+          "entityRanges": []
+        },
+        {
+          "key": "4111",
+          "text": "Meeting With The Mentor",
+          "type": "header-two",
+          "depth": 0,
+          "inlineStyleRanges": [],
+          "entityRanges": []
+        },
+        {
+          "key": "4112",
+          "text": "The hero comes across a seasoned traveler of the worlds who gives him or her training, equipment, or advice that will help on the journey.  Or the hero reaches within to a source of courage and wisdom.",
+          "type": "unstyled",
+          "depth": 0,
+          "inlineStyleRanges": [],
+          "entityRanges": []
+        },
+        {
+          "key": "5111",
+          "text": "Crossing The Threshold",
+          "type": "header-two",
+          "depth": 0,
+          "inlineStyleRanges": [],
+          "entityRanges": []
+        },
+        {
+          "key": "5112",
+          "text": "At the end of Act One, the hero commits to leaving the Ordinary World and entering a new region or condition with unfamiliar rules and values.",
+          "type": "unstyled",
+          "depth": 0,
+          "inlineStyleRanges": [],
+          "entityRanges": []
+        },
+        {
+          "key": "6111",
+          "text": "Tests, Allies & Enemies",
+          "type": "header-two",
+          "depth": 0,
+          "inlineStyleRanges": [],
+          "entityRanges": []
+        },
+        {
+          "key": "6112",
+          "text": "The hero is tested and sorts out allegiances in the Special World.",
+          "type": "unstyled",
+          "depth": 0,
+          "inlineStyleRanges": [],
+          "entityRanges": []
+        },
+        {
+          "key": "7111",
+          "text": "Approach",
+          "type": "header-two",
+          "depth": 0,
+          "inlineStyleRanges": [],
+          "entityRanges": []
+        },
+        {
+          "key": "7112",
+          "text": "The hero and newfound allies prepare for the major challenge in the Special world.",
+          "type": "unstyled",
+          "depth": 0,
+          "inlineStyleRanges": [],
+          "entityRanges": []
+        },
+        {
+          "key": "8111",
+          "text": "The Ordeal",
+          "type": "header-two",
+          "depth": 0,
+          "inlineStyleRanges": [],
+          "entityRanges": []
+        },
+        {
+          "key": "8112",
+          "text": "Near the middle of the story, the hero enters a central space in the Special World and confronts death or faces his or her greatest fear.  Out of the moment of death comes a new life.",
+          "type": "unstyled",
+          "depth": 0,
+          "inlineStyleRanges": [],
+          "entityRanges": []
+        },
+        {
+          "key": "9111",
+          "text": "The Reward",
+          "type": "header-two",
+          "depth": 0,
+          "inlineStyleRanges": [],
+          "entityRanges": []
+        },
+        {
+          "key": "9112",
+          "text": "The hero takes possession of the treasure won by facing death.  There may be celebration, but there is also danger of losing the treasure again.",
+          "type": "unstyled",
+          "depth": 0,
+          "inlineStyleRanges": [],
+          "entityRanges": []
+        },
+        {
+          "key": "1011",
+          "text": "The Road Back",
+          "type": "header-two",
+          "depth": 0,
+          "inlineStyleRanges": [],
+          "entityRanges": []
+        },
+        {
+          "key": "1012",
+          "text": "About three-fourths of the way through the story, the hero is driven to complete the adventure, leaving the Special World to be sure the treasure is brought home.  Often a chase scene signals the urgency and danger of the mission.",
+          "type": "unstyled",
+          "depth": 0,
+          "inlineStyleRanges": [],
+          "entityRanges": []
+        },
+        {
+          "key": "0011",
+          "text": "The Resurrection",
+          "type": "header-two",
+          "depth": 0,
+          "inlineStyleRanges": [],
+          "entityRanges": []
+        },
+        {
+          "key": "0012",
+          "text": "At the climax, the hero is severely tested once more on the threshold of home.  He or she is purified by a last sacrifice, another moment of death and rebirth, but on a higher and more complete level.  By the hero’s action, the polarities that were in conflict at the beginning are finally resolved.",
+          "type": "unstyled",
+          "depth": 0,
+          "inlineStyleRanges": [],
+          "entityRanges": []
+        },
+        {
+          "key": "0911",
+          "text": "Return With The Elixir",
+          "type": "header-two",
+          "depth": 0,
+          "inlineStyleRanges": [],
+          "entityRanges": []
+        },
+        {
+          "key": "0912",
+          "text": "The hero returns home or continues the journey, bearing some element of the treasure that has the power to transform the world as the hero has been transformed.",
           "type": "unstyled",
           "depth": 0,
           "inlineStyleRanges": [],
