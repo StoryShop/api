@@ -1,12 +1,13 @@
 [
   {
-    "_id": "4yUR_r0Col",
-    "world": "N1x0dSRCjg",
-    "name": "Big Bird",
+    "_id": "LGlaHquq06",
+    "world": "BdvmHwZsvA",
+    "name": "Sean Platt",
     "aliases": [
-      "Yellow Beak"
+      "Sean"
     ],
-    "avatar": "https://s3-us-west-2.amazonaws.com/uploads-dev.storyshopapp.com/Big-Bird1.jpg",
+    "avatar": "https://s3-us-west-2.amazonaws.com/uploads-dev.storyshopapp.com/avatar-sean.jpg",
+    "cover": "https://s3-us-west-2.amazonaws.com/uploads-dev.storyshopapp.com/cover-unicorn.jpg",
 
     "readers": [
     ],
@@ -17,24 +18,20 @@
     ],
 
     "attributes": [
-      [ "feather colour", "yellow" ],
-      [ "height", "249cm" ],
-      [ "temperament", "easygoing" ],
+      [ "hair color", "brown" ],
+      [ "specialty", "razzamatazz" ],
+      [ "temperament", "fervid" ],
       [ "address", "123 Sesame Street" ],
-      [ "talents", "roller skating, ice skating, drawing" ],
-      [ "actor", "Caroll Spinney" ],
-      [ "debut", "1969" ]
+      [ "talents", "roller skating, ice skating, writing" ]
     ],
 
     "genes": [
       {
         "gene": "What is your social status?",
-        "ref": { "$oid": "93E4972F8AF17E053ECBB412" },
         "allele": "A freak of nature, yet somehow beloved."
       },
       {
         "gene": "What is your happiest memory?",
-        "ref": { "$oid": "7F0BABCFEC41E80C6F3959D1" },
         "allele": "When everyone acknowledged @Snuffy was real."
       },
       {
@@ -55,29 +52,225 @@
       }
     ],
 
+    "content": {
+      "entityMap": {},
+      "blocks": [
+        {
+          "key": "2234",
+          "text": "He loves Commander Riker. Here are some of his favourite quotes:",
+          "type": "unstyled",
+          "depth": 0,
+          "inlineStyleRanges": [],
+          "entityRanges": []
+        },
+        {
+          "key": "2236",
+          "text": "The look in your eyes, I recognize it. You used to have it for me. Captain, why are we out here chasing comets? Fear is the true enemy, the only enemy.",
+          "type": "unstyled",
+          "depth": 0,
+          "inlineStyleRanges": [],
+          "entityRanges": []
+        },
+        {
+          "key": "2235",
+          "text": "Sure. You'd be surprised how far a hug goes with Geordi, or Worf. and attack the Romulans. Fear is the true enemy, the only enemy. Some days you get the bear, and some days the bear gets you. Maybe if we felt any human loss as keenly as we feel one of those close to us, human history would be far less bloody. That might've been one of the shortest assignments in the history of Starfleet.",
+          "type": "unstyled",
+          "depth": 0,
+          "inlineStyleRanges": [],
+          "entityRanges": []
+        }
+      ]
+    },
+
     "relationships": [
       {
-        "_id": "NyF0uS0Rjg",
-        "name": "Snuffy",
+        "_id": "BAD4HvhOAR",
+        "name": "Johnny B. Truant",
+        "avatar": "https://s3-us-west-2.amazonaws.com/uploads-dev.storyshopapp.com/avatar-johnny.jpg",
+        "description": "Friend"
+      },
+      {
+        "_id": "kdwoHecrdy",
+        "avatar": "https://s3-us-west-2.amazonaws.com/uploads-dev.storyshopapp.com/avatar-dave.jpg",
+        "name": "David W. Wright",
         "description": "Friend"
       }
     ]
   },
   {
-    "_id": "NyF0uS0Rjg",
-    "world": "N1x0dSRCjg",
-    "name": "Snuffy",
+    "_id": "BAD4HvhOAR",
+    "world": "BdvmHwZsvA",
+    "name": "Johnny B. Truant",
+    "aliases": [
+      "Johnny"
+    ],
+    "avatar": "https://s3-us-west-2.amazonaws.com/uploads-dev.storyshopapp.com/avatar-johnny.jpg",
+    "cover": "https://s3-us-west-2.amazonaws.com/uploads-dev.storyshopapp.com/cover-villians.jpg",
+
+    "readers": [
+    ],
 
     "writers": [
       "EJA_S0Cie",
       "N1g5eSETx"
     ],
 
+    "attributes": [
+      [ "hair color", "varies" ],
+      [ "abs", "cut" ],
+      [ "temperament", "intense" ]
+    ],
+
+    "genes": [
+      {
+        "gene": "What is your social status?",
+        "allele": "A freak of nature, yet somehow beloved."
+      },
+      {
+        "gene": "What is your happiest memory?",
+        "allele": "When everyone acknowledged @Snuffy was real."
+      },
+      {
+        "gene": "What do you think about Donald Trump?",
+        "allele": "I think he is just terrific."
+      },
+      {
+        "gene": "What is your favourite pastime?",
+        "allele": "Writing poems"
+      },
+      {
+        "gene": "What is average windspeed velocity of an unlaiden swallow?",
+        "allele": "African or European?"
+      },
+      {
+        "gene": "What is your favourite insult?",
+        "allele": "Your mother was a hamster and your father smelled of elderberries!"
+      }
+    ],
+
+    "content": {
+      "entityMap": {},
+      "blocks": [
+        {
+          "key": "2234",
+          "text": "He loves Commander Riker. Here are some of his favourite quotes:",
+          "type": "unstyled",
+          "depth": 0,
+          "inlineStyleRanges": [],
+          "entityRanges": []
+        },
+        {
+          "key": "2236",
+          "text": "The look in your eyes, I recognize it. You used to have it for me. Captain, why are we out here chasing comets? Fear is the true enemy, the only enemy.",
+          "type": "unstyled",
+          "depth": 0,
+          "inlineStyleRanges": [],
+          "entityRanges": []
+        },
+        {
+          "key": "2235",
+          "text": "Sure. You'd be surprised how far a hug goes with Geordi, or Worf. and attack the Romulans. Fear is the true enemy, the only enemy. Some days you get the bear, and some days the bear gets you. Maybe if we felt any human loss as keenly as we feel one of those close to us, human history would be far less bloody. That might've been one of the shortest assignments in the history of Starfleet.",
+          "type": "unstyled",
+          "depth": 0,
+          "inlineStyleRanges": [],
+          "entityRanges": []
+        }
+      ]
+    },
+
     "relationships": [
       {
-        "_id": "4yUR_r0Col",
-        "name": "Big Bird",
-        "avatar": "https://s3-us-west-2.amazonaws.com/uploads-dev.storyshopapp.com/Big-Bird1.jpg",
+        "_id": "LGlaHquq06",
+        "avatar": "https://s3-us-west-2.amazonaws.com/uploads-dev.storyshopapp.com/avatar-sean.jpg",
+        "name": "Sean Platt",
+        "description": "Friend"
+      },
+      {
+        "_id": "kdwoHecrdy",
+        "name": "David W. Wright",
+        "avatar": "https://s3-us-west-2.amazonaws.com/uploads-dev.storyshopapp.com/avatar-dave.jpg",
+        "description": "Friend"
+      }
+    ]
+  },
+  {
+    "_id": "kdwoHecrdy",
+    "world": "BdvmHwZsvA",
+    "name": "David W. Wright",
+    "aliases": [
+      "REDACTED"
+    ],
+    "avatar": "https://s3-us-west-2.amazonaws.com/uploads-dev.storyshopapp.com/avatar-dave.jpg",
+    "cover": "https://s3-us-west-2.amazonaws.com/uploads-dev.storyshopapp.com/cover-redacted.jpg",
+
+    "readers": [
+    ],
+
+    "writers": [
+      "EJA_S0Cie",
+      "N1g5eSETx"
+    ],
+
+    "attributes": [
+      [ "hair color", "REDACTED" ],
+      [ "eye color", "REDACTED" ],
+      [ "height", "REDACTED" ],
+      [ "location", "REDACTED" ],
+      [ "hobbies", "REDACTED" ]
+    ],
+
+    "genes": [
+      {
+        "gene": "Where were you born?",
+        "allele": "REDACTED"
+      },
+      {
+        "gene": "What is the worst injury you’ve ever received?",
+        "allele": "REDACTED"
+      },
+      {
+        "gene": "What would you say is your best quality?",
+        "allele": "REDACTED"
+      },
+      {
+        "gene": "What is your biggest fear?",
+        "allele": "REDACTED"
+      },
+      {
+        "gene": "What do you feel most strongly about?",
+        "allele": "REDACTED"
+      },
+      {
+        "gene": "Did you have a happy childhood?",
+        "allele": "REDACTED"
+      }
+    ],
+
+    "content": {
+      "entityMap": {},
+      "blocks": [
+        {
+          "key": "2234",
+          "text": "REDACTED",
+          "type": "unstyled",
+          "depth": 0,
+          "inlineStyleRanges": [],
+          "entityRanges": []
+        }
+      ]
+    },
+
+    "relationships": [
+      {
+        "_id": "LGlaHquq06",
+        "avatar": "https://s3-us-west-2.amazonaws.com/uploads-dev.storyshopapp.com/avatar-sean.jpg",
+        "name": "Sean Platt",
+        "description": "Friend"
+      },
+      {
+        "_id": "BAD4HvhOAR",
+        "name": "Johnny B. Truant",
+        "avatar": "https://s3-us-west-2.amazonaws.com/uploads-dev.storyshopapp.com/avatar-johnny.jpg",
         "description": "Friend"
       }
     ]

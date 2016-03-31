@@ -1,10 +1,10 @@
 [
   {
-    "_id": "N1x0dSRCjg",
-    "title": "Sesame Street",
-    "slug": "sesame-street",
+    "_id": "BdvmHwZsvA",
+    "title": "Smarter Artist Summit",
+    "slug": "smarter-artist-summit",
 
-    "colour": "yellow",
+    "colour": "white",
 
     "owners": [
       "EJA_S0Cie"
@@ -17,12 +17,13 @@
     ],
 
     "outlines": [
-      "41XCdHRRsg"
+      "D0N1iLYimG"
     ],
 
     "characters": [
-      "4yUR_r0Col",
-      "NyF0uS0Rjg"
+      "LGlaHquq06",
+      "BAD4HvhOAR",
+      "kdwoHecrdy"
     ]
   }
 ]
