@@ -8,8 +8,10 @@ import {
  collection,  unwrapAtomsInObject,
 } from '../../utils';
 
-export const toPathValues = ( fields, pathGen ) => item => {
-  if ( typeof fields === 'function' ) {
+export const toPathValues = ( pathGen, fields ) => item => {
+  if ( ! fields ) {
+    fields = keys( item );
+  } else if ( typeof fields === 'function' ) {
     fields = fields( item );
   }
 
@@ -109,6 +111,23 @@ export const setWithinArray = ( collection, field, props, user ) => db => {
       .map( ( value, idx ) => ({ _id: c._id, idx: `${idx}`, [field]: $atom(value) }) )
     )
     .filter( i => keys( props[ i._id ][ field ] ).indexOf( i.idx ) !== -1 )
+    ;
+};
+
+export const pushToArray = ( collection, user, ids, field, value ) => db => {
+  db = db.collection( collection );
+
+  return Observable.from( ids )
+    .flatMap( id => db.findOneAndUpdate(
+      { _id: id, writers: { $eq: user._id } },
+      { $push: { [field]: value } },
+      { returnOriginal: false }
+    ))
+    .map( c => c.value[ field ] )
+    .map( f => ({
+      [f.length - 1]: f[ f.length - 1 ],
+      length: f.length,
+    }))
     ;
 };
 

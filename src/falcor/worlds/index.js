@@ -19,7 +19,7 @@ export default ( db, req, res ) => {
       route: 'worldsById[{keys:ids}]["_id", "title", "slug", "colour"]',
       get: pathSet => db
         .flatMap( getWorlds( pathSet.ids, user ) )
-        .flatMap( toPathValues( pathSet[ 2 ], ( i, f ) => [ 'worldsById', i._id, f ] ) )
+        .flatMap( toPathValues( ( i, f ) => [ 'worldsById', i._id, f ], pathSet[ 2 ] ) )
         ,
     },
     {
@@ -43,14 +43,14 @@ export default ( db, req, res ) => {
 
           return { _id: world._id, rights };
         })
-        .flatMap( toPathValues( 'rights', ( i, f ) => [ 'worldsById', i._id, f ] ) )
+        .flatMap( toPathValues( ( i, f ) => [ 'worldsById', i._id, f ], 'rights' ) )
         ,
     },
     {
       route: 'worldsById[{keys:ids}]["title", "slug", "colour"]',
       set: pathSet => db
         .flatMap( setWorldProps( pathSet.worldsById, user ) )
-        .flatMap( toPathValues( i => keys( pathSet.worldsById[ i._id ] ), ( i, f ) => [ 'worldsById', i._id, f ] ) )
+        .flatMap( toPathValues( ( i, f ) => [ 'worldsById', i._id, f ], i => keys( pathSet.worldsById[ i._id ] ) ) )
         ,
     },
     {
@@ -58,7 +58,7 @@ export default ( db, req, res ) => {
       get: pathSet => db
         .flatMap( getWorlds( pathSet.ids, user ) )
         .flatMap( withComponentCounts( pathSet[ 2 ] ) )
-        .flatMap( toPathValues( pathSet[ 2 ], ( i, f ) => [ 'worldsById', i._id, f, 'length' ] ) )
+        .flatMap( toPathValues( ( i, f ) => [ 'worldsById', i._id, f, 'length' ], pathSet[ 2 ] ) )
         ,
     },
     {
@@ -66,7 +66,7 @@ export default ( db, req, res ) => {
       get: pathSet => db
         .flatMap( getWorlds( pathSet.ids, user ) )
         .flatMap( withCharacterRefs( pathSet.indices ) )
-        .flatMap( toPathValues( 'ref', ( i, f ) => [ 'worldsById', i._id, 'characters', i.idx ] ) )
+        .flatMap( toPathValues( ( i, f ) => [ 'worldsById', i._id, 'characters', i.idx ], 'ref' ) )
         ,
     },
     {
@@ -74,7 +74,7 @@ export default ( db, req, res ) => {
       get: pathSet => db
         .flatMap( getWorlds( pathSet.ids, user ) )
         .flatMap( withOutlineRefs( pathSet.indices ) )
-        .flatMap( toPathValues( 'ref', ( i, f ) => [ 'worldsById', i._id, 'outlines', i.idx ] ) )
+        .flatMap( toPathValues( ( i, f ) => [ 'worldsById', i._id, 'outlines', i.idx ], 'ref' ) )
         ,
     },
     {
@@ -82,7 +82,7 @@ export default ( db, req, res ) => {
       get: pathSet => db
         .flatMap( getWorlds( pathSet.ids, user ) )
         .flatMap( world => db.flatMap( getElementCount( world ) ) )
-        .flatMap( toPathValues( 'elements', ( i, f ) => [ 'worldsById', i._id, f, 'length' ] ) )
+        .flatMap( toPathValues( ( i, f ) => [ 'worldsById', i._id, f, 'length' ], 'elements' ) )
         ,
     },
     {
@@ -90,7 +90,7 @@ export default ( db, req, res ) => {
       get: pathSet => db
         .flatMap( getWorlds( pathSet.ids, user ) )
         .flatMap( world => db.flatMap( getElementsForWorld( world, pathSet.indices ) ) )
-        .flatMap( toPathValues( 'ref', ( i, f ) => [ 'worldsById', i._id, 'elements', i.idx ] ) )
+        .flatMap( toPathValues( ( i, f ) => [ 'worldsById', i._id, 'elements', i.idx ], 'ref' ) )
         ,
     },
   ];

@@ -16,14 +16,14 @@ export default ( db, req, res ) => {
       route: 'outlinesById[{keys:ids}]["_id", "title", "content"]',
       get: pathSet => db
         .flatMap( getProps( 'outlines', pathSet.ids, user ) )
-        .flatMap( toPathValues( pathSet[ 2 ], ( i, f ) => [ 'outlinesById', i._id, f ] ) )
+        .flatMap( toPathValues( ( i, f ) => [ 'outlinesById', i._id, f ], pathSet[ 2 ] ) )
         ,
     },
     {
       route: 'outlinesById[{keys:ids}]["title", "content"]',
       set: pathSet => db
         .flatMap( setProps( 'outlines', pathSet.outlinesById, user ) )
-        .flatMap( toPathValues( i => keys( pathSet.outlinesById[ i._id ] ), ( i, f ) => [ 'outlinesById', i._id, f ] ) )
+        .flatMap( toPathValues( ( i, f ) => [ 'outlinesById', i._id, f ], i => keys( pathSet.outlinesById[ i._id ] ) ) )
         ,
     },
   ];
