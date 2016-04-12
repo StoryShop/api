@@ -13,6 +13,9 @@ export default ( db, req, res ) => {
   const { user } = req;
 
   return [
+    /**
+     * Props
+     */
     {
       route: 'charactersById[{keys:ids}]["_id", "name", "aliases", "avatar", "cover", "content"]',
       get: pathSet => db
@@ -35,6 +38,10 @@ export default ( db, req, res ) => {
         .flatMap( toPathValues( ( i, f ) => [ 'charactersById', i._id, f, 'length' ], pathSet[ 2 ] ) )
         ,
     },
+
+    /**
+     * Attributes
+     */
     {
       route: 'charactersById[{keys:ids}].attributes[{integers:indices}]',
       get: pathSet => db
@@ -54,6 +61,22 @@ export default ( db, req, res ) => {
         .flatMap( toPathValues( ( i, f ) => [ 'charactersById', id, 'attributes', f ] ) )
         ,
     },
+
+    /**
+     * Relationships
+     */
+    {
+      route: 'charactersById[{keys:ids}].relationships[{integers:indices}]',
+      get: pathSet => db
+        .flatMap( getProps( 'characters', pathSet.ids, user ) )
+        .flatMap( getWithinArray( 'relationships', pathSet.indices ) )
+        .flatMap( toPathValues( ( i, f ) => [ 'charactersById', i._id, f, i.idx ], 'relationships' ) )
+        ,
+    },
+
+    /**
+     * Genes
+     */
     {
       route: 'charactersById[{keys:ids}].genes[{integers:indices}]',
       get: pathSet => db
@@ -67,11 +90,10 @@ export default ( db, req, res ) => {
         ,
     },
     {
-      route: 'charactersById[{keys:ids}].relationships[{integers:indices}]',
-      get: pathSet => db
-        .flatMap( getProps( 'characters', pathSet.ids, user ) )
-        .flatMap( getWithinArray( 'relationships', pathSet.indices ) )
-        .flatMap( toPathValues( ( i, f ) => [ 'charactersById', i._id, f, i.idx ], 'relationships' ) )
+      route: 'charactersById[{keys:ids}].genes.push',
+      call: ( { ids: [ id ] }, [ gene ] ) => db
+        .flatMap( pushToArray( 'characters', user, [ id ], 'genes', gene ) )
+        .flatMap( toPathValues( ( i, f ) => [ 'charactersById', id, 'genes', f ] ) )
         ,
     },
   ];
