@@ -1,4 +1,5 @@
-import { keys } from '../../utils';
+import { Observable } from 'rx';
+import { keys, $ref } from '../../utils';
 import {
   toPathValues,
   withComponentCounts,
@@ -6,12 +7,32 @@ import {
   setWithinArray,
   getProps,
   setProps,
+  fuzzyFind,
 } from './../transforms';
 
 export default ( db, req, res ) => {
   const { user } = req;
 
   return [
+    /**
+     * Autocomplete
+     */
+    {
+      route: 'elementsByNamepart[{keys:patterns}]',
+      get: pathSet => Observable.from( pathSet.patterns )
+        .flatMap( pattern => db
+          .flatMap( fuzzyFind( 'elements', 'title', [ pattern ], user ) )
+          .map( element => $ref([ 'elementsById', element._id ]) )
+          .toArray()
+          .map( a => [ pattern, a ] ) )
+        .reduce( ( obj, [ pattern, a ] ) => { obj[ pattern ] = a; return obj; }, {})
+        .flatMap( toPathValues( ( i, f ) => [ 'elementsByNamepart', f ] ) )
+        ,
+    },
+
+    /**
+     * Props
+     */
     {
       route: 'elementsById[{keys:ids}]["_id", "title", "content", "cover", "tags"]',
       get: pathSet => db

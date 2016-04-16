@@ -1,4 +1,5 @@
-import { keys } from '../../utils';
+import { Observable } from 'rx';
+import { keys, $ref } from '../../utils';
 import {
   toPathValues,
   withComponentCounts,
@@ -7,12 +8,29 @@ import {
   pushToArray,
   getProps,
   setProps,
+  fuzzyFind,
 } from './../transforms';
 
 export default ( db, req, res ) => {
   const { user } = req;
 
   return [
+    /**
+     * Autocomplete
+     */
+    {
+      route: 'charactersByNamepart[{keys:patterns}]',
+      get: pathSet => Observable.from( pathSet.patterns )
+        .flatMap( pattern => db
+          .flatMap( fuzzyFind( 'characters', 'name', [ pattern ], user ) )
+          .map( character => $ref([ 'charactersById', character._id ]) )
+          .toArray()
+          .map( a => [ pattern, a ] ) )
+        .reduce( ( obj, [ pattern, a ] ) => { obj[ pattern ] = a; return obj; }, {})
+        .flatMap( toPathValues( ( i, f ) => [ 'charactersByNamepart', f ] ) )
+        ,
+    },
+
     /**
      * Props
      */
@@ -71,6 +89,16 @@ export default ( db, req, res ) => {
         .flatMap( getProps( 'characters', pathSet.ids, user ) )
         .flatMap( getWithinArray( 'relationships', pathSet.indices ) )
         .flatMap( toPathValues( ( i, f ) => [ 'charactersById', i._id, f, i.idx ], 'relationships' ) )
+        ,
+    },
+    {
+      route: 'charactersById[{keys:ids}].relationships.push',
+      call: ( { ids: [ id ] }, [ _id, description ] ) => db
+        .flatMap( getProps( 'characters', [ _id ], user ) )
+        .first()
+        .map( c => ({ _id: c._id, avatar: c.avatar, name: c.name }) )
+        .flatMap( c => db.flatMap( pushToArray( 'characters', user, [ id ], 'relationships', { ...c, description } ) ) )
+        .flatMap( toPathValues( ( i, f ) => [ 'charactersById', id, 'relationships', f ] ) )
         ,
     },
 

@@ -45,6 +45,17 @@ export const toPathValues = ( pathGen, fields ) => item => {
   }));
 };
 
+export const fuzzyFind = ( collection, field, patterns, user ) => db => {
+  return Observable.fromPromise( db.collection( collection ).find({
+    [field]: { $in: patterns.map( p => new RegExp( `^.*${p}.*$`, 'ig' ) ) },
+    $or: [
+      { writers: { $eq: user._id } },
+      { readers: { $eq: user._id } },
+    ]}).toArray() )
+    .selectMany( w => w )
+    ;
+};
+
 export const getProps = ( collection, ids, user ) => db => {
   return Observable.fromPromise( db.collection( collection ).find({ _id: { $in: ids }, $or: [
       { writers: { $eq: user._id } },
