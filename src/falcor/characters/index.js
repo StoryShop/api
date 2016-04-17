@@ -9,6 +9,7 @@ import {
   getProps,
   setProps,
   fuzzyFind,
+  getRandom,
 } from './../transforms';
 
 export default ( db, req, res ) => {
@@ -123,6 +124,20 @@ export default ( db, req, res ) => {
         .flatMap( pushToArray( 'characters', user, [ id ], 'genes', gene ) )
         .flatMap( toPathValues( ( i, f ) => [ 'charactersById', id, 'genes', f ] ) )
         ,
+    },
+    {
+      route: 'genes.random',
+      get: pathSet => db
+        .flatMap( getRandom( 'genes' ) )
+        .first()
+        .map( gene => ({
+          gene: {
+            $type: 'atom',
+            $expires: -1000,
+            value: gene
+          },
+        }))
+        .flatMap( toPathValues( ( i, f ) => [ 'genes', 'random' ], 'gene' ) )
     },
   ];
 };

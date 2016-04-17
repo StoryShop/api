@@ -77,6 +77,15 @@ export const setProps = ( collection, propsById, user ) => db => keysO( propsByI
   .map( props => props.value )
   ;
 
+export const getRandom = ( collection ) => db => {
+  const coll = db.collection( collection );
+
+  return Observable.fromPromise( coll.count() )
+    .flatMap( count => coll.find().limit( 1 ).skip( Math.floor( Math.random() * count ) ).toArray() )
+    .selectMany( w => w )
+    ;
+};
+
 export const withComponentCounts = fields => item => {
   const counts = {
     _id: item._id,
