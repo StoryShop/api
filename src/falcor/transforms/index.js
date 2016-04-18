@@ -5,6 +5,7 @@ import {
   $ref,
   keysO,
   keys,
+  generateId,
  collection,  unwrapAtomsInObject,
 } from '../../utils';
 
@@ -155,5 +156,12 @@ export const addIndex = () => {
   let idx = 0;
 
   return item => ({ idx: idx++, ...item });
+};
+
+export const create = ( collection, props ) => db => {
+  db = db.collection( collection );
+  props._id = generateId();
+
+  return Observable.fromPromise( db.insertOne( props ) ).flatMap( r => r.ops );
 };
 

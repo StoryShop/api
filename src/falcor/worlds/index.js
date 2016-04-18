@@ -1,5 +1,11 @@
-import { keys } from '../../utils';
-import { toPathValues, withComponentCounts } from './../transforms';
+import { Observable } from 'rx';
+import { keys, $ref } from '../../utils';
+import {
+  toPathValues,
+  withComponentCounts,
+  create,
+  pushToArray,
+} from './../transforms';
 import {
   getWorlds,
   setWorldProps,
@@ -15,6 +21,9 @@ export default ( db, req, res ) => {
   const { user } = req;
 
   return [
+    /**
+     * Properties
+     */
     {
       route: 'worldsById[{keys:ids}]["_id", "title", "slug", "colour"]',
       get: pathSet => db
@@ -22,6 +31,25 @@ export default ( db, req, res ) => {
         .flatMap( toPathValues( ( i, f ) => [ 'worldsById', i._id, f ], pathSet[ 2 ] ) )
         ,
     },
+    {
+      route: 'worldsById[{keys:ids}]["title", "slug", "colour"]',
+      set: pathSet => db
+        .flatMap( setWorldProps( pathSet.worldsById, user ) )
+        .flatMap( toPathValues( ( i, f ) => [ 'worldsById', i._id, f ], i => keys( pathSet.worldsById[ i._id ] ) ) )
+        ,
+    },
+    {
+      route: 'worldsById[{keys:ids}]["outlines","characters"].length',
+      get: pathSet => db
+        .flatMap( getWorlds( pathSet.ids, user ) )
+        .flatMap( withComponentCounts( pathSet[ 2 ] ) )
+        .flatMap( toPathValues( ( i, f ) => [ 'worldsById', i._id, f, 'length' ], pathSet[ 2 ] ) )
+        ,
+    },
+
+    /**
+     * Access control
+     */
     {
       route: 'worldsById[{keys:ids}].rights',
       get: pathSet => db
@@ -46,21 +74,10 @@ export default ( db, req, res ) => {
         .flatMap( toPathValues( ( i, f ) => [ 'worldsById', i._id, f ], 'rights' ) )
         ,
     },
-    {
-      route: 'worldsById[{keys:ids}]["title", "slug", "colour"]',
-      set: pathSet => db
-        .flatMap( setWorldProps( pathSet.worldsById, user ) )
-        .flatMap( toPathValues( ( i, f ) => [ 'worldsById', i._id, f ], i => keys( pathSet.worldsById[ i._id ] ) ) )
-        ,
-    },
-    {
-      route: 'worldsById[{keys:ids}]["outlines","characters"].length',
-      get: pathSet => db
-        .flatMap( getWorlds( pathSet.ids, user ) )
-        .flatMap( withComponentCounts( pathSet[ 2 ] ) )
-        .flatMap( toPathValues( ( i, f ) => [ 'worldsById', i._id, f, 'length' ], pathSet[ 2 ] ) )
-        ,
-    },
+
+    /**
+     * Characters
+     */
     {
       route: 'worldsById[{keys:ids}].characters[{integers:indices}]',
       get: pathSet => db
@@ -70,6 +87,27 @@ export default ( db, req, res ) => {
         ,
     },
     {
+      route: 'worldsById[{keys:ids}].characters.push',
+      call: ( { ids: [ id ] }, [ name = 'Unnamed Character' ] ) => db
+        .flatMap( create( 'characters', { name }) )
+        .flatMap( character => {
+          const charPV = toPathValues( ( i, f ) => [ 'charactersById', i._id, f ] )( character );
+          const worldPV = db
+            .flatMap( pushToArray( 'worlds', user, [ id ], 'characters', character._id ) )
+            .flatMap( toPathValues( ( i, f ) => [ 'worldsById', id, 'characters', f ] ) )
+            ;
+
+          return Observable.from([ charPV, worldPV ])
+            .selectMany( o => o )
+            ;
+        })
+        ,
+    },
+
+    /**
+     * Outlines
+     */
+    {
       route: 'worldsById[{keys:ids}].outlines[{integers:indices}]',
       get: pathSet => db
         .flatMap( getWorlds( pathSet.ids, user ) )
@@ -77,6 +115,10 @@ export default ( db, req, res ) => {
         .flatMap( toPathValues( ( i, f ) => [ 'worldsById', i._id, 'outlines', i.idx ], 'ref' ) )
         ,
     },
+
+    /**
+     * Elements
+     */
     {
       route: 'worldsById[{keys:ids}].elements.length',
       get: pathSet => db
