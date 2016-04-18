@@ -158,6 +158,36 @@ export default ( db, req, res ) => {
         .flatMap( toPathValues( ( i, f ) => [ 'worldsById', i._id, 'elements', i.idx ], 'ref' ) )
         ,
     },
+    {
+      route: 'worldsById[{keys:ids}].elements.push',
+      call: ( { ids: [ id ] }, [ element ] ) => db
+        .flatMap( getWorlds( [ id ], user ) )
+        .flatMap( ({ readers = [], writers = [], owners = [], _id }) => db.flatMap(
+           create( 'elements', {
+             ...element,
+             world_id: _id,
+             readers,
+             writers: writers.concat( owners ),
+           })
+        ))
+        .flatMap( element => {
+          const charPV = toPathValues( ( i, f ) => [ 'elementsById', i._id, f ] )( element );
+          const worldPV = db
+            .flatMap( getWorlds( [ id ], user ) )
+            .flatMap( world => db.flatMap( getElementCount( world ) ) )
+            .map( ({ elements: length }) => ({
+              length,
+              [length]: $ref([ 'elementsById', element._id ]),
+            }))
+            .flatMap( toPathValues( ( i, f ) => [ 'worldsById', id, 'elements', f ] ) )
+            ;
+
+          return Observable.from([ charPV, worldPV ])
+            .selectMany( o => o )
+            ;
+        })
+        ,
+    },
   ];
 };
 
