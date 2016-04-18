@@ -89,7 +89,10 @@ export default ( db, req, res ) => {
     {
       route: 'worldsById[{keys:ids}].characters.push',
       call: ( { ids: [ id ] }, [ name = 'Unnamed Character' ] ) => db
-        .flatMap( create( 'characters', { name }) )
+        .flatMap( getWorlds( [ id ], user ) )
+        .flatMap( ({ readers = [], writers = [], owners = [], _id }) => db.flatMap(
+          create( 'characters', { name, readers, writers: writers.concat( owners ) }) 
+        ))
         .flatMap( character => {
           const charPV = toPathValues( ( i, f ) => [ 'charactersById', i._id, f ] )( character );
           const worldPV = db
@@ -113,6 +116,26 @@ export default ( db, req, res ) => {
         .flatMap( getWorlds( pathSet.ids, user ) )
         .flatMap( withOutlineRefs( pathSet.indices ) )
         .flatMap( toPathValues( ( i, f ) => [ 'worldsById', i._id, 'outlines', i.idx ], 'ref' ) )
+        ,
+    },
+    {
+      route: 'worldsById[{keys:ids}].outlines.push',
+      call: ( { ids: [ id ] }, [ title = 'Unnamed Outline' ] ) => db
+        .flatMap( getWorlds( [ id ], user ) )
+        .flatMap( ({ readers = [], writers = [], owners = [], _id }) => db.flatMap(
+          create( 'outlines', { title, readers, writers: writers.concat( owners ) }) 
+        ))
+        .flatMap( outline => {
+          const charPV = toPathValues( ( i, f ) => [ 'outlinesById', i._id, f ] )( outline );
+          const worldPV = db
+            .flatMap( pushToArray( 'worlds', user, [ id ], 'outlines', outline._id ) )
+            .flatMap( toPathValues( ( i, f ) => [ 'worldsById', id, 'outlines', f ] ) )
+            ;
+
+          return Observable.from([ charPV, worldPV ])
+            .selectMany( o => o )
+            ;
+        })
         ,
     },
 
