@@ -28,7 +28,7 @@ export default ( db, req, res ) => {
           .toArray()
           .map( a => [ pattern, a ] ) )
         .reduce( ( obj, [ pattern, a ] ) => { obj[ pattern ] = a; return obj; }, {})
-        .flatMap( toPathValues( ( i, f ) => [ 'charactersByNamepart', f ] ) )
+        ::toPathValues( ( i, f ) => [ 'charactersByNamepart', f ] )
         ,
     },
 
@@ -38,23 +38,23 @@ export default ( db, req, res ) => {
     {
       route: 'charactersById[{keys:ids}]["_id", "name", "aliases", "avatar", "cover", "content"]',
       get: pathSet => db
-        .flatMap( getProps( 'characters', pathSet.ids, user ) )
-        .flatMap( toPathValues( ( i, f ) => [ 'charactersById', i._id, f ], pathSet[ 2 ] ) )
+        ::getProps( 'characters', pathSet.ids, user )
+        ::toPathValues( ( i, f ) => [ 'charactersById', i._id, f ], pathSet[ 2 ] )
         ,
     },
     {
       route: 'charactersById[{keys:ids}]["name", "aliases", "avatar", "cover", "content"]',
       set: pathSet => db
-        .flatMap( setProps( 'characters', pathSet.charactersById, user ) )
-        .flatMap( toPathValues( ( i, f ) => [ 'charactersById', i._id, f ] ), i => keys( pathSet.charactersById[ i._id ] ) )
+        ::setProps( 'characters', pathSet.charactersById, user )
+        ::toPathValues( ( i, f ) => [ 'charactersById', i._id, f ], i => keys( pathSet.charactersById[ i._id ] ) )
         ,
     },
     {
       route: 'charactersById[{keys:ids}]["genes", "attributes","relationships"].length',
       get: pathSet => db
-        .flatMap( getProps( 'characters', pathSet.ids, user ) )
+        ::getProps( 'characters', pathSet.ids, user )
         .flatMap( withComponentCounts( pathSet[ 2 ] ) )
-        .flatMap( toPathValues( ( i, f ) => [ 'charactersById', i._id, f, 'length' ], pathSet[ 2 ] ) )
+        ::toPathValues( ( i, f ) => [ 'charactersById', i._id, f, 'length' ], pathSet[ 2 ] )
         ,
     },
 
@@ -64,20 +64,20 @@ export default ( db, req, res ) => {
     {
       route: 'charactersById[{keys:ids}].attributes[{integers:indices}]',
       get: pathSet => db
-        .flatMap( getProps( 'characters', pathSet.ids, user ) )
+        ::getProps( 'characters', pathSet.ids, user )
         .flatMap( getWithinArray( 'attributes', pathSet.indices ) )
-        .flatMap( toPathValues( ( i, f ) => [ 'charactersById', i._id, f, i.idx ], 'attributes' ) )
+        ::toPathValues( ( i, f ) => [ 'charactersById', i._id, f, i.idx ], 'attributes' )
         ,
       set: pathSet => db
         .flatMap( setWithinArray( 'characters', 'attributes', pathSet.charactersById, user ) )
-        .flatMap( toPathValues( ( i, f ) => [ 'charactersById', i._id, f, i.idx ], 'attributes' ) )
+        ::toPathValues( ( i, f ) => [ 'charactersById', i._id, f, i.idx ], 'attributes' )
         ,
     },
     {
       route: 'charactersById[{keys:ids}].attributes.push',
       call: ( { ids: [ id ] }, [ attribute ] ) => db
         .flatMap( pushToArray( 'characters', user, [ id ], 'attributes', attribute ) )
-        .flatMap( toPathValues( ( i, f ) => [ 'charactersById', id, 'attributes', f ] ) )
+        ::toPathValues( ( i, f ) => [ 'charactersById', id, 'attributes', f ] )
         ,
     },
 
@@ -87,19 +87,19 @@ export default ( db, req, res ) => {
     {
       route: 'charactersById[{keys:ids}].relationships[{integers:indices}]',
       get: pathSet => db
-        .flatMap( getProps( 'characters', pathSet.ids, user ) )
+        ::getProps( 'characters', pathSet.ids, user )
         .flatMap( getWithinArray( 'relationships', pathSet.indices ) )
-        .flatMap( toPathValues( ( i, f ) => [ 'charactersById', i._id, f, i.idx ], 'relationships' ) )
+        ::toPathValues( ( i, f ) => [ 'charactersById', i._id, f, i.idx ], 'relationships' )
         ,
     },
     {
       route: 'charactersById[{keys:ids}].relationships.push',
       call: ( { ids: [ id ] }, [ _id, description ] ) => db
-        .flatMap( getProps( 'characters', [ _id ], user ) )
+        ::getProps( 'characters', [ _id ], user )
         .first()
         .map( c => ({ _id: c._id, avatar: c.avatar, name: c.name }) )
         .flatMap( c => db.flatMap( pushToArray( 'characters', user, [ id ], 'relationships', { ...c, description } ) ) )
-        .flatMap( toPathValues( ( i, f ) => [ 'charactersById', id, 'relationships', f ] ) )
+        ::toPathValues( ( i, f ) => [ 'charactersById', id, 'relationships', f ] )
         ,
     },
 
@@ -109,20 +109,20 @@ export default ( db, req, res ) => {
     {
       route: 'charactersById[{keys:ids}].genes[{integers:indices}]',
       get: pathSet => db
-        .flatMap( getProps( 'characters', pathSet.ids, user ) )
+        ::getProps( 'characters', pathSet.ids, user )
         .flatMap( getWithinArray( 'genes', pathSet.indices ) )
-        .flatMap( toPathValues( ( i, f ) => [ 'charactersById', i._id, f, i.idx ], 'genes' ) )
+        ::toPathValues( ( i, f ) => [ 'charactersById', i._id, f, i.idx ], 'genes' )
         ,
       set: pathSet => db
         .flatMap( setWithinArray( 'characters', 'genes', pathSet.charactersById, user ) )
-        .flatMap( toPathValues( ( i, f ) => [ 'charactersById', i._id, f, i.idx ], 'genes' ) )
+        ::toPathValues( ( i, f ) => [ 'charactersById', i._id, f, i.idx ], 'genes' )
         ,
     },
     {
       route: 'charactersById[{keys:ids}].genes.push',
       call: ( { ids: [ id ] }, [ gene ] ) => db
         .flatMap( pushToArray( 'characters', user, [ id ], 'genes', gene ) )
-        .flatMap( toPathValues( ( i, f ) => [ 'charactersById', id, 'genes', f ] ) )
+        ::toPathValues( ( i, f ) => [ 'charactersById', id, 'genes', f ] )
         ,
     },
     {
@@ -137,7 +137,7 @@ export default ( db, req, res ) => {
             value: gene
           },
         }))
-        .flatMap( toPathValues( ( i, f ) => [ 'genes', 'random' ], 'gene' ) )
+        ::toPathValues( ( i, f ) => [ 'genes', 'random' ], 'gene' )
     },
   ];
 };

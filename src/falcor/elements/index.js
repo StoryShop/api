@@ -26,7 +26,7 @@ export default ( db, req, res ) => {
           .toArray()
           .map( a => [ pattern, a ] ) )
         .reduce( ( obj, [ pattern, a ] ) => { obj[ pattern ] = a; return obj; }, {})
-        .flatMap( toPathValues( ( i, f ) => [ 'elementsByNamepart', f ] ) )
+        ::toPathValues( ( i, f ) => [ 'elementsByNamepart', f ] )
         ,
     },
 
@@ -36,15 +36,15 @@ export default ( db, req, res ) => {
     {
       route: 'elementsById[{keys:ids}]["_id", "title", "content", "cover", "tags"]',
       get: pathSet => db
-        .flatMap( getProps( 'elements', pathSet.ids, user ) )
-        .flatMap( toPathValues( ( i, f ) => [ 'elementsById', i._id, f ], pathSet[ 2 ] ) )
+        ::getProps( 'elements', pathSet.ids, user )
+        ::toPathValues( ( i, f ) => [ 'elementsById', i._id, f ], pathSet[ 2 ] )
         ,
     },
     {
       route: 'elementsById[{keys:ids}]["title", "content", "cover", "tags"]',
       set: pathSet => db
-        .flatMap( setProps( 'elements', pathSet.elementsById, user ) )
-        .flatMap( toPathValues( ( i, f ) => [ 'elementsById', i._id, f ], i => keys( pathSet.elementsById[ i._id ] ) ) )
+        ::setProps( 'elements', pathSet.elementsById, user )
+        ::toPathValues( ( i, f ) => [ 'elementsById', i._id, f ], i => keys( pathSet.elementsById[ i._id ] ) )
         ,
     },
   ];

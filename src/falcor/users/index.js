@@ -57,16 +57,16 @@ export default ( db, req, res ) => {
     {
       route: 'usersById[{keys:ids}].worlds[{integers:indices}]',
       get: pathSet => db.flatMap( getUserWorlds( user, pathSet.ids, pathSet.indices ) )
-        .flatMap( toPathValues( ( i, f ) => [ 'usersById', i._id, f, i.idx ], 'worlds' ) )
+        ::toPathValues( ( i, f ) => [ 'usersById', i._id, f, i.idx ], 'worlds' )
         ,
     },
     {
       route: 'usersById[{keys:ids}].ux.lastVisited',
       get: pathSet => db.flatMap( getLastVisited( user, pathSet.ids ) )
-        .flatMap( toPathValues( ( i, f ) => [ 'usersById', i._id, 'ux', f ], 'lastVisited' ) )
+        ::toPathValues( ( i, f ) => [ 'usersById', i._id, 'ux', f ], 'lastVisited' )
         ,
       set: pathSet => db.flatMap( setLastVisited( user, pathSet.usersById ) )
-        .flatMap( toPathValues( ( i, f ) => [ 'usersById', i._id, 'ux', f ], 'lastVisited' ) )
+        ::toPathValues( ( i, f ) => [ 'usersById', i._id, 'ux', f ], 'lastVisited' )
         ,
     },
   ];

@@ -15,15 +15,15 @@ export default ( db, req, res ) => {
     {
       route: 'outlinesById[{keys:ids}]["_id", "title", "content"]',
       get: pathSet => db
-        .flatMap( getProps( 'outlines', pathSet.ids, user ) )
-        .flatMap( toPathValues( ( i, f ) => [ 'outlinesById', i._id, f ], pathSet[ 2 ] ) )
+        ::getProps( 'outlines', pathSet.ids, user )
+        ::toPathValues( ( i, f ) => [ 'outlinesById', i._id, f ], pathSet[ 2 ] )
         ,
     },
     {
       route: 'outlinesById[{keys:ids}]["title", "content"]',
       set: pathSet => db
-        .flatMap( setProps( 'outlines', pathSet.outlinesById, user ) )
-        .flatMap( toPathValues( ( i, f ) => [ 'outlinesById', i._id, f ], i => keys( pathSet.outlinesById[ i._id ] ) ) )
+        ::setProps( 'outlines', pathSet.outlinesById, user )
+        ::toPathValues( ( i, f ) => [ 'outlinesById', i._id, f ], i => keys( pathSet.outlinesById[ i._id ] ) )
         ,
     },
   ];

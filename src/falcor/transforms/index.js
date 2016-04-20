@@ -9,42 +9,44 @@ import {
  collection,  unwrapAtomsInObject,
 } from '../../utils';
 
-export const toPathValues = ( pathGen, fields ) => item => {
-  if ( ! fields ) {
-    fields = keys( item );
-  } else if ( typeof fields === 'function' ) {
-    fields = fields( item );
-  }
+export function toPathValues ( pathGen, fields ) {
+  return this.flatMap( item => {
+    if ( ! fields ) {
+      fields = keys( item );
+    } else if ( typeof fields === 'function' ) {
+      fields = fields( item );
+    }
 
-  if ( typeof fields === 'string' ) {
-    fields = [ fields ];
-  }
+    if ( typeof fields === 'string' ) {
+      fields = [ fields ];
+    }
 
-  const getVal = field => {
-    if ( item.$error ) {
-      return value.$error;
-    } else {
-      const value = item[ field ];
+    const getVal = field => {
+      if ( item.$error ) {
+        return value.$error;
+      } else {
+        const value = item[ field ];
 
-      // It might be an atom.
-      if ( typeof value === 'object' ) {
-        // If the value is, e.g., a $ref, we just return it.
-        if ( value.$type ) {
-          return value;
+        // It might be an atom.
+        if ( typeof value === 'object' ) {
+          // If the value is, e.g., a $ref, we just return it.
+          if ( value.$type ) {
+            return value;
+          }
+
+          return $atom( value );
         }
 
-        return $atom( value );
+        return value;
       }
+    };
 
-      return value;
-    }
-  };
-
-  return fields.map( field => ({
-    path: pathGen( item, field ),
-    value: getVal( field ),
-  }));
-};
+    return fields.map( field => ({
+      path: pathGen( item, field ),
+      value: getVal( field ),
+    }));
+  });
+}
 
 export const fuzzyFind = ( collection, field, patterns, user ) => db => {
   return Observable.fromPromise( db.collection( collection ).find({
@@ -57,26 +59,32 @@ export const fuzzyFind = ( collection, field, patterns, user ) => db => {
     ;
 };
 
-export const getProps = ( collection, ids, user ) => db => {
-  return Observable.fromPromise( db.collection( collection ).find({ _id: { $in: ids }, $or: [
-      { writers: { $eq: user._id } },
-      { readers: { $eq: user._id } },
-    ]}).toArray() )
-    .selectMany( w => w )
-    ;
-};
+export function getProps ( collection, ids, user ) {
+  return this.flatMap( db => {
+    return Observable.fromPromise( db.collection( collection ).find({ _id: { $in: ids }, $or: [
+        { writers: { $eq: user._id } },
+        { readers: { $eq: user._id } },
+      ]}).toArray() )
+      .selectMany( w => w )
+      ;
+  });
+}
 
-export const setProps = ( collection, propsById, user ) => db => keysO( propsById )
-  .flatMap( _id => {
-    const writers = { $eq: user._id };
-    const $set = unwrapAtomsInObject( propsById[ _id ] );
+export function setProps ( collection, propsById, user ) {
+  return this.flatMap( db => {
+    return keysO( propsById )
+      .flatMap( _id => {
+        const writers = { $eq: user._id };
+        const $set = unwrapAtomsInObject( propsById[ _id ] );
 
-    return db.collection( collection ).findOneAndUpdate( { _id, writers }, { $set }, {
-      returnOriginal: false,
-    });
-  })
-  .map( props => props.value )
-  ;
+        return db.collection( collection ).findOneAndUpdate( { _id, writers }, { $set }, {
+          returnOriginal: false,
+        });
+      })
+      .map( props => props.value )
+      ;
+  });
+}
 
 export const getRandom = ( collection ) => db => {
   const coll = db.collection( collection );
