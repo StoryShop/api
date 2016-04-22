@@ -143,22 +143,27 @@ export const setWithinArray = ( collection, field, props, user ) => db => {
     ;
 };
 
-export const pushToArray = ( collection, user, ids, field, value ) => db => {
-  db = db.collection( collection );
+export function pushToArray ( collection, user, ids, field, value ) {
+  return this.flatMap( db => {
+    db = db.collection( collection );
 
-  return Observable.from( ids )
-    .flatMap( id => db.findOneAndUpdate(
-      { _id: id, writers: { $eq: user._id } },
-      { $push: { [field]: value } },
-      { returnOriginal: false }
-    ))
-    .map( c => c.value[ field ] )
-    .map( f => ({
-      [f.length - 1]: f[ f.length - 1 ],
-      length: f.length,
-    }))
-    ;
-};
+    return Observable.from( ids )
+      .flatMap( id => db.findOneAndUpdate(
+        { _id: id, writers: { $eq: user._id } },
+        { $push: { [field]: value } },
+        { returnOriginal: false }
+      ))
+      .map( c => c.value[ field ] )
+      ;
+  });
+}
+
+export function withLastAndLength () {
+  return this.map( arr => ({
+    [arr.length - 1]: arr[ arr.length - 1 ],
+    length: arr.length,
+  }));
+}
 
 export const addIndex = () => {
   let idx = 0;
@@ -172,4 +177,14 @@ export const create = ( collection, props ) => db => {
 
   return Observable.fromPromise( db.insertOne( props ) ).flatMap( r => r.ops );
 };
+
+export function remove ( collection, user, _id ) {
+  return this.flatMap( db => {
+    db = db.collection( collection );
+
+    return Observable.fromPromise( db.removeMany({ _id: _id, writers: user._id }) )
+      .map( r => r.result.n )
+      ;
+    });
+}
 

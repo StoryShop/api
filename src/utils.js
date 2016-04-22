@@ -14,7 +14,7 @@ export const generateId = () => shortid.generate();
 export const unwrapAtomsInObject = item => keys( item )
   .map( key => ({
     key,
-    value: typeof item[ key ] === 'object' ? item[ key ].value : item[ key ],
+    value: typeof item[ key ] === 'object' && item[ key ].value ? item[ key ].value : item[ key ],
   })).reduce( ( o, p ) => {
     o[ p.key ] = p.value;
     return o;

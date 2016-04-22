@@ -8,6 +8,7 @@ import {
   getProps,
   setProps,
   fuzzyFind,
+  remove,
 } from './../transforms';
 
 export default ( db, req, res ) => {

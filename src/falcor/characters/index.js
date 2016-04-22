@@ -76,7 +76,8 @@ export default ( db, req, res ) => {
     {
       route: 'charactersById[{keys:ids}].attributes.push',
       call: ( { ids: [ id ] }, [ attribute ] ) => db
-        .flatMap( pushToArray( 'characters', user, [ id ], 'attributes', attribute ) )
+        ::pushToArray( 'characters', user, [ id ], 'attributes', attribute )
+        ::withLastAndLength()
         ::toPathValues( ( i, f ) => [ 'charactersById', id, 'attributes', f ] )
         ,
     },
@@ -98,7 +99,10 @@ export default ( db, req, res ) => {
         ::getProps( 'characters', [ _id ], user )
         .first()
         .map( c => ({ _id: c._id, avatar: c.avatar, name: c.name }) )
-        .flatMap( c => db.flatMap( pushToArray( 'characters', user, [ id ], 'relationships', { ...c, description } ) ) )
+        .flatMap( c => db
+          ::pushToArray( 'characters', user, [ id ], 'relationships', { ...c, description } )
+          ::withLastAndLength()
+        )
         ::toPathValues( ( i, f ) => [ 'charactersById', id, 'relationships', f ] )
         ,
     },
@@ -121,7 +125,9 @@ export default ( db, req, res ) => {
     {
       route: 'charactersById[{keys:ids}].genes.push',
       call: ( { ids: [ id ] }, [ gene ] ) => db
-        .flatMap( pushToArray( 'characters', user, [ id ], 'genes', gene ) )
+        ::pushToArray( 'characters', user, [ id ], 'genes', gene )
+        .tap(v=>console.log("v",v))
+        ::withLastAndLength()
         ::toPathValues( ( i, f ) => [ 'charactersById', id, 'genes', f ] )
         ,
     },

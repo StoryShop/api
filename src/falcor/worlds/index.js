@@ -5,6 +5,10 @@ import {
   withComponentCounts,
   create,
   pushToArray,
+  getProps,
+  setProps,
+  remove,
+  withLastAndLength,
 } from './../transforms';
 import {
   getWorlds,
@@ -94,9 +98,12 @@ export default ( db, req, res ) => {
           create( 'characters', { name, readers, writers: writers.concat( owners ) }) 
         ))
         .flatMap( character => {
-          const charPV = toPathValues( ( i, f ) => [ 'charactersById', i._id, f ] )( character );
+          const charPV = Observable.of( character )
+            ::toPathValues( ( i, f ) => [ 'charactersById', i._id, f ] )
+            ;
           const worldPV = db
-            .flatMap( pushToArray( 'worlds', user, [ id ], 'characters', character._id ) )
+            ::pushToArray( 'worlds', user, [ id ], 'characters', character._id )
+            ::withLastAndLength()
             ::toPathValues( ( i, f ) => [ 'worldsById', id, 'characters', f ] )
             ;
 
@@ -126,14 +133,60 @@ export default ( db, req, res ) => {
           create( 'outlines', { title, readers, writers: writers.concat( owners ) }) 
         ))
         .flatMap( outline => {
-          const charPV = toPathValues( ( i, f ) => [ 'outlinesById', i._id, f ] )( outline );
+          const charPV = Observable.of( outline )
+            ::toPathValues( ( i, f ) => [ 'outlinesById', i._id, f ], [ 'title' ] )
+            ;
           const worldPV = db
-            .flatMap( pushToArray( 'worlds', user, [ id ], 'outlines', outline._id ) )
+            ::pushToArray( 'worlds', user, [ id ], 'outlines', outline._id )
+            .map( arr => arr.map( i => $ref([ 'outlinesById', i ]) ) )
+            ::withLastAndLength()
             ::toPathValues( ( i, f ) => [ 'worldsById', id, 'outlines', f ] )
             ;
 
           return Observable.from([ charPV, worldPV ])
             .selectMany( o => o )
+            ;
+        })
+        .catch(e=>console.log(e.stack))
+        ,
+    },
+    {
+      route: 'worldsById[{keys:ids}].outlines.delete',
+      call: ( { ids: [ world_id ] }, [ id ] ) => db
+        ::getProps( 'worlds', [ world_id ], user )
+        .flatMap( world => {
+          const { outlines } = world;
+          const idx = outlines.indexOf( id );
+
+          if ( idx < 0 ) {
+            throw new Error( 'Could not find outline to delete.' );
+          }
+
+          outlines.splice( idx, 1 );
+          const length = outlines.length;
+
+          return db::setProps( 'worlds', { [world_id]: { outlines } }, user )
+            .flatMap( () => db::remove( 'outlines', user, id ) )
+            .flatMap( count => {
+              if ( ! count ) {
+                throw new Error( 'Could not delete outline.' );
+              }
+
+              return [
+                {
+                  path: [ 'outlinesById', id ],
+                  invalidated: true,
+                },
+                {
+                  path: [ 'worldsById', world_id, 'outlines', 'length' ],
+                  value: length,
+                },
+                {
+                  path: [ 'worldsById', world_id, 'outlines', { from: idx, to: length } ],
+                  invalidated: true,
+                },
+              ];
+            })
             ;
         })
         ,
