@@ -113,6 +113,47 @@ export default ( db, req, res ) => {
         })
         ,
     },
+    {
+      route: 'worldsById[{keys:ids}].characters.delete',
+      call: ( { ids: [ world_id ] }, [ id ] ) => db
+        ::getProps( 'worlds', [ world_id ], user )
+        .flatMap( world => {
+          const { characters } = world;
+          const idx = characters.indexOf( id );
+
+          if ( idx < 0 ) {
+            throw new Error( 'Could not find character to delete.' );
+          }
+
+          characters.splice( idx, 1 );
+          const length = characters.length;
+
+          return db::setProps( 'worlds', { [world_id]: { characters } }, user )
+            .flatMap( () => db::remove( 'characters', user, id ) )
+            .flatMap( count => {
+              if ( ! count ) {
+                throw new Error( 'Could not delete character.' );
+              }
+
+              return [
+                {
+                  path: [ 'charactersById', id ],
+                  invalidated: true,
+                },
+                {
+                  path: [ 'worldsById', world_id, 'characters', 'length' ],
+                  value: length,
+                },
+                {
+                  path: [ 'worldsById', world_id, 'characters', { from: idx, to: length } ],
+                  invalidated: true,
+                },
+              ];
+            })
+            ;
+        })
+        ,
+    },
 
     /**
      * Outlines
