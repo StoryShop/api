@@ -188,7 +188,6 @@ export default ( db, req, res ) => {
             .selectMany( o => o )
             ;
         })
-        .catch(e=>console.log(e.stack))
         ,
     },
     {
@@ -280,7 +279,40 @@ export default ( db, req, res ) => {
             .selectMany( o => o )
             ;
         })
-        .catch(e=>console.log(e.stack))
+        ,
+    },
+    {
+      route: 'worldsById[{keys:ids}].elements.delete',
+      call: ( { ids: [ world_id ] }, [ id ] ) => db
+        ::getWorlds( [ world_id ], user )
+        .flatMap( world => db.flatMap( getElementCount( world ) ) )
+        .flatMap( ({ elements }) => {
+          return db
+            ::remove( 'elements', user, id )
+            .flatMap( success => {
+              if ( ! success ) {
+                throw new Error( 'Could not delete element.' );
+              }
+
+              const length = elements - 1;
+
+              return [
+                {
+                  path: [ 'elementsById', id ],
+                  invalidated: true,
+                },
+                {
+                  path: [ 'worldsById', world_id, 'elements', 'length' ],
+                  value: length,
+                },
+                {
+                  path: [ 'worldsById', world_id, 'elements', { from: 0, to: length } ],
+                  invalidated: true,
+                },
+              ];
+            })
+            ;
+        })
         ,
     },
   ];
