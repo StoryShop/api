@@ -7,14 +7,22 @@ import {
 } from '../../utils';
 
 export function getWorlds ( ids, user ) {
+  const query = {
+    $or: [
+      { owners: { $eq: user._id } },
+      { writers: { $eq: user._id } },
+      { readers: { $eq: user._id } },
+    ],
+  };
+
+  if ( ids ) {
+    query._id = { $in: ids };
+  }
+
   return this.flatMap( db => {
-    return Observable.fromPromise( db.collection( 'worlds' ).find({ _id: { $in: ids }, $or: [
-        { owners: { $eq: user._id } },
-        { writers: { $eq: user._id } },
-        { readers: { $eq: user._id } },
-      ]}).toArray() )
-      .selectMany( w => w )
-      ;
+    return Observable.fromPromise( db.collection( 'worlds' ).find( query ).toArray() )
+    .selectMany( w => w )
+    ;
   });
 };
 

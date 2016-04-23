@@ -113,9 +113,11 @@ export default ( db, req, res ) => {
       route: 'worldsById[{keys:ids}].characters.push',
       call: ( { ids: [ id ] }, [ name = 'Unnamed Character' ] ) => db
         ::getWorlds( [ id ], user )
-        .flatMap( ({ readers = [], writers = [], owners = [], _id }) => db.flatMap(
-          create( 'characters', { name, readers, writers: writers.concat( owners ) }) 
-        ))
+        .flatMap( ({ readers = [], writers = [], owners = [], _id }) => db::create( 'characters', {
+          name,
+          readers,
+          writers: writers.concat( owners ),
+        }))
         .flatMap( character => {
           const charPV = Observable.of( character )
             ::toPathValues( ( i, f ) => [ 'charactersById', i._id, f ] )
@@ -189,9 +191,11 @@ export default ( db, req, res ) => {
       route: 'worldsById[{keys:ids}].outlines.push',
       call: ( { ids: [ id ] }, [ title = 'Unnamed Outline' ] ) => db
         ::getWorlds( [ id ], user )
-        .flatMap( ({ readers = [], writers = [], owners = [], _id }) => db.flatMap(
-          create( 'outlines', { title, readers, writers: writers.concat( owners ) }) 
-        ))
+        .flatMap( ({ readers = [], writers = [], owners = [], _id }) => db::create( 'outlines', {
+          title,
+          readers,
+          writers: writers.concat( owners ),
+        }))
         .flatMap( outline => {
           const charPV = Observable.of( outline )
             ::toPathValues( ( i, f ) => [ 'outlinesById', i._id, f ], [ 'title' ] )
@@ -274,14 +278,12 @@ export default ( db, req, res ) => {
       route: 'worldsById[{keys:ids}].elements.push',
       call: ( { ids: [ id ] }, [ element ] ) => db
         ::getWorlds( [ id ], user )
-        .flatMap( ({ readers = [], writers = [], owners = [], _id }) => db.flatMap(
-           create( 'elements', {
-             ...element,
-             world_id: _id,
-             readers,
-             writers: writers.concat( owners ),
-           })
-        ))
+        .flatMap( ({ readers = [], writers = [], owners = [], _id }) => db::create( 'elements', {
+          ...element,
+          world_id: _id,
+          readers,
+          writers: writers.concat( owners ),
+        }))
         .flatMap( element => {
           const charPV = toPathValues( ( i, f ) => [ 'elementsById', i._id, f ] )( element );
           const worldPV = db

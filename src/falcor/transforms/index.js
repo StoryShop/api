@@ -171,12 +171,14 @@ export const addIndex = () => {
   return item => ({ idx: idx++, ...item });
 };
 
-export const create = ( collection, props ) => db => {
-  db = db.collection( collection );
-  props._id = generateId();
+export function create ( collection, props ) {
+  return this.flatMap( db => {
+    db = db.collection( collection );
+    props._id = generateId();
 
-  return Observable.fromPromise( db.insertOne( props ) ).flatMap( r => r.ops );
-};
+    return Observable.fromPromise( db.insertOne( props ) ).flatMap( r => r.ops );
+  });
+}
 
 export function remove ( collection, user, _id ) {
   return this.flatMap( db => {

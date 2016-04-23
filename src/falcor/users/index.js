@@ -1,5 +1,11 @@
 import { Observable } from 'rx';
-import { toPathValues } from './../transforms';
+import {
+  toPathValues,
+  withLastAndLength,
+  create,
+  addIndex,
+} from './../transforms';
+import { getWorlds } from './../transforms/worlds';
 import {
   $ref,
   $atom,
@@ -32,13 +38,6 @@ export const getLastVisited = ( user, ids ) => db =>
   .map( ({ _id, ux }) => ({ _id, ...ux }) )
   ;
 
-export const getUserWorlds = ( user, ids, indices ) => db =>
-  Observable.fromPromise( db.collection( 'users' ).find( { _id: { $in: ids, $eq: user._id } } ).toArray() )
-  .selectMany( docs => docs )
-  .flatMap( ({ _id, worlds }) => worlds.map( ( w, idx ) => ({ _id, idx, worlds: $ref([ 'worldsById', w ]) }) ) )
-  .filter( item => indices.indexOf( item.idx ) !== -1 )
-  ;
-
 export default ( db, req, res ) => {
   const { user } = req;
 
@@ -54,12 +53,51 @@ export default ( db, req, res ) => {
     //   route: 'usersById[{keys:ids}]["email"]',
     //   get: pathSet => getUsers( users, pathSet.ids, pathSet[ 2 ] ),
     // },
+
+    /**
+     * Worlds
+     */
     {
       route: 'usersById[{keys:ids}].worlds[{integers:indices}]',
-      get: pathSet => db.flatMap( getUserWorlds( user, pathSet.ids, pathSet.indices ) )
-        ::toPathValues( ( i, f ) => [ 'usersById', i._id, f, i.idx ], 'worlds' )
+      get: pathSet => db
+        ::getWorlds( null, user )
+        .map( ({ _id }) => ({ _id, ref: $ref([ 'worldsById', _id ]) }) )
+        .map( addIndex() )
+        .filter( w => pathSet.indices.indexOf( w.idx ) !== -1 )
+        ::toPathValues( ( i, f ) => [ 'usersById', user._id, 'worlds', i.idx ], 'ref' )
         ,
     },
+    {
+      route: 'usersById[{keys:ids}].worlds.push',
+      call: ( { ids: [ id ] }, [ title = 'Unnamed World' ] ) => db
+        ::create( 'worlds', {
+          title,
+          owners: [ user._id ],
+          characters: [],
+          outlines: [],
+        })
+        .flatMap( world => {
+          const worldPV = Observable.of( world )
+            ::toPathValues( ( i, f ) => [ 'worldsById', i._id, f ] )
+            ;
+          const worldsPV = db
+            ::getWorlds( null, user )
+            .toArray()
+            ::withLastAndLength()
+            ::toPathValues( ( i, f ) => [ 'usersById', id, 'worlds', f ] )
+            ;
+
+          return Observable.from([ worldsPV, worldPV ])
+            .selectMany( o => o )
+            ;
+        })
+        .catch(e=>console.log(e.stack))
+        ,
+    },
+
+    /**
+     * ux
+     */
     {
       route: 'usersById[{keys:ids}].ux.lastVisited',
       get: pathSet => db.flatMap( getLastVisited( user, pathSet.ids ) )
