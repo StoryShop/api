@@ -9,6 +9,7 @@ import {
   setProps,
   remove,
   withLastAndLength,
+  addIndex,
 } from './../transforms';
 import {
   getWorlds,
@@ -49,6 +50,24 @@ export default ( db, req, res ) => {
         .flatMap( withComponentCounts( pathSet[ 2 ] ) )
         ::toPathValues( ( i, f ) => [ 'worldsById', i._id, f, 'length' ], pathSet[ 2 ] )
         ,
+    },
+    {
+      route: 'worldsById[{keys:ids}].labels',
+      get: pathSet => Observable.from( pathSet.ids )
+        .flatMap( _id => {
+          return db
+            .map( db => db.collection( 'elements' ) )
+            .flatMap( db => db.distinct( 'tags', {
+              world_id: { $in: pathSet.ids },
+              $or: [
+                { writers: { $eq: user._id } },
+                { readers: { $eq: user._id } },
+              ],
+            }))
+            .map( tags => ({ _id, tags }))
+            ;
+        })
+        ::toPathValues( ( i, f ) => [ 'worldsById', i._id, 'labels' ], 'tags' )
     },
 
     /**
