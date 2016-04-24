@@ -1,3 +1,4 @@
+import oppuml from 'oppuml';
 import { keys } from '../../utils';
 import {
   toPathValues,
@@ -24,6 +25,37 @@ export default ( db, req, res ) => {
       set: pathSet => db
         ::setProps( 'outlines', pathSet.outlinesById, user )
         ::toPathValues( ( i, f ) => [ 'outlinesById', i._id, f ], i => keys( pathSet.outlinesById[ i._id ] ) )
+        ,
+    },
+    {
+      route: 'outlinesById[{keys:ids}].opml',
+      get: pathSet => db
+        ::getProps( 'outlines', pathSet.ids, user )
+        .map( ({ _id, title, content }) => {
+          const data = {};
+
+          let lastHeader;
+          content.blocks.forEach( block => {
+            if ( block.type === 'header-two' ) {
+              lastHeader = block.text;
+              data[ lastHeader ] = [];
+              return;
+            }
+
+            data[ lastHeader ].push( block.text );
+          });
+
+          return {
+            _id,
+            opml: oppuml({
+              title,
+              content: {
+                [ title ]: data,
+              },
+            }),
+          };
+        })
+        ::toPathValues( ( i, f ) => [ 'outlinesById', i._id, f ], 'opml' )
         ,
     },
   ];
