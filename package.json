@@ -49,8 +49,8 @@
     "jsonwebtoken": "^5.7.0",
     "mongodb": "^2.1.7",
     "multiparty": "^4.1.2",
-    "oppuml": "0.0.2",
     "shortid": "^2.2.4",
+    "opml-generator": "^1.1.1",
     "uservoice-sso": "^0.1.0"
   },
   "devDependencies": {

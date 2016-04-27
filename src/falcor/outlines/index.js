@@ -1,4 +1,4 @@
-import oppuml from 'oppuml';
+import opmlGen from 'opml-generator';
 import { keys } from '../../utils';
 import {
   toPathValues,
@@ -32,27 +32,48 @@ export default ( db, req, res ) => {
       get: pathSet => db
         ::getProps( 'outlines', pathSet.ids, user )
         .map( ({ _id, title, content }) => {
-          const data = {};
+          let opmlHeader = {
+            "title": "StoryShop Import",
+            "dateCreated": new Date(),
+          };
+
+          const outline = [
+            {
+              text: title,
+              _children: [],
+            }
+          ];
 
           let lastHeader;
+          let lastHeaderIndex = -1;
+          let beatIndex;
+          let nextBlock;
           content.blocks.forEach( block => {
             if ( block.type === 'header-two' ) {
-              lastHeader = block.text;
-              data[ lastHeader ] = [];
+              lastHeader = {
+                text: block.text,
+                _children: [],
+              };
+
+              lastHeaderIndex++;
+              beatIndex = 1;
+
+              outline[0]._children.push( lastHeader );
               return;
             }
 
-            data[ lastHeader ].push( block.text );
+            nextBlock = {
+              text: "Beat " + beatIndex,
+              _note: block.text,
+            };
+            beatIndex++;
+
+            outline[0]._children[ lastHeaderIndex ]._children.push( nextBlock );
           });
 
           return {
             _id,
-            opml: oppuml({
-              title,
-              content: {
-                [ title ]: data,
-              },
-            }),
+            opml: opmlGen( opmlHeader, outline ),
           };
         })
         ::toPathValues( ( i, f ) => [ 'outlinesById', i._id, f ], 'opml' )
