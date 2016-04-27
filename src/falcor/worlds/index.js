@@ -30,14 +30,14 @@ export default ( db, req, res ) => {
      * Properties
      */
     {
-      route: 'worldsById[{keys:ids}]["_id", "title", "slug", "colour"]',
+      route: 'worldsById[{keys:ids}]["_id", "title", "slug"]',
       get: pathSet => db
         ::getWorlds( pathSet.ids, user )
         ::toPathValues( ( i, f ) => [ 'worldsById', i._id, f ], pathSet[ 2 ] )
         ,
     },
     {
-      route: 'worldsById[{keys:ids}]["title", "slug", "colour"]',
+      route: 'worldsById[{keys:ids}]["title", "slug"]',
       set: pathSet => db
         ::setWorldProps( pathSet.worldsById, user )
         ::toPathValues( ( i, f ) => [ 'worldsById', i._id, f ], i => keys( pathSet.worldsById[ i._id ] ) )
