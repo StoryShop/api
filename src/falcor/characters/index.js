@@ -10,6 +10,7 @@ import {
   setProps,
   fuzzyFind,
   getRandom,
+  withLastAndLength,
 } from './../transforms';
 
 export default ( db, req, res ) => {
