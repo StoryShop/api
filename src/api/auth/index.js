@@ -44,6 +44,42 @@ export default db => {
           });
         });
         break;
+      case 'facebook':
+        let http = require("es6-request");
+        let access_token = config.oauth.facebook.clientId + "|" + config.oauth.facebook.clientSecret
+
+        http.get( "https://graph.facebook.com/debug_token" )
+        .query({
+          "input_token": token,
+          "access_token": access_token,
+        })
+        .done((response, body) => {
+          let object = JSON.parse(body.toString());
+          if ( object.data.is_valid ) {
+            http.get( "https://graph.facebook.com/v2.5/" + object.data.user_id )
+            .query({
+              "access_token": token,
+              "fields": "email,name",
+            })
+            .done((reply, stuff) => {
+              let me = JSON.parse(stuff.toString());
+              const email = me.email;
+              const name = me.name;
+              findOrCreateUser( db, email, "", "", name )
+              .subscribe( user => {
+                const body = ({
+                  provider,
+                  token: jwt.sign({ provider: 'facebook', email }, jwtSecret, { subject: user._id } ),
+                });
+
+                res.json( body );
+              }, err => {
+                res.status(500).json({ status: 500, message: err })
+              });
+            })
+          }
+        });
+        break;
       default:
         res.status(400).json({ status: 400, message: `Unknown OAuth provider '${provider}'` });
     }

@@ -40,6 +40,7 @@
     "body-parser": "^1.15.0",
     "cors": "^2.7.1",
     "debug": "^2.2.0",
+    "es6-request": "^1.2.2",
     "express": "^4.13.4",
     "falcor-express": "^0.1.2",
     "falcor-http-datasource": "^0.1.3",
