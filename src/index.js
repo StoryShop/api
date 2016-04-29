@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import api from './api';
+import conf from './config';
 
 const app = express();
 
@@ -19,8 +20,7 @@ app.get( '/*', function ( req, res ) {
   });
 });
 
-const port = 9999;
-app.listen( port, function () {
-  console.log( `Listening on port ${port}...` )
+app.listen( conf.server.port, function () {
+  console.log( `Listening on port ${conf.server.port}...` )
 });
 
