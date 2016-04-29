@@ -41,6 +41,7 @@ export const withUser = () => ( req, res, next ) => {
     req.user = {
       _id: decoded.sub,
       email: decoded.email,
+      name: decoded.name,
     };
 
     next();

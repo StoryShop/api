@@ -13,6 +13,8 @@ import {
   keysO,
   keys,
 } from '../../utils';
+import config from '../../config';
+import UserVoiceSSO from 'uservoice-sso';
 
 // export const getUsers = ( db, ids, fields ) => db.flatMap( db => db.find({
 //   _id: { $in: ids.map( id => id ) },
@@ -48,6 +50,23 @@ export default ( db, req, res ) => {
         path: [ 'currentUser' ],
         value: $ref([ 'usersById', user ? user._id : undefined ]),
       }],
+    },
+    {
+      route: 'currentUserVoiceToken',
+      get: pathSet => {
+        const ssoUser = {
+          guid: user._id,
+          email: user.email,
+          display_name: user.name,
+        };
+        const uv = new UserVoiceSSO( config.sso.uservoice.domain, config.sso.uservoice.key );
+        const ssoToken = uv.createToken( ssoUser );
+
+        return {
+          path: [ 'currentUserVoiceToken' ],
+          value: ssoToken,
+        };
+      },
     },
     // {
     //   route: 'usersById[{keys:ids}]["email"]',

@@ -50,7 +50,8 @@
     "mongodb": "^2.1.7",
     "multiparty": "^4.1.2",
     "oppuml": "0.0.2",
-    "shortid": "^2.2.4"
+    "shortid": "^2.2.4",
+    "uservoice-sso": "^0.1.0"
   },
   "devDependencies": {
     "babel-polyfill": "^6.5.0",

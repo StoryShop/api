@@ -24,5 +24,12 @@ export default {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     },
   },
+
+  sso: {
+    uservoice: {
+      domain: process.env.USERVOICE_SSO_DOMAIN,
+      key: process.env.USERVOICE_SSO_KEY,
+    }
+  }
 };
 

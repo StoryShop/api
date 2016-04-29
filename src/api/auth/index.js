@@ -35,7 +35,7 @@ export default db => {
           .subscribe( user => {
             const body = ({
               provider,
-              token: jwt.sign({ provider: 'google', email }, jwtSecret, { subject: user._id } ),
+              token: jwt.sign({ provider: 'google', email, name }, jwtSecret, { subject: user._id } ),
             });
 
             res.json( body );
