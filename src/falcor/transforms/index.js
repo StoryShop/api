@@ -158,9 +158,9 @@ export function pushToArray ( collection, user, ids, field, value ) {
   });
 }
 
-export function withLastAndLength () {
+export function withLastAndLength ( transform ) {
   return this.map( arr => ({
-    [arr.length - 1]: arr[ arr.length - 1 ],
+    [arr.length - 1]: transform ? transform( arr[ arr.length - 1 ] ) : arr[ arr.length - 1],
     length: arr.length,
   }));
 }

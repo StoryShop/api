@@ -124,7 +124,7 @@ export default ( db, req, res ) => {
             ;
           const worldPV = db
             ::pushToArray( 'worlds', user, [ id ], 'characters', character._id )
-            ::withLastAndLength()
+            ::withLastAndLength( v => $ref([ 'charactersById', v ]) )
             ::toPathValues( ( i, f ) => [ 'worldsById', id, 'characters', f ] )
             ;
 
@@ -197,17 +197,16 @@ export default ( db, req, res ) => {
           writers: writers.concat( owners ),
         }))
         .flatMap( outline => {
-          const charPV = Observable.of( outline )
+          const outlinePV = Observable.of( outline )
             ::toPathValues( ( i, f ) => [ 'outlinesById', i._id, f ], [ 'title' ] )
             ;
           const worldPV = db
             ::pushToArray( 'worlds', user, [ id ], 'outlines', outline._id )
-            .map( arr => arr.map( i => $ref([ 'outlinesById', i ]) ) )
-            ::withLastAndLength()
+            ::withLastAndLength( v => $ref([ 'outlinesById', v ]) )
             ::toPathValues( ( i, f ) => [ 'worldsById', id, 'outlines', f ] )
             ;
 
-          return Observable.from([ charPV, worldPV ])
+          return Observable.from([ outlinePV, worldPV ])
             .selectMany( o => o )
             ;
         })
@@ -285,7 +284,9 @@ export default ( db, req, res ) => {
           writers: writers.concat( owners ),
         }))
         .flatMap( element => {
-          const charPV = toPathValues( ( i, f ) => [ 'elementsById', i._id, f ] )( element );
+          const elementPV = Observable.of( element )
+            ::toPathValues( ( i, f ) => [ 'elementsById', i._id, f ] )
+            ;
           const worldPV = db
             ::getWorlds( [ id ], user )
             .flatMap( world => db.flatMap( getElementCount( world ) ) )
@@ -296,7 +297,7 @@ export default ( db, req, res ) => {
             ::toPathValues( ( i, f ) => [ 'worldsById', id, 'elements', f ] )
             ;
 
-          return Observable.from([ charPV, worldPV ])
+          return Observable.from([ elementPV, worldPV ])
             .selectMany( o => o )
             ;
         })
