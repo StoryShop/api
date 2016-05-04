@@ -124,7 +124,7 @@ export default ( db, req, res ) => {
             ;
           const worldPV = db
             ::pushToArray( 'worlds', user, [ id ], 'characters', character._id )
-            ::withLastAndLength()
+            ::withLastAndLength( i => $ref([ 'charactersById', i ]) )
             ::toPathValues( ( i, f ) => [ 'worldsById', id, 'characters', f ] )
             ;
 
@@ -202,8 +202,7 @@ export default ( db, req, res ) => {
             ;
           const worldPV = db
             ::pushToArray( 'worlds', user, [ id ], 'outlines', outline._id )
-            .map( arr => arr.map( i => $ref([ 'outlinesById', i ]) ) )
-            ::withLastAndLength()
+            ::withLastAndLength( i => $ref([ 'outlinesById', i ]) )
             ::toPathValues( ( i, f ) => [ 'worldsById', id, 'outlines', f ] )
             ;
 
@@ -285,7 +284,9 @@ export default ( db, req, res ) => {
           writers: writers.concat( owners ),
         }))
         .flatMap( element => {
-          const charPV = toPathValues( ( i, f ) => [ 'elementsById', i._id, f ] )( element );
+          const charPV = Observable.of( element )
+            ::toPathValues( ( i, f ) => [ 'elementsById', i._id, f ] )
+            ;
           const worldPV = db
             ::getWorlds( [ id ], user )
             .flatMap( world => db.flatMap( getElementCount( world ) ) )

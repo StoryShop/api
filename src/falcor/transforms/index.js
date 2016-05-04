@@ -149,7 +149,13 @@ export function pushToArray ( collection, user, ids, field, value ) {
 
     return Observable.from( ids )
       .flatMap( id => db.findOneAndUpdate(
-        { _id: id, writers: { $eq: user._id } },
+        {
+          _id: id,
+          $or: [
+            { owners: { $eq: user._id } },
+            { writers: { $eq: user._id } },
+          ],
+        },
         { $push: { [field]: value } },
         { returnOriginal: false }
       ))
@@ -158,9 +164,9 @@ export function pushToArray ( collection, user, ids, field, value ) {
   });
 }
 
-export function withLastAndLength () {
+export function withLastAndLength ( fn ) {
   return this.map( arr => ({
-    [arr.length - 1]: arr[ arr.length - 1 ],
+    [arr.length - 1]: fn ? fn( arr[ arr.length - 1 ] ) : arr[ arr.length - 1 ],
     length: arr.length,
   }));
 }

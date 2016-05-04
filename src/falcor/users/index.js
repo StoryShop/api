@@ -77,6 +77,15 @@ export default ( db, req, res ) => {
      * Worlds
      */
     {
+      route: 'usersById[{keys:ids}].worlds.length',
+      get: pathSet => db
+        ::getWorlds( null, user )
+        .toArray()
+        .map( a => ({ _id: user._id, length: a.length }) )
+        ::toPathValues( ( i, f ) => [ 'usersById', user._id, 'worlds', f ], 'length' )
+        ,
+    },
+    {
       route: 'usersById[{keys:ids}].worlds[{integers:indices}]',
       get: pathSet => db
         ::getWorlds( null, user )
