@@ -136,12 +136,13 @@ export default ( db, req, res ) => {
         ::toPathValues( ( i, f ) => [ 'usersById', i._id, 'files', f ], 'length' )
     },
     {
-      route: 'usersById[{keys:ids}].files[{integers:indices}]',
+      route: 'usersById[{keys:ids}].files[{integers:indices}]["name", "url", "contentType", "size", "extension"]',
       get: pathSet => db
         .flatMap( db => db.collection( 'users' ).find( { _id: { $in: pathSet.ids, $eq: user._id } } ).toArray() )
         .selectMany( d => d )
         .flatMap( getWithinArray( 'files', pathSet.indices ) )
-        ::toPathValues( ( i, f ) => [ 'usersById', i._id, f, i.idx ], 'files' )
+        .map( ({ files, ...o }) => ({ ...o, ...pathSet[ 4 ].reduce( ( o, k ) => { o[k] = files[k]; return o }, {} ) }) )
+        ::toPathValues( ( i, f ) => [ 'usersById', i._id, 'files', i.idx, f ], pathSet[ 4 ] )
     },
 
     /**

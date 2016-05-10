@@ -9,6 +9,8 @@ import {
   setProps,
   fuzzyFind,
   remove,
+  pushToArray,
+  withLastAndLength,
 } from './../transforms';
 
 export default ( db, req, res ) => {
@@ -35,17 +37,62 @@ export default ( db, req, res ) => {
      * Props
      */
     {
-      route: 'elementsById[{keys:ids}]["_id", "title", "content", "cover", "tags"]',
+      route: 'elementsById[{keys:ids}]["_id", "title", "content", "tags"]',
       get: pathSet => db
         ::getProps( 'elements', pathSet.ids, user )
         ::toPathValues( ( i, f ) => [ 'elementsById', i._id, f ], pathSet[ 2 ] )
         ,
     },
     {
-      route: 'elementsById[{keys:ids}]["title", "content", "cover", "tags"]',
+      route: 'elementsById[{keys:ids}]["title", "content", "tags"]',
       set: pathSet => db
         ::setProps( 'elements', pathSet.elementsById, user )
         ::toPathValues( ( i, f ) => [ 'elementsById', i._id, f ], i => keys( pathSet.elementsById[ i._id ] ) )
+        ,
+    },
+
+    /**
+     * Cover
+     */
+    {
+      route: 'elementsById[{keys:ids}].cover',
+      get: pathSet => db
+        ::getProps( 'elements', pathSet.ids, user )
+        .map( ({ _id, cover }) => ({ _id, cover: cover ? $ref( cover ) : undefined }) )
+        ::toPathValues( ( i, f ) => [ 'elementsById', i._id, f ], 'cover' )
+        ,
+      call: ( { ids: [ id ] }, [ cover ] ) => db
+        ::setProps( 'elements', { [id]: { cover } }, user )
+        .map( ({ _id, cover }) => ({ _id, cover: $ref( cover ) }) )
+        ::toPathValues( ( i, f ) => [ 'elementsById', i._id, f ], 'cover' )
+    },
+
+    /**
+     * Files
+     */
+    {
+      route: 'elementsById[{keys:ids}].files.length',
+      get: pathSet => db
+        ::getProps( 'elements', pathSet.ids, user )
+        .flatMap( withComponentCounts([ 'files' ]) )
+        ::toPathValues( ( i, f ) => [ 'elementsById', i._id, f, 'length' ], 'files' )
+        ,
+    },
+    {
+      route: 'elementsById[{keys:ids}].files[{integers:indices}]',
+      get: pathSet => db
+        ::getProps( 'elements', pathSet.ids, user )
+        .flatMap( getWithinArray( 'files', pathSet.indices ) )
+        .map( ({ files, ...o }) => ({ files: $ref( f ), ...o }) )
+        ::toPathValues( ( i, f ) => [ 'elementsById', i._id, f, i.idx ], 'files' )
+        ,
+    },
+    {
+      route: 'elementsById[{keys:ids}].files.push',
+      call: ( { ids: [ id ] }, [ ref ] ) => db
+        ::pushToArray( 'elements', user, [ id ], 'files', ref.value )
+        ::withLastAndLength( i => $ref( i ) )
+        ::toPathValues( ( i, f ) => [ 'elementsById', id, 'files', f ] )
         ,
     },
   ];

@@ -77,7 +77,7 @@ export default ( db ) => {
                 value: filesLength,
               },
               {
-                path: [ 'usersById', req.user._id, 'files', filesLength ],
+                path: [ 'usersById', req.user._id, 'files', filesLength - 1 ],
                 value,
               },
             ]);
