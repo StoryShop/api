@@ -71,10 +71,16 @@ export default ( db ) => {
           ))
           .subscribe( ({ value: { files, filesLength } }) => {
             const [ value ] = files;
-            res.json({
-              path: [ 'usersById', req.user._id, 'files', filesLength ],
-              value,
-            });
+            res.json([
+              {
+                path: [ 'usersById', req.user._id, 'files', 'length' ],
+                value: filesLength,
+              },
+              {
+                path: [ 'usersById', req.user._id, 'files', filesLength ],
+                value,
+              },
+            ]);
           }, err => log.error( 'Persist failed: ', err ) );
           ;
       });

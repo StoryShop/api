@@ -4,6 +4,7 @@ import {
   withLastAndLength,
   create,
   addIndex,
+  getWithinArray,
 } from './../transforms';
 import { getWorlds } from './../transforms/worlds';
 import {
@@ -121,6 +122,26 @@ export default ( db, req, res ) => {
         })
         .catch(e=>console.log(e.stack))
         ,
+    },
+
+    /**
+     * Files
+     */
+    {
+      route: 'usersById[{keys:ids}].files.length',
+      get: pathSet => db
+        .flatMap( db => db.collection( 'users' ).find( { _id: { $in: pathSet.ids, $eq: user._id } } ).toArray() )
+        .selectMany( d => d )
+        .map( ({ _id, ...user }) => ({ _id, length: user.files ? user.files.length : 0 }) )
+        ::toPathValues( ( i, f ) => [ 'usersById', i._id, 'files', f ], 'length' )
+    },
+    {
+      route: 'usersById[{keys:ids}].files[{integers:indices}]',
+      get: pathSet => db
+        .flatMap( db => db.collection( 'users' ).find( { _id: { $in: pathSet.ids, $eq: user._id } } ).toArray() )
+        .selectMany( d => d )
+        .flatMap( getWithinArray( 'files', pathSet.indices ) )
+        ::toPathValues( ( i, f ) => [ 'usersById', i._id, f, i.idx ], 'files' )
     },
 
     /**
