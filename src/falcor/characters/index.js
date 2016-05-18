@@ -37,14 +37,14 @@ export default ( db, req, res ) => {
      * Props
      */
     {
-      route: 'charactersById[{keys:ids}]["_id", "name", "aliases", "avatar", "cover", "content"]',
+      route: 'charactersById[{keys:ids}]["_id", "name", "aliases", "content"]',
       get: pathSet => db
         ::getProps( 'characters', pathSet.ids, user )
         ::toPathValues( ( i, f ) => [ 'charactersById', i._id, f ], pathSet[ 2 ] )
         ,
     },
     {
-      route: 'charactersById[{keys:ids}]["name", "aliases", "avatar", "cover", "content"]',
+      route: 'charactersById[{keys:ids}]["name", "aliases", "content"]',
       set: pathSet => db
         ::setProps( 'characters', pathSet.charactersById, user )
         ::toPathValues( ( i, f ) => [ 'charactersById', i._id, f ], i => keys( pathSet.charactersById[ i._id ] ) )
@@ -57,6 +57,38 @@ export default ( db, req, res ) => {
         .flatMap( withComponentCounts( pathSet[ 2 ] ) )
         ::toPathValues( ( i, f ) => [ 'charactersById', i._id, f, 'length' ], pathSet[ 2 ] )
         ,
+    },
+
+    /**
+     * Avatar
+     */
+    {
+      route: 'charactersById[{keys:ids}].avatar',
+      get: pathSet => db
+        ::getProps( 'characters', pathSet.ids, user )
+        .map( ({ _id, avatar }) => ({ _id, avatar: avatar ? $ref( avatar ) : undefined }) )
+        ::toPathValues( ( i, f ) => [ 'charactersById', i._id, f ], 'avatar' )
+        ,
+      call: ( { ids: [ id ] }, [ avatar ] ) => db
+        ::setProps( 'characters', { [id]: { avatar } }, user )
+        .map( ({ _id, avatar }) => ({ _id, avatar: $ref( avatar ) }) )
+        ::toPathValues( ( i, f ) => [ 'charactersById', i._id, f ], 'avatar' )
+    },
+
+    /**
+     * Cover
+     */
+    {
+      route: 'charactersById[{keys:ids}].cover',
+      get: pathSet => db
+        ::getProps( 'characters', pathSet.ids, user )
+        .map( ({ _id, cover }) => ({ _id, cover: cover ? $ref( cover ) : undefined }) )
+        ::toPathValues( ( i, f ) => [ 'charactersById', i._id, f ], 'cover' )
+        ,
+      call: ( { ids: [ id ] }, [ cover ] ) => db
+        ::setProps( 'characters', { [id]: { cover } }, user )
+        .map( ({ _id, cover }) => ({ _id, cover: $ref( cover ) }) )
+        ::toPathValues( ( i, f ) => [ 'charactersById', i._id, f ], 'cover' )
     },
 
     /**
@@ -127,7 +159,6 @@ export default ( db, req, res ) => {
       route: 'charactersById[{keys:ids}].genes.push',
       call: ( { ids: [ id ] }, [ gene ] ) => db
         ::pushToArray( 'characters', user, [ id ], 'genes', gene )
-        .tap(v=>console.log("v",v))
         ::withLastAndLength()
         ::toPathValues( ( i, f ) => [ 'charactersById', id, 'genes', f ] )
         ,
