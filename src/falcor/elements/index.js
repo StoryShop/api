@@ -83,7 +83,7 @@ export default ( db, req, res ) => {
       get: pathSet => db
         ::getProps( 'elements', pathSet.ids, user )
         .flatMap( getWithinArray( 'files', pathSet.indices ) )
-        .map( ({ files, ...o }) => ({ files: $ref( f ), ...o }) )
+        .map( ({ files, ...o }) => ({ files: $ref( files ), ...o }) )
         ::toPathValues( ( i, f ) => [ 'elementsById', i._id, f, i.idx ], 'files' )
         ,
     },
