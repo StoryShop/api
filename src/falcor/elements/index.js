@@ -95,6 +95,38 @@ export default ( db, req, res ) => {
         ::toPathValues( ( i, f ) => [ 'elementsById', id, 'files', f ] )
         ,
     },
+    {
+      route: 'elementsById[{keys:ids}].files.delete',
+      call: ( { ids: [ element_id ] }, [ idx ] ) => db
+        ::getProps( 'elements', [ element_id ], user )
+        .flatMap( element => {
+          const { files } = element;
+
+          if ( idx >= files.length ) {
+            throw new Error( 'Could not find file to delete.' );
+          }
+
+          files.splice( idx, 1 );
+          const length = files.length;
+
+          return db::setProps( 'elements', { [element_id]: { files } }, user )
+            .flatMap( () => {
+              return [
+                {
+                  path: [ 'elementsById', element_id, 'files', 'length' ],
+                  value: length,
+                },
+                {
+                  path: [ 'elementsById', element_id, 'files', { from: idx, to: length } ],
+                  invalidated: true,
+                },
+              ];
+            })
+            ;
+        })
+        .catch(e=>console.log("err",e.stack))
+        ,
+    },
   ];
 };
 
