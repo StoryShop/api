@@ -8,8 +8,9 @@ import { generateId } from '../utils';
 
 const log = Logger( 'UploadsRouter' );
 const uploadBucket = process.env.UPLOAD_BUCKET || 'uploads-dev.storyshopapp.com';
+const region = process.env.UPLOAD_BUCKET_REGION || 'us-west-2';
 const s3 = new S3({
-  region: process.env.UPLOAD_BUCKET_REGION || 'us-west-2',
+  region,
   params: {
     Bucket: uploadBucket,
     ACL: 'public-read',
@@ -50,7 +51,7 @@ export default ( db ) => {
         // Save the file to the db.
         const upload = {
           name: file.originalFilename,
-          url: `http://s3-us-west-2.amazonaws.com/${uploadBucket}/${filename}`,
+          url: `http://s3-${region}.amazonaws.com/${uploadBucket}/${filename}`,
           contentType: file.headers[ 'content-type' ],
           size: file.size,
           extension: ext,
