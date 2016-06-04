@@ -9,7 +9,7 @@ import { generateId } from '../utils';
 const log = Logger( 'UploadsRouter' );
 const uploadBucket = process.env.UPLOAD_BUCKET || 'uploads-dev.storyshopapp.com';
 const s3 = new S3({
-  region: 'us-west-2',
+  region: process.env.UPLOAD_BUCKET_REGION || 'us-west-2',
   params: {
     Bucket: uploadBucket,
     ACL: 'public-read',
