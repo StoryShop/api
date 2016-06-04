@@ -10,6 +10,7 @@ app.use( cors({
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true,
 }));
+app.options( '*', cors() );
 app.use( '/api', api );
 
 app.get( '/*', function ( req, res ) {
