@@ -33,6 +33,10 @@ export default db => {
 
           findOrCreateUser( db, email, given_name, family_name, name )
           .subscribe( user => {
+            if ( ! user.sub_sts ) {
+              return res.status( 403 ).json({ status: 403, message: 'Account is not part of beta' });
+            }
+
             const body = ({
               provider,
               token: jwt.sign({ provider: 'google', email, name }, jwtSecret, { subject: user._id } ),

@@ -2,6 +2,7 @@
   {
     "_id": "EJA_S0Cie",
     "email": "seth@strangewindstudio.com",
+    "sub_sts": true,
     "name": {
       "first": "Seth",
       "last": "Merrick",
@@ -9,14 +10,12 @@
     },
     "worlds": [
       "BdvmHwZsvA"
-    ],
-    "ux": {
-      "lastVisited": "/worlds/BdvmHwZsvA"
-    }
+    ]
   },
   {
     "_id": "N1g5eSETx",
     "email": "josh@joshdmiller.com",
+    "sub_sts": true,
     "name": {
       "first": "Josh David",
       "last": "Miller",
@@ -24,10 +23,7 @@
     },
     "worlds": [
       "BdvmHwZsvA"
-    ],
-    "ux": {
-      "lastVisited": "/worlds/BdvmHwZsvA"
-    }
+    ]
   }
 ]
 
