@@ -47,10 +47,10 @@
     "falcor-router": "^0.2.12",
     "googleapis": "^3.1.0",
     "jsonwebtoken": "^5.7.0",
-    "mongodb": "^2.1.7",
+    "mongodb": "^2.1.15",
     "multiparty": "^4.1.2",
-    "shortid": "^2.2.4",
     "opml-generator": "^1.1.1",
+    "shortid": "^2.2.4",
     "uservoice-sso": "^0.1.0"
   },
   "devDependencies": {
