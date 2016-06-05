@@ -11,9 +11,7 @@ import { withUser, isLoggedIn } from './auth/middleware';
 const log = Logger( 'ApiRouter' );
 
 const db = connectDb({
-  hostname: process.env.MONGO_HOSTNAME || 'localhost',
-  port: process.env.MONGO_PORT || 27017,
-  env: process.env.MONGO_ENV || 'dev',
+  uri: process.env.MONGO_URI || 'mongodb://localhost:27017/dev',
 });
 
 const router = express.Router();

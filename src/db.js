@@ -5,10 +5,8 @@ import Logger from './logger';
 const log = Logger( 'DB' );
 const connect = Observable.fromNodeCallback( MongoClient.connect, MongoClient );
 
-export default conf => {
-  const url = `mongodb://${conf.hostname}:${conf.port}/${conf.env}`;
-
-  log.debug(`connecting to ${url}`);
-  return connect( url );
+export default ({ uri }) => {
+  log.debug(`connecting to ${uri}`);
+  return connect( uri );
 };
 
