@@ -25,26 +25,19 @@ router.use( '/model.json', withUser(), bodyParser.urlencoded(), falcorRouter( db
 router.get( '/', function ( req, res ) {
   log.debug( 'Hello!' );
 
-  const sendError = () => res.status( 500 ).json({
-    status: 500,
-    error: 'Internal Server Error',
-    message: 'Could not connect to database.',
+  return res.json( info() );
+});
+
+router.get( '/health', function ( req, res ) {
+  db.subscribe( db => res.json({ status: 200, message: 'good health' }), err => {
+    log.debug( 'Error connecting to DB' );
+    log.debug( err.stack || err );
+
+    res.status( 500 ).json({
+      status: 500,
+      message: `could not connect to db: ${err}`,
+    });
   });
-
-  db
-    .subscribe( db => {
-      db.collection( 'worlds' ).find({}).toArray( ( err, docs ) => {
-        if ( err ) {
-          return sendError();
-        }
-
-        return res.json( info() );
-      })
-    }, err => {
-      log.error( err );
-      return sendError();
-    })
-    ;
 });
 
 export default router;
