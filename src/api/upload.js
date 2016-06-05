@@ -51,7 +51,7 @@ export default ( db ) => {
         // Save the file to the db.
         const upload = {
           name: file.originalFilename,
-          url: `http://s3-${region}.amazonaws.com/${uploadBucket}/${filename}`,
+          url: `http://${uploadBucket}.s3-website-${region}.amazonaws.com/${filename}`,
           contentType: file.headers[ 'content-type' ],
           size: file.size,
           extension: ext,
