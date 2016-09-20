@@ -1,3 +1,4 @@
+import { Observable } from 'rx';
 import express from 'express';
 import bodyParser from 'body-parser';
 import info from '../info';
@@ -11,7 +12,13 @@ import { withUser, isLoggedIn } from './auth/middleware';
 const log = Logger( 'ApiRouter' );
 
 const db = connectDb({
-  uri: process.env.MONGO_URI || 'mongodb://localhost:27017/dev',
+  mongodb: {
+    uri: process.env.MONGO_URI || 'mongodb://localhost:27017/dev',
+  },
+
+  neo4j: {
+    uri: process.env.NEO_URI || 'bolt://localhost',
+  },
 });
 
 const router = express.Router();
@@ -27,15 +34,23 @@ router.get( '/', function ( req, res ) {
 });
 
 router.get( '/health', function ( req, res ) {
-  db.subscribe( db => res.json({ status: 200, message: 'good health' }), err => {
+  const handleError = err => {
     log.debug( 'Error connecting to DB' );
     log.debug( err.stack || err );
 
     res.status( 500 ).json({
       status: 500,
-      message: `could not connect to db: ${err}`,
+      message: `could not connect to database: ${err}`,
     });
-  });
+  };
+
+  db.subscribe( ({ mongo, neo }) => {
+    neo.run( 'MATCH (n) RETURN count(n) as cnt' )
+      .toArray()
+      .subscribe( records => {
+        res.json({ status: 200, message: 'good health' });
+      }, handleError )
+  }, handleError );
 });
 
 export default router;

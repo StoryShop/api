@@ -27,7 +27,7 @@ import UserVoiceSSO from 'uservoice-sso';
 // })));
 
 export const setLastVisited = ( user, ids ) => db =>
-  keysO( ids ).filter( id => id === user._id ).flatMap( id => db.collection( 'users' ).findOneAndUpdate(
+  keysO( ids ).filter( id => id === user._id ).flatMap( id => db.mongo.collection( 'users' ).findOneAndUpdate(
     { _id: id },
     { $set: { 'ux.lastVisited': ids[ id ].ux.lastVisited } },
     { returnOriginal: false }
@@ -36,7 +36,7 @@ export const setLastVisited = ( user, ids ) => db =>
   ;
 
 export const getLastVisited = ( user, ids ) => db =>
-  Observable.fromPromise( db.collection( 'users' ).find( { _id: { $in: ids, $eq: user._id } } ).toArray() )
+  Observable.fromPromise( db.mongo.collection( 'users' ).find( { _id: { $in: ids, $eq: user._id } } ).toArray() )
   .selectMany( docs => docs )
   .map( ({ _id, ux }) => ({ _id, ...ux }) )
   ;
@@ -130,7 +130,7 @@ export default ( db, req, res ) => {
     {
       route: 'usersById[{keys:ids}].files.length',
       get: pathSet => db
-        .flatMap( db => db.collection( 'users' ).find( { _id: { $in: pathSet.ids, $eq: user._id } } ).toArray() )
+        .flatMap( db => db.mongo.collection( 'users' ).find( { _id: { $in: pathSet.ids, $eq: user._id } } ).toArray() )
         .selectMany( d => d )
         .map( ({ _id, ...user }) => ({ _id, length: user.files ? user.files.length : 0 }) )
         ::toPathValues( ( i, f ) => [ 'usersById', i._id, 'files', f ], 'length' )
@@ -138,7 +138,7 @@ export default ( db, req, res ) => {
     {
       route: 'usersById[{keys:ids}].files[{integers:indices}]["name", "url", "contentType", "size", "extension"]',
       get: pathSet => db
-        .flatMap( db => db.collection( 'users' ).find( { _id: { $in: pathSet.ids, $eq: user._id } } ).toArray() )
+        .flatMap( db => db.mongo.collection( 'users' ).find( { _id: { $in: pathSet.ids, $eq: user._id } } ).toArray() )
         .selectMany( d => d )
         .flatMap( getWithinArray( 'files', pathSet.indices ) )
         .map( ({ files, ...o }) => ({ ...o, ...pathSet[ 4 ].reduce( ( o, k ) => { o[k] = files[k]; return o }, {} ) }) )

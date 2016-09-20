@@ -56,7 +56,7 @@ export default ( db, req, res ) => {
       get: pathSet => Observable.from( pathSet.ids )
         .flatMap( _id => {
           return db
-            .map( db => db.collection( 'elements' ) )
+            .map( db => db.mongo.collection( 'elements' ) )
             .flatMap( db => db.distinct( 'tags', {
               world_id: { $in: pathSet.ids },
               $or: [

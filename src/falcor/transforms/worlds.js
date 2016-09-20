@@ -20,7 +20,7 @@ export function getWorlds ( ids, user ) {
   }
 
   return this.flatMap( db => {
-    return Observable.fromPromise( db.collection( 'worlds' ).find( query ).toArray() )
+    return Observable.fromPromise( db.mongo.collection( 'worlds' ).find( query ).toArray() )
     .selectMany( w => w )
     ;
   });
@@ -35,7 +35,7 @@ export function setWorldProps ( propsById, user ) {
           { writers: { $eq: user._id } },
         ];
 
-        return db.collection( 'worlds' ).findOneAndUpdate( { _id, $or }, { $set: propsById[ _id ] }, {
+        return db.mongo.collection( 'worlds' ).findOneAndUpdate( { _id, $or }, { $set: propsById[ _id ] }, {
           returnOriginal: false,
         });
       })

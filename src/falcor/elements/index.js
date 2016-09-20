@@ -124,7 +124,6 @@ export default ( db, req, res ) => {
             })
             ;
         })
-        .catch(e=>console.log("err",e.stack))
         ,
     },
   ];

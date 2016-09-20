@@ -58,7 +58,7 @@ export default ( db ) => {
         };
 
         db
-          .map( db => db.collection( 'users' ) )
+          .map( db => db.mongo.collection( 'users' ) )
           .flatMap( db => db.findOneAndUpdate(
             { _id: req.user._id },
             { $push: { files: upload }, $inc: { filesLength: 1 } },

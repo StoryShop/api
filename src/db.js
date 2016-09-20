@@ -1,25 +1,50 @@
 import { Observable } from 'rx';
 import { MongoClient } from 'mongodb';
+import { driver } from 'neo4j-driver/lib/v1';
 import Logger from './logger';
 
-const log = Logger( 'DB' );
+const log = Logger( 'Database' );
 
-export default ({ uri }) => {
-  log.debug(`connecting to ${uri}`);
-  let connection = null;
+export default ({ mongodb, neo4j }) => {
+  log.debug( 'Connecting to databases...' );
+  let mongo = null;
+  let neo = null;
 
-  const connect = Observable.fromNodeCallback( function ( uri, cb ) {
-    if ( ! connection ) {
-      MongoClient.connect( uri, function ( err, conn ) {
-        connection = conn;
+  const getDb = () => ({
+    mongo,
+    neo: {
+      run ( ...args ) {
+        // convert the neo4j run function's Result into an Observable.
+        return new Observable( sub => {
+          neo.run( ...args ).subscribe({
+            onNext: ( ...args ) => sub.next( ...args ),
+            onError: ( ...args ) => sub.error( ...args ),
+            onCompleted: ( ...args ) => sub.completed( ...args ),
+          });
+        });
+      },
+    },
+  });
 
-        cb( err, conn );
+  const connect = Observable.fromNodeCallback( function ( muri, nuri, cb ) {
+    if ( ! mongo ) {
+      MongoClient.connect( muri, function ( err, conn ) {
+        mongo = conn;
+
+        if ( err ) {
+          return cb( err );
+        }
+
+        neo = driver( nuri ).session();
+
+        cb( err, getDb() );
       });
     } else {
-      cb( null, connection );
+      cb( null, getDb() );
     }
   });
 
-  return connect( uri );
+  return connect( mongodb.uri, neo4j.uri );
 };
+
 

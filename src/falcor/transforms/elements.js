@@ -7,7 +7,7 @@ import {
 } from '../../utils';
 
 export const getElementsForWorld = ( world, indices ) => db => {
-  return Observable.fromPromise( db.collection( 'elements' ).find({ world_id: world._id }).toArray() )
+  return Observable.fromPromise( db.mongo.collection( 'elements' ).find({ world_id: world._id }).toArray() )
     .flatMap( elements => indices.map( idx => ({
       _id: world._id,
       idx,
@@ -17,7 +17,7 @@ export const getElementsForWorld = ( world, indices ) => db => {
 };
 
 // export const getElements = ( ids, user ) => db => {
-//   return Observable.fromPromise( db.collection( 'elements' ).find({ _id: { $in: ids }, $or: [
+//   return Observable.fromPromise( db.mongo.collection( 'elements' ).find({ _id: { $in: ids }, $or: [
 //       { owners: { $eq: user._id } },
 //       { writers: { $eq: user._id } },
 //       { readers: { $eq: user._id } },
@@ -27,7 +27,7 @@ export const getElementsForWorld = ( world, indices ) => db => {
 // };
 
 export const getElementCount = world => db => {
-  return Observable.fromPromise( db.collection( 'elements' ).count({ world_id: world._id }) )
+  return Observable.fromPromise( db.mongo.collection( 'elements' ).count({ world_id: world._id }) )
   .map( elements => ({ _id: world._id, elements }) )
   ;
 };

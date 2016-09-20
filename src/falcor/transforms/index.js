@@ -49,7 +49,7 @@ export function toPathValues ( pathGen, fields ) {
 }
 
 export const fuzzyFind = ( collection, field, patterns, user ) => db => {
-  return Observable.fromPromise( db.collection( collection ).find({
+  return Observable.fromPromise( db.mongo.collection( collection ).find({
     [field]: { $in: patterns.map( p => new RegExp( `^.*${p}.*$`, 'ig' ) ) },
     $or: [
       { writers: { $eq: user._id } },
@@ -61,7 +61,7 @@ export const fuzzyFind = ( collection, field, patterns, user ) => db => {
 
 export function getProps ( collection, ids, user ) {
   return this.flatMap( db => {
-    return Observable.fromPromise( db.collection( collection ).find({ _id: { $in: ids }, $or: [
+    return Observable.fromPromise( db.mongo.collection( collection ).find({ _id: { $in: ids }, $or: [
         { writers: { $eq: user._id } },
         { readers: { $eq: user._id } },
       ]}).toArray() )
@@ -77,7 +77,7 @@ export function setProps ( collection, propsById, user ) {
         const writers = { $eq: user._id };
         const $set = unwrapAtomsInObject( propsById[ _id ] );
 
-        return db.collection( collection ).findOneAndUpdate( { _id, writers }, { $set }, {
+        return db.mongo.collection( collection ).findOneAndUpdate( { _id, writers }, { $set }, {
           returnOriginal: false,
         });
       })
@@ -87,7 +87,7 @@ export function setProps ( collection, propsById, user ) {
 }
 
 export const getRandom = ( collection ) => db => {
-  const coll = db.collection( collection );
+  const coll = db.mongo.collection( collection );
 
   return Observable.fromPromise( coll.count() )
     .flatMap( count => coll.find().limit( 1 ).skip( Math.floor( Math.random() * count ) ).toArray() )
@@ -123,7 +123,7 @@ export const getWithinArray = ( fields, indices ) => item => {
 
 export const setWithinArray = ( collection, field, props, user ) => db => {
   const ids = keys( props );
-  db = db.collection( collection );
+  db = db.mongo.collection( collection );
 
   return Observable.from( ids )
     .flatMap( id => {
@@ -145,7 +145,7 @@ export const setWithinArray = ( collection, field, props, user ) => db => {
 
 export function pushToArray ( collection, user, ids, field, value ) {
   return this.flatMap( db => {
-    db = db.collection( collection );
+    db = db.mongo.collection( collection );
 
     return Observable.from( ids )
       .flatMap( id => db.findOneAndUpdate(
@@ -179,7 +179,7 @@ export const addIndex = () => {
 
 export function create ( collection, props ) {
   return this.flatMap( db => {
-    db = db.collection( collection );
+    db = db.mongo.collection( collection );
     props._id = generateId();
 
     return Observable.fromPromise( db.insertOne( props ) ).flatMap( r => r.ops );
@@ -188,7 +188,7 @@ export function create ( collection, props ) {
 
 export function remove ( collection, user, _id ) {
   return this.flatMap( db => {
-    db = db.collection( collection );
+    db = db.mongo.collection( collection );
 
     return Observable.fromPromise( db.removeMany({ _id: _id, writers: user._id }) )
       .map( r => r.result.n )
