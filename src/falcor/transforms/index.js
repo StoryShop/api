@@ -196,3 +196,30 @@ export function remove ( collection, user, _id ) {
     });
 }
 
+export function archiveNode(nodeLabel, nodeId, userId) {
+  const query = `
+    MATCH (node:${nodeLabel} {_id: {nodeId} }) 
+    OPTIONAL MATCH (node)<-[rel]-() 
+    SET node.archived = true, 
+    node.archived_at = timestamp(), 
+    node.archiver = {userId}, 
+    rel.archived = true, 
+    rel.archived_at = timestamp(), 
+    rel.archiver = {userId} 
+    RETURN DISTINCT node`
+  return this.flatMap(db =>
+    db.neo.run(query,{nodeId, userId})
+  )
+}
+
+
+export function archiveRelationship(relType, fromNodeId, toNodeId, userId) {
+  const query = `
+   MATCH (start {_id: {fromNodeId}})-[rel]->(end {_id: {toNodeId}})
+   WHERE type(rel) = {relType}
+   SET rel.archived = true, rel.archived_at = timestamp(), rel.archiver = {userId}
+   RETURN rel`
+  return this.flatMap(db =>
+    db.neo.run(query,{fromNodeId, toNodeId, userId, relType})
+  )
+}
