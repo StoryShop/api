@@ -196,3 +196,34 @@ export function remove ( collection, user, _id ) {
     });
 }
 
+export function archiveNode(nodeLabel, nodeId, userId) {
+  const query = `
+   MATCH (i:${nodeLabel} {_id:"${nodeId}"})
+   OPTIONAL MATCH (i)-[r]-(e)
+   SET i.archived = true, i.archived_at = ${Date.now()}, i.archiver = '${userId}'
+   return type(r) as type,i._id AS start,e._id AS end`
+  return this.flatMap(db =>
+    db.neo.run(query)
+      .flatMap(record =>
+        record.get('type') == null
+          ? Observable.of({start: record.get('start')})
+          : this::archiveRelationship(record.get('type'),record.get('start'),record.get('end'), userId)
+      )
+      .toArray()
+  )
+}
+
+export function archiveRelationship(relType, fromNodeId, toNodeId, userId) {
+  const query = `
+   MATCH (start)-[rel:${relType}]-(end)
+   WHERE start._id = "${fromNodeId}" AND end._id = "${toNodeId}"
+   SET rel.archived = true, rel.archived_at = ${Date.now()}, rel.archiver = '${userId}'
+   return start._id as start, end._id as end`
+  return this.flatMap(db =>
+    db.neo.run(query)
+      .map(record => ({
+        start: record.get('start'),
+        end : record.get('end')
+      }))
+  )
+}
