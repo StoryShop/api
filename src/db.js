@@ -14,14 +14,31 @@ export default ({ mongodb, neo4j }) => {
     mongo,
     neo: {
       run ( ...args ) {
+        if ( ! this.session ) {
+          this.session = neo.session();
+        }
+
         // convert the neo4j run function's Result into an Observable.
         return new Observable( sub => {
-          neo.run( ...args ).subscribe({
+          this.session.run( ...args ).subscribe({
             onNext: ( ...args ) => sub.next( ...args ),
             onError: ( ...args ) => sub.error( ...args ),
             onCompleted: ( ...args ) => sub.completed( ...args ),
           });
         });
+      },
+
+      close ( ...args ) {
+        if ( ! this.session ) {
+          return;
+        }
+
+        this.session.close( ...args );
+        delete this.session;
+      },
+
+      disconnect ( ...args ) {
+        return neo.close( ...args );
       },
     },
   });
@@ -35,7 +52,7 @@ export default ({ mongodb, neo4j }) => {
           return cb( err );
         }
 
-        neo = driver( nuri ).session();
+        neo = driver( nuri );
 
         cb( err, getDb() );
       });

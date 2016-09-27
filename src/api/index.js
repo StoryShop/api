@@ -49,6 +49,7 @@ router.get( '/health', function ( req, res ) {
       .toArray()
       .subscribe( records => {
         res.json({ status: 200, message: 'good health' });
+        neo.close();
       }, handleError )
   }, handleError );
 });
