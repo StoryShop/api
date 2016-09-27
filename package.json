@@ -7,6 +7,7 @@
     "start": "node index.js",
     "dev": "nodemon index.js",
     "test": "tape -r babel-polyfill -r babel-register src/**/*spec.js | faucet",
+    "test:ci": "tape -r babel-polyfill -r babel-register src/**/*spec.js",
     "data:worlds": "mongoimport --db dev --drop --jsonArray --type json --file fixtures/worlds.json --collection worlds",
     "data:outlines": "mongoimport --db dev --drop --jsonArray --type json --file fixtures/outlines.json --collection outlines",
     "data:characters": "mongoimport --db dev --drop --jsonArray --type json --file fixtures/characters.json --collection characters",

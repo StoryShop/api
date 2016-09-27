@@ -1,0 +1,14 @@
+machine:
+  node:
+    version: 6.1.0
+  pre:
+    - curl -k -L -o neo4j.tar.gz https://neo4j.com/artifact.php?name=neo4j-community-3.0.6-unix.tar.gz
+    - tar -xzvf neo4j.tar.gz
+    - sed -i "s|#dbms.security.auth_enabled=false|dbms.security.auth_enabled=false|g" neo4j-community-3.0.6/conf/neo4j.conf
+    - neo4j-community-3.0.6/bin/neo4j start
+    - sleep 5
+    - cat neo4j-community-3.0.6/logs/neo4j.log
+test:
+  override:
+    - npm run test:ci
+
