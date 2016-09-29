@@ -33,7 +33,6 @@
   },
   "homepage": "https://github.com/StoryShop/api#readme",
   "dependencies": {
-    "@reactivex/rxjs": "^5.0.0-beta.12",
     "aws-sdk": "^2.2.41",
     "babel-preset-es2015": "^6.5.0",
     "babel-preset-stage-0": "^6.5.0",
@@ -52,6 +51,7 @@
     "multiparty": "^4.1.2",
     "neo4j-driver": "^1.0.4",
     "opml-generator": "^1.1.1",
+    "rx": "^4.1.0",
     "shortid": "^2.2.4",
     "uservoice-sso": "^0.1.0"
   },

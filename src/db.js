@@ -19,13 +19,7 @@ export default ({ mongodb, neo4j }) => {
         }
 
         // convert the neo4j run function's Result into an Observable.
-        return new Observable( sub => {
-          this.session.run( ...args ).subscribe({
-            onNext: ( ...args ) => sub.next( ...args ),
-            onError: ( ...args ) => sub.error( ...args ),
-            onCompleted: ( ...args ) => sub.completed( ...args ),
-          });
-        });
+        return Observable.create( sub => this.session.run( ...args ).subscribe( sub ) );
       },
 
       close ( ...args ) {
