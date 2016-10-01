@@ -127,7 +127,7 @@ function createRelationFromBookToWorld(bookId, worldId, creator){
   const query = `
    MERGE (w:World {_id: {worldId} })
    MERGE (b:Book {_id: {bookId} })
-   MERGE (b)-[rel:IN]-(w)
+   MERGE (b)-[rel:IN]->(w)
    SET rel.archived = false, b.archived = false,
    rel.created_at = timestamp(), rel.creator = {creator}
    return rel as rel`;

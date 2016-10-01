@@ -203,7 +203,6 @@ export default ( db, req, res ) => {
           )
         )
     },
-
     {
       route: 'worldsById[{keys:ids}].books.length',
       get: ({ids}) => {
@@ -218,6 +217,28 @@ export default ( db, req, res ) => {
               })
           })
       }
+    },
+    {
+      route: 'worldsById[{keys:ids}].books.push',
+      call: ( { ids: [ id ] }, [ {title} ] ) => {
+        return db
+          ::getWorldsNext([id], user._id)
+          .flatMap(world => db
+            ::createBook(world._id, title, user._id)
+            .flatMap(book => db
+              ::getBooksFromWorld(world._id, user._id).count()
+              .flatMap(count => {
+                return [
+                  {path: ["booksById", book._id, "_id"], value: book._id},
+                  {path: ["booksById", book._id, "title"], value: book.title},
+                  {path: ["worldsById", world._id, "books", count - 1], value: $ref(['booksById', book._id])},
+                  {path: ["worldsById", world._id, "books", "length"], value: count},
+                ]
+              })
+            )
+          )
+      }
+      ,
     },
 
     /**

@@ -55,10 +55,10 @@ export function getBooksLength(worldID) {
 export function getWorldByBook(bookId) {
   const query = `
     match (b:Book)-[rel:IN]->(w:World)
-    WHERE rel.archived = false and b._id = "${bookId}"
+    WHERE rel.archived = false and b._id = {bookId}
     return w._id as id
   `;
-  return this.flatMap(db => db.neo.run(query))
+  return this.flatMap(db => db.neo.run(query,{bookId}))
     .map(record =>
       record.get('id')
     )
