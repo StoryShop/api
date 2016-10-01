@@ -1,6 +1,7 @@
 import { Observable } from 'rx';
 import { keys, $ref } from '../../utils';
 import {
+
   toPathValues,
   withComponentCounts,
   create,
@@ -10,12 +11,18 @@ import {
   remove,
   withLastAndLength,
   addIndex,
+  archiveDocument,
+  archiveNode,
+  archiveRelationship,
 } from './../transforms';
 import {
   getWorlds,
+  getWorldsNext,
   setWorldProps,
   withCharacterRefs,
   withOutlineRefs,
+  getBooksFromWorld,
+  createBook
 } from './../transforms/worlds';
 import {
   getElementCount,
@@ -174,6 +181,43 @@ export default ( db, req, res ) => {
             ;
         })
         ,
+    },
+
+
+    /**
+     * Books
+     */
+    {
+      route: 'worldsById[{keys:ids}].books[{integers:indices}]',
+      get: ({ids, indices}) =>  db
+        ::getWorldsNext(ids, user._id)
+        .flatMap(world => db::getBooksFromWorld(world._id, user._id)
+          .toArray()
+          .flatMap(books => indices
+            .map(index => {
+              const book = books[index];
+              return book != null
+                ? [{path: ["worldsById", world._id, "books", index], value: $ref(['booksById', book])}]
+                : [{path: ["worldsById", world._id, "books", index], value: null}]
+            })
+          )
+        )
+    },
+
+    {
+      route: 'worldsById[{keys:ids}].books.length',
+      get: ({ids}) => {
+        return db
+          ::getWorldsNext(ids, user._id)
+          .flatMap(world => {
+            return db::getBooksFromWorld(world._id, user._id).count()
+              .flatMap(count => {
+                return [
+                  {path: ["worldsById", world._id, "books", "length"], value: count},
+                ]
+              })
+          })
+      }
     },
 
     /**
