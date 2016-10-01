@@ -240,6 +240,48 @@ export default ( db, req, res ) => {
       }
       ,
     },
+    {
+      route: 'worldsById[{keys:ids}].books.remove',
+      call: ( { ids: [ world_id ] }, [ {id} ] ) => db
+        ::getBooksFromWorld(world_id,user._id)
+        .toArray()
+        .map(array => ({
+          length: array.length,
+          position: array.findIndex(element => element === id)
+        }))
+        .flatMap(({position,length}) => {
+          if(position === -1) {
+            throw new Error('Could not find the book to delete');
+          }
+          return db
+            ::archiveDocument('books', id, user._id)
+            .flatMap((document) => {
+              if (document.archived !== true)
+                throw new Error('Could not delete the book');
+              return db
+                ::archiveNode('Book', document._id, user._id)
+                .flatMap(node =>
+                  db::archiveRelationship('IN', document._id,world_id, user._id)
+                )
+                .flatMap(() => {
+                  return [
+                    {
+                      path: [ 'booksById', id ],
+                      invalidated: true
+                    },
+                    {
+                      path: [ 'worldsById', world_id, 'books', 'length' ],
+                      value: length-1,
+                    },
+                    {
+                      path: [ 'worldsById', world_id, 'books', { from: position, to: length } ],
+                      invalidated: true,
+                    },
+                  ]
+                })
+            })
+        })
+    },
 
     /**
      * Outlines
