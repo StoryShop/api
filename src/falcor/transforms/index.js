@@ -196,3 +196,21 @@ export function remove ( collection, user, _id ) {
     });
 }
 
+
+export function archiveDocument(collection, _id, userId) {
+  return this.flatMap(db => {
+    db = db.mongo.collection(collection);
+    return db.findOneAndUpdate(
+      {_id: _id},
+      {
+        $set: {
+          archived: true,
+          archived_at: Date.now(),
+          archiver: userId,
+        }
+      },
+      { returnOriginal: false }
+    )
+  })
+    .map(r => r.value);
+}
