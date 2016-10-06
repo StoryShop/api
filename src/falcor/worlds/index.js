@@ -1,6 +1,7 @@
 import { Observable } from 'rx';
 import { keys, $ref } from '../../utils';
 import {
+
   toPathValues,
   withComponentCounts,
   create,
@@ -10,12 +11,18 @@ import {
   remove,
   withLastAndLength,
   addIndex,
+  archiveDocument,
+  archiveNode,
+  archiveRelationship,
 } from './../transforms';
 import {
   getWorlds,
+  getWorldsNext,
   setWorldProps,
   withCharacterRefs,
   withOutlineRefs,
+  getBooksFromWorld,
+  createBook
 } from './../transforms/worlds';
 import {
   getElementCount,
@@ -174,6 +181,106 @@ export default ( db, req, res ) => {
             ;
         })
         ,
+    },
+
+
+    /**
+     * Books
+     */
+    {
+      route: 'worldsById[{keys:ids}].books[{integers:indices}]',
+      get: ({ids, indices}) =>  db
+        ::getWorldsNext(ids, user._id)
+        .flatMap(world => db::getBooksFromWorld(world._id, user._id)
+          .toArray()
+          .flatMap(books => indices
+            .map(index => {
+              const book = books[index];
+              return book != null
+                ? [{path: ["worldsById", world._id, "books", index], value: $ref(['booksById', book])}]
+                : [{path: ["worldsById", world._id, "books", index], value: null}]
+            })
+          )
+        )
+    },
+    {
+      route: 'worldsById[{keys:ids}].books.length',
+      get: ({ids}) => {
+        return db
+          ::getWorldsNext(ids, user._id)
+          .flatMap(world => {
+            return db::getBooksFromWorld(world._id, user._id).count()
+              .flatMap(count => {
+                return [
+                  {path: ["worldsById", world._id, "books", "length"], value: count},
+                ]
+              })
+          })
+      }
+    },
+    {
+      route: 'worldsById[{keys:ids}].books.push',
+      call: ( { ids: [ id ] }, [ {title} ] ) => {
+        return db
+          ::getWorldsNext([id], user._id)
+          .flatMap(world => db
+            ::createBook(world._id, title, user._id)
+            .flatMap(book => db
+              ::getBooksFromWorld(world._id, user._id).count()
+              .flatMap(count => {
+                return [
+                  {path: ["booksById", book._id, "_id"], value: book._id},
+                  {path: ["booksById", book._id, "title"], value: book.title},
+                  {path: ["worldsById", world._id, "books", count - 1], value: $ref(['booksById', book._id])},
+                  {path: ["worldsById", world._id, "books", "length"], value: count},
+                ]
+              })
+            )
+          )
+      }
+      ,
+    },
+    {
+      route: 'worldsById[{keys:ids}].books.remove',
+      call: ( { ids: [ world_id ] }, [ {id} ] ) => db
+        ::getBooksFromWorld(world_id,user._id)
+        .toArray()
+        .map(array => ({
+          length: array.length,
+          position: array.findIndex(element => element === id)
+        }))
+        .flatMap(({position,length}) => {
+          if(position === -1) {
+            throw new Error('Could not find the book to delete');
+          }
+          return db
+            ::archiveDocument('books', id, user._id)
+            .flatMap((document) => {
+              if (document.archived !== true)
+                throw new Error('Could not delete the book');
+              return db
+                ::archiveNode('Book', document._id, user._id)
+                .flatMap(node =>
+                  db::archiveRelationship('IN', document._id,world_id, user._id)
+                )
+                .flatMap(() => {
+                  return [
+                    {
+                      path: [ 'booksById', id ],
+                      invalidated: true
+                    },
+                    {
+                      path: [ 'worldsById', world_id, 'books', 'length' ],
+                      value: length-1,
+                    },
+                    {
+                      path: [ 'worldsById', world_id, 'books', { from: position, to: length } ],
+                      invalidated: true,
+                    },
+                  ]
+                })
+            })
+        })
     },
 
     /**

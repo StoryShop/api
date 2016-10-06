@@ -53,6 +53,7 @@
     "opml-generator": "^1.1.1",
     "rx": "^4.1.0",
     "shortid": "^2.2.4",
+    "slug": "^0.9.1",
     "uservoice-sso": "^0.1.0"
   },
   "devDependencies": {

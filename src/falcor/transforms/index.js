@@ -196,6 +196,25 @@ export function remove ( collection, user, _id ) {
     });
 }
 
+
+export function archiveDocument(collection, _id, userId) {
+  return this.flatMap(db => {
+    db = db.mongo.collection(collection);
+    return db.findOneAndUpdate(
+      {_id: _id},
+      {
+        $set: {
+          archived: true,
+          archived_at: Date.now(),
+          archiver: userId,
+        }
+      },
+      { returnOriginal: false }
+    )
+  })
+    .map(r => r.value);
+}
+
 export function archiveNode(nodeLabel, nodeId, userId) {
   const query = `
     MATCH (node:${nodeLabel} {_id: {nodeId} }) 
@@ -222,4 +241,11 @@ export function archiveRelationship(relType, fromNodeId, toNodeId, userId) {
   return this.flatMap(db =>
     db.neo.run(query,{fromNodeId, toNodeId, userId, relType})
   )
+}
+
+
+export function accessControl(write){
+  return write
+    ? `TYPE(rel) = "OWNER" OR TYPE(rel) = "WRITER"`
+    : `TYPE(rel) = "OWNER" OR TYPE(rel) = "WRITER" OR TYPE(rel) = "READER"`
 }
