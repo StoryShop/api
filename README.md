@@ -45,8 +45,6 @@ The api can now be accessed through port `9999`
 
 ## Contributing
 
-A general overview of our preferred Git Workflow can be found here:
-
-[https://gist.github.com/joshdmiller/dd1a0cc40e06f1aa47c7](https://gist.github.com/joshdmiller/dd1a0cc40e06f1aa47c7)
+Please see [CONTRIBUTING.md](CONTRIBUTING.md).
 
 One key point is that we would prefer all Pull Requests be submitted from branches on our main `StoryShop` repos, rather than from engineers' forks, so that we are in a better position to expedite review & approval by making small corrections if need be. If you are not already a member of the org, please let us know if you would like to be granted write access for the purpose of submitting a PR.
